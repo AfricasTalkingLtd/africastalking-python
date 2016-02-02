@@ -7,13 +7,9 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-packages = [
-    'africastalking'
-]
-
 setup(
-    name='africastalking',
-    packages=['africastalking'],  # this must be the same as the name above
+    name='Africastalking',
+    packages=['Africastalking'],  # this must be the same as the name above
     version='1.1',
     description='An Official Python library for communicating with the AfricasTalking REST API',
     author='Ian Juma',
