@@ -9,8 +9,7 @@ if sys.argv[-1] == 'publish':
 setup(
     name='AfricastalkingGateway',
     packages=['AfricastalkingGateway'],
-    # this must be the same as the name above
-    version='1.1',
+    version='1.2',
     description='An Official Python library for communicating with the AfricasTalking REST API',
     author='Ian Juma',
     author_email='ijuma@africastalking.com',
