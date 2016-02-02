@@ -1,15 +1,15 @@
 from distutils.core import setup
-import sys, os
-
-from codecs import open
+import sys
+import os
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
 setup(
-    name='Africastalking',
-    packages=['Africastalking'],  # this must be the same as the name above
+    name='AfricastalkingGateway',
+    packages=['AfricastalkingGateway'],
+    # this must be the same as the name above
     version='1.1',
     description='An Official Python library for communicating with the AfricasTalking REST API',
     author='Ian Juma',
