@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'africastalking',
   packages = ['africastalking'], # this must be the same as the name above
-  version = '0.1',
+  version = '1.0',
   description = 'An Official Python library for communicating with the AfricasTalking REST API',
   author = 'Ian Juma',
   author_email = 'ijuma@africastalking.com',
