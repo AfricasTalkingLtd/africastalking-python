@@ -20,6 +20,6 @@ setup(
     author_email='ijuma@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
     download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/1.0',
-    keywords=['ussd', 'voice', 'sms' 'mpesa', 'payments', 'africastalking'],
+    keywords=['ussd', 'voice', 'sms', 'mpesa', 'payments', 'africastalking'],
     classifiers=[],
 )
