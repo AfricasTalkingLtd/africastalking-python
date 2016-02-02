@@ -10,11 +10,12 @@ $ pip install AfricastalkingGateway
 
 #### Note
 
-```
 The gateway package belongs to module ```africastalking```, import as:
 
+```python
 from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
 ```
+
 
 #### Sending a message
 
