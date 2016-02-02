@@ -40,7 +40,8 @@ except AfricasTalkingGatewayException, e:
     print 'Encountered an error while sending: %s' % str(e)
 ```
 
-### Fetching messages (via a callback url)
+#### Fetching messages (via a callback url)
+(Sample code in Flask. Django is not too different, POST params within the request object)
 
 - Add a callback URL on the accounts page
 
@@ -48,7 +49,7 @@ except AfricasTalkingGatewayException, e:
 # define a method/ endpoint/ route to receive the POST params we send to you:
 
 @app.route('/api/sms/dlr/', methods=['POST'])
-def short_code_callback():
+def dlr_callback():
         # Reads the variables sent via POST from our gateway
         _from = request.values.get('from', None)
         to = request.values.get('to', None)
@@ -69,7 +70,7 @@ def short_code_callback():
         return resp
 ```
 
-### Fetching messages (via fetch messages)
+#### Fetching messages (via fetch messages)
 
 ```python
 try:
@@ -83,23 +84,21 @@ try:
         messages = gateway.fetchMessages(lastReceivedId)
         
         for message in messages:
-        print 'from=%s;to=%s;date=%s;text=%s;linkId=%s;' % (message['from'],
+            print 'from=%s;to=%s;date=%s;text=%s;linkId=%s;' %(message['from'],
                                                             message['to'],
                                                             message['date'],
                                                             message['text'],
-                                                            message['linKId']
-                                                           )
+                                                            message['linKId'])
             lastReceivedId = message['id']
     if len(messages) == 0:
         break
 
-            
 except AfricasTalkingGatewayException, e:
     print 'Encountered an error while fetching messages: %s' % str(e)
 ```
 
 
-### Voice - Making a call
+#### Voice - Making a call
 
 ```python
 # create an instance of the AT gateway class
@@ -128,7 +127,7 @@ except AfricasTalkingGatewayException, e:
     print 'Encountered an error while making the call: %s' % str(e)
 ```
 
-### Sending Airtime 
+#### Sending Airtime 
 
 ```python
 # Specify an array of dicts to hold the recipients and the amount to send
@@ -142,13 +141,11 @@ try:
     # Thats it, hit send and we'll take care of the rest. 
     responses = gateway.sendAirtime(recipients)
     for response in responses:
-        print "phoneNumber=%s; amount=%s; status=%s; discount=%s; requestId=%s" % (
-                           response['phoneNumber'],
-                           response['amount'],
-                           response['status'],
-                           response['discount']
-                           response['requestId']
-                          )
+        print "phoneNumber=%s; amount=%s; status=%s; discount=%s; requestId=%s" %(response['phoneNumber'],
+                        response['amount'],
+                        response['status'],
+                        response['discount']
+                        response['requestId'])
 
 except AfricasTalkingGatewayException, e:
     print 'Encountered an error while sending airtime: %s' % str(e)
