@@ -8,10 +8,18 @@ A Python library for communicating with the AfricasTalking REST API. Need help? 
 $ pip install AfricastalkingGateway
 ```
 
+#### Note
+
+```
+The gateway package belongs to module ```africastalking```, import as:
+
+from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+```
+
 #### Sending a message
 
 ```python
-from AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
+from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
 
 # Specify your login credentials
 username = "MyAfricasTalkingUsername"
