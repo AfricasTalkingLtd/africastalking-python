@@ -11,9 +11,16 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
+import sys
+PY_MAJOR_VERSION = sys.version_info[0]
 
-import urllib
-import urllib2
+if PY_MAJOR_VERSION < 3:
+    from urllib import urlencode as urllib_urlencode
+    import urllib2 as urllib_request
+else:
+    import urllib.request as urllib_request
+    from urllib.parse import urlencode as urllib_urlencode
+
 import json
 
 
@@ -211,18 +218,18 @@ class AfricasTalkingGateway:
     def sendRequest(self, urlString, data_=None):
         try:
             if data_ is not None:
-                data = urllib.urlencode(data_)
-                request = urllib2.Request(
+                data = urllib_urlencode(data_)
+                request = urllib_request.Request(
                     urlString, data, headers=self.headers)
             else:
-                request = urllib2.Request(urlString, headers=self.headers)
+                request = urllib_request.Request(urlString, headers=self.headers)
 
-            response = urllib2.urlopen(request)
+            response = urllib_request.urlopen(request)
         except Exception as e:
             raise AfricasTalkingGatewayException(str(e))
         else:
             self.responseCode = response.getcode()
-            response = response.read()
+            response = response.read().decode('utf-8')
             if self.Debug:
-                print response
+                print(response)
             return response
