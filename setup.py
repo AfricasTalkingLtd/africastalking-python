@@ -13,11 +13,11 @@ setup(
     description='An Official Python library for communicating with the AfricasTalking REST API',
     author='Ian Juma',
     install_requires=[
-        'requests'
+        'requests>=2.11.0'
     ],
     author_email='ijuma@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
-    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/1.6',
+    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/1.7',
     keywords=['ussd', 'voice', 'sms', 'mpesa', 'payments', 'africastalking'],
     classifiers=[],
 )

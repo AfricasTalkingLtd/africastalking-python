@@ -297,11 +297,6 @@ class AfricasTalkingGateway:
         else:
             self.responseCode = resp.status_code
 
-            print(resp)
-            print(data_)
-            print(resp.status_code)
-            print(urlString)
-
             response          = resp.text
             if self.Debug:
                 print("Raw response: " + response)
