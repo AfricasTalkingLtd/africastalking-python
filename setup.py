@@ -8,10 +8,13 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='AfricastalkingGateway',
-    version='1.6',
+    version='1.7',
     packages=['africastalking'],
     description='An Official Python library for communicating with the AfricasTalking REST API',
     author='Ian Juma',
+    install_requires=[
+        'requests'
+    ],
     author_email='ijuma@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
     download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/1.6',
