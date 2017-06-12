@@ -201,15 +201,17 @@ class AfricasTalkingGateway:
                                       productName_,
                                       phoneNumber_,
                                       currencyCode_,
+                                      providerChannel_,
                                       amount_,
                                       metadata_):
         parameters = {
-            'username'     : self.username,
-            'productName'  : productName_,
-            'phoneNumber'  : phoneNumber_,
-            'currencyCode' : currencyCode_,
-            'amount'       : amount_,
-            'metadata'     : metadata_
+            'username'        : self.username,
+            'productName'     : productName_,
+            'phoneNumber'     : phoneNumber_,
+            'currencyCode'    : currencyCode_,
+            'providerChannel' : providerChannel_,
+            'amount'          : amount_,
+            'metadata'        : metadata_
             }
         url      = self.getMobilePaymentCheckoutUrl()
         response = self.sendJSONRequest(url, json.dumps(parameters))
