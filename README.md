@@ -5,7 +5,11 @@ A Python library for communicating with the AfricasTalking REST API. Need help? 
 
 #### Installing
 ```bash
-$ pip install AfricastalkingGateway
+$ pip  install AfricastalkingGateway # python 2
+
+OR
+
+$ pip3 install AfricasTalkingGateway # on python 3.X
 ```
 
 #### Note
