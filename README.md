@@ -10,6 +10,10 @@ $ pip  install AfricastalkingGateway # python 2
 OR
 
 $ pip3 install AfricasTalkingGateway # on python 3.X
+
+OR 
+
+$ python3.6 -m pip install AfricasTalkingGateway # for python3.6
 ```
 
 #### Note
