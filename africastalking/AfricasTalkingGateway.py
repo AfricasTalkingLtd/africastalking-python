@@ -273,19 +273,21 @@ class AfricasTalkingGateway:
     # Userdata method
     def getUserData(self):
         url    = "%s?username=%s" %(self.getUserDataUrl(), self.username)
-        result = self.sendRequest(url)
+        result = self.sendRequest(url, getUserData=True)
         if self.responseCode == self.HTTP_RESPONSE_OK:
             decoded = json.loads(result)
             return decoded['UserData']
         raise AfricasTalkingGatewayException(response)
 
     # HTTP access method
-    def sendRequest(self, urlString, data_ = None):
+    def sendRequest(self, urlString, data_ = None, getUserData = None):
         try:
             headers = { 'Accept' : 'application/json',
                        'apikey' : self.apiKey }
 
-            if data_ is not None:
+            if getUserData is not None:
+                resp = requests.get(urlString, data=data_, headers=headers)
+            elif data_ is not None:
                 resp = requests.post(urlString, data=data_, headers=headers)
             else:
                 resp = requests.post(urlString, headers=headers)
