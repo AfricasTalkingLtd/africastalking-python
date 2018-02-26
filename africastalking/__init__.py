@@ -3,6 +3,7 @@ from Service import AfricasTalkingException
 from Token import TokenService
 from Account import AccountService
 from Airtime import AirtimeService
+from SMS import SmsService
 
 SERVICE_SMS = 'sms'
 SERVICE_AIRTIME = 'airtime'
@@ -26,7 +27,7 @@ def get_service(service):
         raise RuntimeError('You need to call africastalking.initialize() first')
 
     if service == SERVICE_SMS:
-        pass
+        return SmsService(__USERNAME, __API_KEY)
     elif service == SERVICE_AIRTIME:
         return AirtimeService(__USERNAME, __API_KEY)
     elif service == SERVICE_PAYMENT:
