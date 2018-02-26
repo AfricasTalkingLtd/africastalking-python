@@ -9,7 +9,7 @@ class AccountService(APIService):
         super(AccountService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1'
 
-    def get_user(self, callback=None):
+    def fetch_account(self, callback=None):
         url = self._make_url('/user')
         params = {
             'username': self._username

@@ -20,11 +20,11 @@ def main():
         print data
 
     token.create_checkout_token('0718768998', callback=cb)
-    account.get_user(cb)
-    airtime.send([{
+    account.fetch_account(cb)
+    airtime.send(recipients = [{
         'phoneNumber': '+254718769882',
         'amount': 'KES 67.33'
-    }], cb)
+    }], callback=cb)
     print 'Waiting for result....'
     # res = token.generate_auth_token()
     # print res

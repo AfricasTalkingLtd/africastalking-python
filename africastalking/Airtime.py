@@ -19,7 +19,12 @@ class AirtimeService(APIService):
         super(AirtimeService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1/airtime'
 
-    def send(self, recipients, callback=None):
+    def send(self, phone_number=None, amount=None, recipients=None, callback=None):
+
+        if phone_number is not None and amount is not None:
+            recipients = [
+                {'phoneNumber': phone_number, 'amount': amount},
+            ]
 
         try:
             schema = Schema([
