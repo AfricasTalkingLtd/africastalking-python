@@ -7,17 +7,18 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 setup(
-    name='AfricastalkingGateway',
-    version='1.9',
+    name='africastalking',
+    version='2.0.0',
     packages=['africastalking'],
-    description='An Official Python library for communicating with the AfricasTalking REST API',
-    author='Ian Juma',
+    description='Africa\'s Talking Python SDK',
+    author='Africa\'s Talking',
     install_requires=[
-        'requests>=2.11.0'
+        'unirest>=v1.1.7',
+        'schema>=0.6.7'
     ],
-    author_email='ijuma@africastalking.com',
+    author_email='info@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
-    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/1.8',
-    keywords=['ussd', 'voice', 'sms', 'mpesa', 'payments', 'africastalking'],
+    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/2.0.0',
+    keywords=['ussd', 'voice', 'sms', 'mpesa', 'payments', 'airtime', 'africastalking'],
     classifiers=[],
 )
