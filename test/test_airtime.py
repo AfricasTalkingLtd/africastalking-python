@@ -12,7 +12,7 @@ import random
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.get_service(africastalking.SERVICE_AIRTIME)
+service = africastalking.get_airtime_service()
 
 
 class TestAirtimeService(unittest.TestCase):

@@ -9,9 +9,9 @@ load_dotenv(dotenv_path)
 
 def main():
     africastalking.initialize(username=os.environ.get('USERNAME'), api_key=os.environ.get('API_KEY'))
-    token = africastalking.get_service(africastalking.SERVICE_TOKEN)
-    account = africastalking.get_service(africastalking.SERVICE_ACCOUNT)
-    airtime = africastalking.get_service(africastalking.SERVICE_AIRTIME)
+    token = africastalking.get_token_service()
+    account = africastalking.get_account_service()
+    airtime = africastalking.get_airtime_service()
 
     def cb(error, data):
         if error is not None:

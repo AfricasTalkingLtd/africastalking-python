@@ -11,7 +11,7 @@ import unittest
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.get_service(africastalking.SERVICE_TOKEN)
+service = africastalking.get_token_service()
 
 
 class TestTokenService(unittest.TestCase):

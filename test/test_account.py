@@ -8,7 +8,7 @@ import unittest
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.get_service(africastalking.SERVICE_ACCOUNT)
+service = africastalking.get_account_service()
 
 
 class TestAccountService(unittest.TestCase):

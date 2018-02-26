@@ -27,7 +27,7 @@ africastalking.initialize(username, api_key)
 
 
 # Initialize a service e.g. SMS
-sms = africastalking.get_service(africastalking.SERVICE.SMS)
+sms = africastalking.get_sms_service()
 
 
 # Use the service
@@ -43,7 +43,7 @@ The following static methods are available in the `africastalking` module to ini
 
 - `initialize(username, api_key)`: Initialize the library.
 
-- `get_service(africastalking.SERVICE.*)`: Get an instance to a given service by name or by class.
+- `get_xxx_service()`: Get an instance to a given service by name or by class.
 
 ## Services
 
@@ -51,7 +51,7 @@ All methods return a `dict`. All methods are synchronous (i.e. will block curren
 
 ### `AccountService`
 
-- `fetchAccount()`: Get app balance info.
+- `fetch_account()`: Get app balance info.
 
 ### `AirtimeService`
 
