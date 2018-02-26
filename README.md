@@ -50,3 +50,27 @@ The following static methods are available in the `africastalking` module to ini
 - `get_service(africastalking.SERVICE.*)`: Get an instance to a given service by name or by class.
 
 ## Services
+
+
+
+
+
+
+## Development
+```shell
+$ git clone https://github.com/aksalj/africastalking-python.git
+$ cd africastalking-python
+$ touch .env
+```
+
+Make sure your `.env` file has the following content then run `python -m unittest discover -v`
+
+```ini
+# AT API
+USERNAME=sandbox
+API_KEY=some_key
+```
+
+## Issues
+
+If you find a bug, please file an issue on [our issue tracker on GitHub](https://github.com/AfricasTalkingLtd/africastalking-python/issues).
