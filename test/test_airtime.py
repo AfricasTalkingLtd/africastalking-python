@@ -12,13 +12,14 @@ import random
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.get_airtime_service()
+service = africastalking.Airtime
 
 
 class TestAirtimeService(unittest.TestCase):
 
     def test_send_single(self):
-        res = service.send(phone_number='0718769882', amount="USD 10")
+        amount = "USD " + str(random.randint(1, 10))
+        res = service.send(phone_number='0718769882', amount=amount)
         assert res['numSent'] == 1
 
     def test_send_multiple(self):

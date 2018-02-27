@@ -27,7 +27,7 @@ africastalking.initialize(username, api_key)
 
 
 # Initialize a service e.g. SMS
-sms = africastalking.get_sms_service()
+sms = africastalking.SMS
 
 
 # Use the service
@@ -43,7 +43,7 @@ The following static methods are available in the `africastalking` module to ini
 
 - `initialize(username, api_key)`: Initialize the library.
 
-- `get_xxx_service()`: Get an instance to a given service by name or by class.
+- `XXX`: Get an instance to `XXX` service. e.g. `africastalking.Airtime` for the airtime service
 
 ## Services
 
@@ -101,6 +101,41 @@ For more information on:
 
 For more information, please read [http://docs.africastalking.com/payments](http://docs.africastalking.com/payments)
 
+### `VoiceService`
+
+- `call(phone_number)`: Initiate a phone call
+
+- `fetch_queued_calls(phone_number)`: Get queued calls
+
+- `upload_media_file(phone_number, url)`: Upload voice media file
+
+- `ActionBuilder`: Build voice xml when callback URL receives a `POST` from Africa's Talking
+
+    - `say()`
+
+    - `play()`
+
+    - `getDigits()`
+
+    - `dial()`
+
+    - `conference()`
+
+    - `record()`
+
+    - `enqueue()`
+
+    - `dequeue()`
+
+    - `reject()`
+
+    - `redirect()`
+
+    - `build()`: Finally build the xml
+
+
+For more information, please read [http://docs.africastalking.com/voice](http://docs.africastalking.com/voice)
+
 
 ### `TokenService`
 
@@ -108,6 +143,9 @@ For more information, please read [http://docs.africastalking.com/payments](http
 
 - `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 
+### `UssdService` *TODO?*
+
+For more information, please read [http://docs.africastalking.com/ussd](http://docs.africastalking.com/ussd)
 
 
 ## Development

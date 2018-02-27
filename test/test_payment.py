@@ -23,7 +23,7 @@ import random
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.get_payment_service()
+service = africastalking.Payment
 
 
 class TestPaymentService(unittest.TestCase):

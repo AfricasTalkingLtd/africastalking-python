@@ -9,9 +9,7 @@ load_dotenv(dotenv_path)
 
 def main():
     africastalking.initialize(username=os.environ.get('USERNAME'), api_key=os.environ.get('API_KEY'))
-    token = africastalking.get_token_service()
-    account = africastalking.get_account_service()
-    airtime = africastalking.get_airtime_service()
+    airtime = africastalking.Airtime
 
     def cb(error, data):
         if error is not None:
@@ -19,8 +17,8 @@ def main():
 
         print data
 
-    token.create_checkout_token('0718768998', callback=cb)
-    account.fetch_account(cb)
+    # token.create_checkout_token('0718768998', callback=cb)
+    # account.fetch_account(cb)
     airtime.send(recipients = [{
         'phoneNumber': '+254718769882',
         'amount': 'KES 67.33'

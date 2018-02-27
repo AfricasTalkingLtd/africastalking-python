@@ -1,12 +1,12 @@
 from Service import APIService
 
 
-class SmsService(APIService):
+class SMSService(APIService):
     def __init__(self, username, api_key):
-        super(SmsService, self).__init__(username, api_key)
+        super(SMSService, self).__init__(username, api_key)
 
     def _init_service(self):
-        super(SmsService, self)._init_service()
+        super(SMSService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1'
 
     def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):

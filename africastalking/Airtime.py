@@ -1,3 +1,4 @@
+from urllib import quote_plus
 from schema import Schema, And, SchemaError
 import json
 from Service import APIService, AfricasTalkingException, validate_amount
@@ -32,6 +33,6 @@ class AirtimeService(APIService):
         url = self._make_url('/send')
         params = {
             'username': self._username,
-            'recipients': json.dumps(recipients)
+            'recipients': quote_plus(json.dumps(recipients))  # TODO: <> python versions
         }
         return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
