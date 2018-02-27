@@ -10,6 +10,10 @@ Take a look at the [API docs here](http://docs.africastalking.com).
 
 ```bash
 $ pip  install africastalking # python 2.x
+
+OR
+
+$ pip3 install africastalking # python 3.x
 ```
 
 
@@ -37,7 +41,7 @@ response = sms.send("Hello Message!", ["2547xxxxxx"])
 def on_finish(error, response):
     if error is not None:
         raise error
-    print response
+    print(response)
 
 sms.send("Hello Message!", ["2547xxxxxx"], callback=on_finish)    
 
