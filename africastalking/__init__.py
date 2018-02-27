@@ -4,6 +4,7 @@ from Token import TokenService
 from Account import AccountService
 from Airtime import AirtimeService
 from SMS import SmsService
+from Payment import PaymentService
 
 __SERVICE_SMS = 'sms'
 __SERVICE_AIRTIME = 'airtime'
@@ -59,7 +60,7 @@ def __get_service(service):
     elif service == __SERVICE_AIRTIME:
         return AirtimeService(__USERNAME, __API_KEY)
     elif service == __SERVICE_PAYMENT:
-        pass
+        return PaymentService(__USERNAME, __API_KEY)
     elif service == __SERVICE_VOICE:
         pass
     elif service == __SERVICE_USSD:

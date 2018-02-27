@@ -4,6 +4,14 @@ import unirest
 unirest.timeout(30)
 
 
+def validate_amount(amount_str):
+    try:
+        parts = amount_str.split(' ')
+        return len(parts[0]) == 3 and float(parts[1])
+    except ValueError:
+        return False
+
+
 class AfricasTalkingException(Exception):
     pass
 

@@ -1,14 +1,6 @@
 from schema import Schema, And, SchemaError
 import json
-from Service import APIService, AfricasTalkingException
-
-
-def validate_amount(amount_str):
-    try:
-        parts = amount_str.split(' ')
-        return len(parts[0]) == 3 and float(parts[1])
-    except ValueError:
-        return False
+from Service import APIService, AfricasTalkingException, validate_amount
 
 
 class AirtimeService(APIService):
@@ -34,8 +26,8 @@ class AirtimeService(APIService):
                 }
             ])
             recipients = schema.validate(recipients)
-        except SchemaError:
-            raise AfricasTalkingException('Invalid recipients')
+        except SchemaError as err:
+            raise AfricasTalkingException('Invalid recipients: ' + err.message)
 
         url = self._make_url('/send')
         params = {

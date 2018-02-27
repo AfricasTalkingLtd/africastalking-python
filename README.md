@@ -80,6 +80,28 @@ For more information on:
 - How to get notified of delivery reports: [http://docs.africastalking.com/sms/deliveryreports](http://docs.africastalking.com/sms/deliveryreports)
 - How to listen for subscription notifications: [http://docs.africastalking.com/subscriptions/callback](http://docs.africastalking.com/subscriptions/callback)
 
+### `PaymentService`
+
+- `card_checkout(product_name, amount, payment_card, narration)`: Initiate card checkout.
+
+- `validate_card_checkout(transaction_id, otp)`: Validate a card checkout
+
+- `bank_checkout(product_name, amount, bank_account, narration)`: Initiate bank checkout.
+
+- `validate_bank_checkout(transaction_id, otp)`: Validate a bank checkout
+
+- `bank_transfer(product_name, recipients)`: Move money form payment wallet to bank account
+
+- `mobile_checkout(product_name, phone_number, amount)`: Initiate mobile checkout.
+
+- `mobile_b2c(product_name, consumers)`: Send mobile money to consumer. 
+
+- `mobile_b2b(product_name, recipient)`: Send mobile money to business.
+
+
+For more information, please read [http://docs.africastalking.com/payments](http://docs.africastalking.com/payments)
+
+
 ### `TokenService`
 
 - `create_checkout_token(phone_number)`: Create a new checkout token for `phone_number`.
