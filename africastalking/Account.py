@@ -14,4 +14,4 @@ class AccountService(APIService):
         params = {
             'username': self._username
         }
-        return self._make_request(url, 'GET', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)

@@ -9,23 +9,20 @@ load_dotenv(dotenv_path)
 
 def main():
     africastalking.initialize(username=os.environ.get('USERNAME'), api_key=os.environ.get('API_KEY'))
-    airtime = africastalking.Airtime
+    sms = africastalking.SMS
 
-    def cb(error, data):
+    def on_finish(error, data):
         if error is not None:
             raise error
 
-        print data
+        print '\nAsync Done with -> ' + str(data['SMSMessageData']['Message'])
 
-    # token.create_checkout_token('0718768998', callback=cb)
-    # account.fetch_account(cb)
-    airtime.send(recipients = [{
-        'phoneNumber': '+254718769882',
-        'amount': 'KES 67.33'
-    }], callback=cb)
-    print 'Waiting for result....'
-    # res = token.generate_auth_token()
-    # print res
+    # Send SMS asynchronously
+    sms.send('Hello Async', ['+254718769882'], callback=on_finish)
+    print 'Waiting for async result....'
+    # Send SMS synchronously
+    result = sms.send('Hello Sync Test', ['+254718769882'])
+    print '\nSync Done with -> ' + result['SMSMessageData']['Message']
 
 
 if __name__ == "__main__":

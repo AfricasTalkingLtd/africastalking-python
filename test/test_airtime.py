@@ -18,7 +18,7 @@ service = africastalking.Airtime
 class TestAirtimeService(unittest.TestCase):
 
     def test_send_single(self):
-        amount = "USD " + str(random.randint(1, 10))
+        amount = "KES " + str(random.randint(10, 1000))
         phone = '+25471876' + str(random.randint(1000, 9999))
         res = service.send(phone_number=phone, amount=amount)
         assert res['numSent'] == 1

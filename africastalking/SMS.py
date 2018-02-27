@@ -11,7 +11,7 @@ class SMSService(APIService):
 
     def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):
         url = self._make_url('/messaging')
-        params = {
+        data = {
             'username': self._username,
             'to': ','.join(recipients),
             'message': message,
@@ -19,16 +19,17 @@ class SMSService(APIService):
         }
 
         if sender_id is not None:
-            params['from'] = sender_id
+            data['from'] = sender_id
 
         if enqueue:
-            params['enqueue'] = 1
+            data['enqueue'] = 1
 
-        return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
-    def send_premium(self, message, keyword, link_id, recipients, sender_id=None, retry_duration_in_hours=None, callback=None):
+    def send_premium(self, message, keyword, link_id, recipients, sender_id=None,
+                     retry_duration_in_hours=None, callback=None):
         url = self._make_url('/messaging')
-        params = {
+        data = {
             'username': self._username,
             'to': ','.join(recipients),
             'message': message,
@@ -38,12 +39,12 @@ class SMSService(APIService):
         }
 
         if sender_id is not None:
-            params['from'] = sender_id
+            data['from'] = sender_id
 
         if retry_duration_in_hours is not None:
-            params['retryDurationInHours'] = retry_duration_in_hours
+            data['retryDurationInHours'] = retry_duration_in_hours
 
-        return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
     def fetch_messages(self, last_received_id=None, callback=None):
         url = self._make_url('/messaging')
@@ -54,7 +55,7 @@ class SMSService(APIService):
         if last_received_id is not None:
             params['lastReceivedId'] = last_received_id
 
-        return self._make_request(url, 'GET', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)
 
     def fetch_subscriptions(self, short_code, keyword, last_received_id=None, callback=None):
         url = self._make_url('/subscription')
@@ -67,11 +68,11 @@ class SMSService(APIService):
         if last_received_id is not None:
             params['lastReceivedId'] = last_received_id
 
-        return self._make_request(url, 'GET', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)
 
     def create_subscription(self, short_code, keyword, phone_number, checkout_token, callback=None):
         url = self._make_url('/subscription/create')
-        params = {
+        data = {
             'username': self._username,
             'shortCode': short_code,
             'keyword': keyword,
@@ -79,5 +80,5 @@ class SMSService(APIService):
             'checkoutToken': checkout_token,
         }
 
-        return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=self._headers, data=data, params=None, callback=callback)
 

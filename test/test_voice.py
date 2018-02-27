@@ -53,8 +53,7 @@ class TestVoiceService(unittest.TestCase):
 
     def test_media_upload(self):
         res = service.media_upload(phone_number='+254718769889', url='https://aksalj.com')
-        print res
-        assert res['lifetimeInSeconds'] == 3600
+        assert res == 'The request has been fulfilled and resulted in a new resource being created.'
 
 
 if __name__ == '__main__':

@@ -51,7 +51,7 @@ class PaymentService(Service):
         url = self._make_url('/mobile/checkout/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = json.dumps({
+        data = json.dumps({
             'username': self._username,
             'productName': product_name,
             'phoneNumber': phone_number,
@@ -59,7 +59,7 @@ class PaymentService(Service):
             'amount': amount[1],
             'metadata': metadata
         })
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def mobile_b2c(self, product_name, consumers, callback=None):
 
@@ -87,12 +87,12 @@ class PaymentService(Service):
         url = self._make_url('/mobile/b2c/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = json.dumps({
+        data = json.dumps({
             'username': self._username,
             'productName': product_name,
             'recipients': consumers
         })
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def mobile_b2b(self, product_name, business, callback=None):
 
@@ -118,13 +118,13 @@ class PaymentService(Service):
         url = self._make_url('/mobile/b2b/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = business.copy()
-        params.update({
+        data = business.copy()
+        data.update({
             'username': self._username,
             'productName': product_name,
         })
-        params = json.dumps(params)
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def bank_transfer(self, product_name, recipients, callback=None):
 
@@ -148,13 +148,13 @@ class PaymentService(Service):
         url = self._make_url('/bank/transfer')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = {
+        data = {
             'username': self._username,
             'productName': product_name,
             'recipients': recipients,
         }
-        params = json.dumps(params)
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def bank_checkout(self, product_name, amount, bank_account, narration, metadata={}, callback=None):
 
@@ -179,7 +179,7 @@ class PaymentService(Service):
         url = self._make_url('/bank/checkout/charge')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = {
+        data = {
             'username': self._username,
             'productName': product_name,
             'bankAccount': bank_account,
@@ -188,8 +188,8 @@ class PaymentService(Service):
             'narration': str(narration),
             'metadata': metadata,
         }
-        params = json.dumps(params)
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def __validate_checkout(self, checkout_type, transaction_id, otp, callback=None):
 
@@ -198,13 +198,13 @@ class PaymentService(Service):
         url = self._make_url('/' + checkout_type + '/checkout/validate')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = {
+        data = {
             'username': self._username,
             'transactionId': str(transaction_id),
             'otp': str(otp),
         }
-        params = json.dumps(params)
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def validate_bank_checkout(self, transaction_id, otp, callback=None):
         return self.__validate_checkout('bank', transaction_id, otp, callback)
@@ -229,7 +229,7 @@ class PaymentService(Service):
         url = self._make_url('/card/checkout/charge')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = {
+        data = {
             'username': self._username,
             'productName': product_name,
             'currencyCode': amount[0],
@@ -249,11 +249,11 @@ class PaymentService(Service):
                     'authToken': And(str, len),
                 })
                 payment_card = payment_card_schema.validate(payment_card)
-                params['paymentCard'] = payment_card
+                data['paymentCard'] = payment_card
             except SchemaError as err:
                 raise AfricasTalkingException('Invalid recipients: ' + err.message)
         else:
-            params['checkoutToken'] = checkout_token
+            data['checkoutToken'] = checkout_token
 
-        params = json.dumps(params)
-        return self._make_request(url, 'POST', headers=headers, params=params, callback=callback)
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)

@@ -14,26 +14,26 @@ class VoiceService(Service):
 
     def call(self, source, destination, callback=None):
         url = self._make_url('/call')
-        params = {
+        data = {
             'username': self._username,
             'from': source,
             'to': destination,
         }
-        return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
     def fetch_queued_calls(self, phone_numbers, callback=None):
         url = self._make_url('/queueStatus')
-        params = {
+        data = {
             'username': self._username,
             'phoneNumbers': phone_numbers,
         }
-        return self._make_request(url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
     def media_upload(self, phone_number, url, callback=None):
         call_url = self._make_url('/mediaUpload')
-        params = {
+        data = {
             'username': self._username,
             'phoneNumber': phone_number,
             'url': url,
         }
-        return self._make_request(call_url, 'POST', headers=self._headers, params=params, callback=callback)
+        return self._make_request(call_url, 'POST', headers=self._headers, params=None, data=data, callback=callback)

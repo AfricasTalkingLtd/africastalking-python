@@ -13,7 +13,7 @@ setup(
     description='Africa\'s Talking Python SDK',
     author='Africa\'s Talking',
     install_requires=[
-        'unirest>=v1.1.7',
+        'requests>=v2.18.4',
         'schema>=0.6.7'
     ],
     author_email='info@africastalking.com',

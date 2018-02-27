@@ -1,7 +1,5 @@
-
-import unirest
-
-unirest.timeout(30)
+import threading
+import requests
 
 
 def validate_amount(amount_str):
@@ -27,6 +25,7 @@ class Service(object):
         self._api_key = api_key
         self._headers = {
             'Accept': 'application/json',
+            'User-Agent': 'africastalking-python/2.0.0',
             'ApiKey': self._api_key
         }
         self._baseUrl = 'https://api.' + self._PRODUCTION_DOMAIN
@@ -43,51 +42,70 @@ class Service(object):
         raise NotImplementedError
 
     @staticmethod
-    def __make_get_request(url, headers, params, callback=None):
-        return unirest.get(
+    def __make_get_request(url, headers, data, params, callback=None):
+        res = requests.get(
             url=url,
             headers=headers,
             params=params,
-            callback=callback,
+            data=data
         )
+
+        if callback is None or callback == {}:
+            return res
+        else:
+            callback(res)
 
     @staticmethod
-    def __make_post_request(url, headers, params, callback=None):
-        return unirest.post(
+    def __make_post_request(url, headers, data, params, callback=None):
+        res = requests.post(
             url=url,
             headers=headers,
             params=params,
-            callback=callback,
+            data=data,
         )
+        if callback is None or callback == {}:
+            return res
+        else:
+            callback(res)
 
-    def _make_request(self, url, method, headers, params, callback=None):
+    def _make_request(self, url, method, headers, data, params, callback=None):
         method = method.upper()
         if callback is None:
 
             if method == 'GET':
-                res = self.__make_get_request(url, headers, params)
+                res = self.__make_get_request(url=url, headers=headers, data=data, params=params)
             elif method == 'POST':
-                res = self.__make_post_request(url, headers, params)
+                res = self.__make_post_request(url=url, headers=headers, data=data, params=params)
             else:
                 raise AfricasTalkingException('Unexpected HTTP method: ' + method)
 
-            if 200 <= res.code < 300:
-                return res.body
+            if 200 <= res.status_code < 300:
+                if res.headers.get('content-type') == 'application/json':
+                    return res.json()
+                else:
+                    return res.text
             else:
-                raise AfricasTalkingException(res.body)
+                raise AfricasTalkingException(res.text)
         else:
             def cb(response):
-                if 200 <= response.code < 300:
-                    callback(None, response.body)
+                if 200 <= response.status_code < 300:
+                    if response.headers.get('content-type') == 'application/json':
+                        callback(None, response.json())
+                    else:
+                        callback(None, response.text)
                 else:
-                    callback(AfricasTalkingException(response.body), None)
+                    callback(AfricasTalkingException(response.text), None)
 
             if method == 'GET':
-                return self.__make_get_request(url, headers, params, cb)
+                _target = self.__make_get_request
             elif method == 'POST':
-                return self.__make_post_request(url, headers, params, cb)
+                _target = self.__make_post_request
             else:
                 raise AfricasTalkingException('Unexpected HTTP method: ' + method)
+
+            thread = threading.Thread(target=_target, args=(url, headers, data, params, cb))
+            thread.start()
+            return thread
 
 
 class APIService(Service):

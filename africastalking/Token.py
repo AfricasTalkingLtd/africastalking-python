@@ -12,19 +12,19 @@ class TokenService(APIService):
 
         url = self._make_url('/checkout/token/create')
         headers = dict(self._headers)
-        params = {'phoneNumber': phone_number}
+        data = {'phoneNumber': phone_number}
 
-        return self._make_request(url, 'POST', headers, params, callback)
+        return self._make_request(url, 'POST', headers, data=data, params=None, callback=callback)
 
     def generate_auth_token(self, callback=None):
         
         url = self._make_url('/auth-token/generate')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        params = json.dumps({
+        data = json.dumps({
             'username': self._username
         })
 
-        return self._make_request(url, 'POST', headers, params, callback)
+        return self._make_request(url, 'POST', headers, params=None, data=data, callback=callback)
 
 
