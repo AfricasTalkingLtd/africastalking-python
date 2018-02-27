@@ -45,15 +45,15 @@ class TestVoiceService(unittest.TestCase):
 
     def test_call(self):
         res = service.call(source="0718769881", destination="0718769880")
-        print res
-        assert res['token'] != "None"
+        assert res['errorMessage'] != 'None'
 
     def test_fetch_queued_calls(self):
-        res = service.generate_auth_token(phone_numbers='phoneNumbers')
-        assert res['lifetimeInSeconds'] == 3600
+        res = service.fetch_queued_calls(phone_numbers='0718769880')
+        assert res['status'] == 'Success'
 
     def test_media_upload(self):
-        res = service.media_upload(url='')
+        res = service.media_upload(phone_number='+254718769889', url='https://aksalj.com')
+        print res
         assert res['lifetimeInSeconds'] == 3600
 
 

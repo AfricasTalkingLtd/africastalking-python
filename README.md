@@ -109,30 +109,6 @@ For more information, please read [http://docs.africastalking.com/payments](http
 
 - `upload_media_file(phone_number, url)`: Upload voice media file
 
-- `ActionBuilder`: Build voice xml when callback URL receives a `POST` from Africa's Talking
-
-    - `say()`
-
-    - `play()`
-
-    - `getDigits()`
-
-    - `dial()`
-
-    - `conference()`
-
-    - `record()`
-
-    - `enqueue()`
-
-    - `dequeue()`
-
-    - `reject()`
-
-    - `redirect()`
-
-    - `build()`: Finally build the xml
-
 
 For more information, please read [http://docs.africastalking.com/voice](http://docs.africastalking.com/voice)
 

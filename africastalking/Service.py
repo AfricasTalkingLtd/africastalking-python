@@ -26,7 +26,6 @@ class Service(object):
         self._username = username
         self._api_key = api_key
         self._headers = {
-            'User-Agent': 'AfricasTalking-Python/2.x',
             'Accept': 'application/json',
             'ApiKey': self._api_key
         }

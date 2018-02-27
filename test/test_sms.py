@@ -23,7 +23,7 @@ service = africastalking.SMS
 class TestSmsService(unittest.TestCase):
 
     def test_send(self):
-        res = service.send('test_send()', ['0718769882', '0718769881'], enqueue=True, sender_id='AT2FA')
+        res = service.send('test_send()', ['+254718769882', '0718769881'], enqueue=True, sender_id='AT2FA')
         recipients = res['SMSMessageData']['Recipients']
         assert len(recipients) == 2
         assert recipients[0]['status'] == 'Success'

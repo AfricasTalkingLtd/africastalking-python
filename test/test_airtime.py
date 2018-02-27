@@ -19,7 +19,8 @@ class TestAirtimeService(unittest.TestCase):
 
     def test_send_single(self):
         amount = "USD " + str(random.randint(1, 10))
-        res = service.send(phone_number='0718769882', amount=amount)
+        phone = '+25471876' + str(random.randint(1000, 9999))
+        res = service.send(phone_number=phone, amount=amount)
         assert res['numSent'] == 1
 
     def test_send_multiple(self):
