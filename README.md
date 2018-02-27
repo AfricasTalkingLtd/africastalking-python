@@ -30,8 +30,17 @@ africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 
 
-# Use the service
+# Use the service synchronously
 response = sms.send("Hello Message!", ["2547xxxxxx"])
+
+# Or use it asynchronously
+def on_finish(error, response):
+    if error is not None:
+        raise error
+    print response
+
+sms.send("Hello Message!", ["2547xxxxxx"], callback=on_finish)    
+
 ```
 
 See [example](example/) for more usage examples.
@@ -47,7 +56,8 @@ The following static methods are available in the `africastalking` module to ini
 
 ## Services
 
-All methods return a `dict`. All methods are synchronous (i.e. will block current thread) but provide asynchronous variants that take a `Callback(error: AfricasTalkingException, data: dict)` as the last argument.
+All methods are synchronous (i.e. will block current thread) but provide asynchronous variants that take a callback `(error: AfricasTalkingException, data: dict)`.
+The synchronous variant always return and instance a `dict` while the async one returns a `Thread`.
 
 ### `AccountService`
 
