@@ -13,7 +13,7 @@ $ pip  install africastalking # python 2.x
 
 OR
 
-$ python -m pip install africastalking # python 3.x
+$ python -m pip install africastalking # python 2.x
 
 OR
 
