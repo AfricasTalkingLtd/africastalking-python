@@ -1,6 +1,9 @@
+#!/usr/bin/env python
 from distutils.core import setup
 import sys
 import os
+
+version = '1.0.0'
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
@@ -8,7 +11,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='africastalking',
-    version='2.0.0',
+    version=version,
     packages=['africastalking'],
     description='Africa\'s Talking Python SDK',
     author='Africa\'s Talking',
@@ -18,7 +21,7 @@ setup(
     ],
     author_email='info@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
-    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/2.0.0',
+    download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/' + version,
     keywords=['ussd', 'voice', 'sms', 'mpesa', 'payments', 'airtime', 'africastalking'],
     classifiers=[],
 )
