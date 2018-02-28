@@ -61,11 +61,14 @@ See [example](example/) for more usage examples.
 
 ## Initialization
 
-The following static methods are available in the `africastalking` module to initialize the library:
+Initialize the SDK by calling `africastalking.initialize(username, api_key)`. After initialization, you can get instances of offered services as follows:
 
-- `initialize(username, api_key)`: Initialize the library.
-
-- `XXX`: Get an instance to `XXX` service. e.g. `africastalking.Airtime` for the airtime service
+- SMS: `africastalking.SMS`
+- Airtime: `africastalking.Airtime`
+- Payments: `africastalking.Payments`
+- Voice: `africastalking.Voice`
+- Account: `africastalking.Account`
+- Token: `africastalking.Token`
 
 ## Services
 
