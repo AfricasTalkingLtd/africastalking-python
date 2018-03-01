@@ -83,7 +83,7 @@ The synchronous variant always return and instance a `dict` while the async one 
 
 - `send(phone_number, amount)`: Send airtime to a phone number. Example amount would be `KES 150`.
 
-- `send(recipients)`: Send airtime to a bunch of phone numbers. The keys in the `recipients` map are phone numbers while the values are airtime amounts. The amounts need to have currency info e.g. `UXG 4265`.
+- `send(recipients)`: Send airtime to a bunch of phone numbers. The keys in the `recipients` dictionary are phone numbers while the values are airtime amounts. The amounts need to have currency info e.g. `UXG 4265`.
 
 For more information about status notification, please read [http://docs.africastalking.com/airtime/callback](http://docs.africastalking.com/airtime/callback)
 
