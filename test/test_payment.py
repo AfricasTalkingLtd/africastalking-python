@@ -29,17 +29,17 @@ service = africastalking.Payment
 class TestPaymentService(unittest.TestCase):
 
     def test_mobile_checkout(self):
-        res = service.mobile_checkout(product_name='TestProduct', phone_number='0718769882', amount="USD 10")
+        res = service.mobile_checkout(product_name='TestProduct', phone_number='+254718769882', amount="USD 10")
         assert res['status'] == 'PendingConfirmation'
 
     def test_mobile_b2c(self):
         consumer = {
             'name': 'Salama',
-            'phoneNumber': '0718769882',
+            'phoneNumber': '+254718769882',
             'currencyCode': 'KES',
             'amount': 892,
             # Optionals
-            'reason': 'SalaryPayment',
+            'reason': service.REASON['SalaryPayment'],
             'providerChannel': '1212',
             'metadata': {}
         }
@@ -64,7 +64,7 @@ class TestPaymentService(unittest.TestCase):
         recipient = {
             'bankAccount': {
                 'accountNumber': '2342342343',
-                'bankCode': service.Bank['FCMB_NG'],
+                'bankCode': service.BANK['FCMB_NG'],
                 # Optionals
                 'accountName': 'Salama',
             },
@@ -80,7 +80,7 @@ class TestPaymentService(unittest.TestCase):
     def test_bank_checkout(self):
         bank_account = {
             'accountNumber': '2342342343',
-            'bankCode': service.Bank['FCMB_NG'],
+            'bankCode': service.BANK['FCMB_NG'],
             # Optionals
             'accountName': 'Salama',
             'dateOfBirth': '2001-11-21',
@@ -107,7 +107,7 @@ class TestPaymentService(unittest.TestCase):
             'expiryMonth': 11,
             'expiryYear': 2049,
             'countryCode': 'NG',
-            'authToken': '22334'
+            'authToken': '3323'
         }
         amount = 'NGN ' + str(783 + random.randint(34, 77742))
         res = service.card_checkout(product_name='TestProduct', amount=amount,

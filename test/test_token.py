@@ -17,7 +17,7 @@ service = africastalking.Token
 class TestTokenService(unittest.TestCase):
 
     def test_create_checkout_token(self):
-        res = service.create_checkout_token("0718769882")
+        res = service.create_checkout_token("+254718769882")
         assert res['token'] != "None"
 
     def test_generate_auth_token(self):

@@ -1,4 +1,4 @@
-from Service import APIService
+from Service import APIService, validate_phone
 
 
 class SMSService(APIService):
@@ -10,6 +10,11 @@ class SMSService(APIService):
         self._baseUrl = self._baseUrl + '/version1'
 
     def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):
+
+        for phone in recipients:
+            if not validate_phone(phone):
+                raise ValueError('Invalid phone number: ' + phone)
+
         url = self._make_url('/messaging')
         data = {
             'username': self._username,
@@ -28,6 +33,11 @@ class SMSService(APIService):
 
     def send_premium(self, message, keyword, link_id, recipients, sender_id=None,
                      retry_duration_in_hours=None, callback=None):
+
+        for phone in recipients:
+            if not validate_phone(phone):
+                raise ValueError('Invalid phone number: ' + phone)
+
         url = self._make_url('/messaging')
         data = {
             'username': self._username,
@@ -71,6 +81,10 @@ class SMSService(APIService):
         return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)
 
     def create_subscription(self, short_code, keyword, phone_number, checkout_token, callback=None):
+
+        if not validate_phone(phone_number):
+            raise ValueError('Invalid phone number')
+
         url = self._make_url('/subscription/create')
         data = {
             'username': self._username,

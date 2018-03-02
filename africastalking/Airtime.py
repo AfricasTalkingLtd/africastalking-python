@@ -1,6 +1,6 @@
 from schema import Schema, And, SchemaError
 import json
-from Service import APIService, AfricasTalkingException, validate_amount
+from Service import APIService, validate_amount, validate_phone
 
 
 class AirtimeService(APIService):
@@ -15,19 +15,19 @@ class AirtimeService(APIService):
 
         if phone_number is not None and amount is not None:
             recipients = [
-                {'phoneNumber': phone_number, 'amount': amount},
+                {'phoneNumber': str(phone_number), 'amount': str(amount)},
             ]
 
         try:
             schema = Schema([
                 {
-                    'phoneNumber': And(str, len),
+                    'phoneNumber': And(str, lambda s: validate_phone(s)),
                     'amount': And(str, lambda s: validate_amount(s))
                 }
             ])
             recipients = schema.validate(recipients)
         except SchemaError as err:
-            raise AfricasTalkingException('Invalid recipients: ' + err.message)
+            raise ValueError('Invalid recipients: ' + err.message)
 
         url = self._make_url('/send')
         data = {

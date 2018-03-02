@@ -1,3 +1,4 @@
+import re
 import threading
 import requests
 
@@ -10,6 +11,13 @@ def validate_amount(amount_str):
         return False
 
 
+def validate_phone(phone_str):
+    try:
+        return re.match('^\+\d{1,3}\d{3,}$', phone_str)
+    except ValueError:
+        return False
+
+
 class AfricasTalkingException(Exception):
     pass
 
@@ -17,6 +25,12 @@ class AfricasTalkingException(Exception):
 class Service(object):
 
     def __init__(self, username, api_key):
+
+        if type(username) is not str:
+            raise RuntimeError('username has to be of type str.')
+
+        if type(api_key) is not str:
+            raise RuntimeError('api_key has to be of type str.')
 
         self._PRODUCTION_DOMAIN = 'africastalking.com'
         self._SANDBOX_DOMAIN = 'sandbox.africastalking.com'
@@ -86,6 +100,8 @@ class Service(object):
                     return res.text
             else:
                 raise AfricasTalkingException(res.text)
+        elif not callable(callback):
+            raise RuntimeError('callback has to be callable. e.g. a function')
         else:
             def cb(response):
                 if 200 <= response.status_code < 300:

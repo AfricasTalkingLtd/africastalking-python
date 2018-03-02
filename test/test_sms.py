@@ -23,13 +23,13 @@ service = africastalking.SMS
 class TestSmsService(unittest.TestCase):
 
     def test_send(self):
-        res = service.send('test_send()', ['+254718769882', '0718769881'], enqueue=True, sender_id='AT2FA')
+        res = service.send('test_send()', ['+254718769882', '+254718769881'], enqueue=True, sender_id='AT2FA')
         recipients = res['SMSMessageData']['Recipients']
         assert len(recipients) == 2
         assert recipients[0]['status'] == 'Success'
 
     def test_send_premium(self):
-        res = service.send_premium('test_send_premium()', 'KiKi', 'Linky', ['0718769882', '0718769881'],
+        res = service.send_premium('test_send_premium()', 'KiKi', 'Linky', ['+254718769882', '+254718769881'],
                                    sender_id='AT2FA', retry_duration_in_hours=10)
         recipients = res['SMSMessageData']['Recipients']
         assert len(recipients) == 2
@@ -44,9 +44,9 @@ class TestSmsService(unittest.TestCase):
         assert len(res) >= 0
 
     def test_create_subscription(self):
-        token = token_service.create_checkout_token('0718769882')['token']
+        token = token_service.create_checkout_token('+254718769882')['token']
         res = service.create_subscription(short_code=8989, keyword='KiKi',
-                                          phone_number='0718769882', checkout_token=token)
+                                          phone_number='+254718769882', checkout_token=token)
         assert res['description'] == "Waiting for user input"
 
 

@@ -1,6 +1,6 @@
 import json
 
-from Service import APIService
+from Service import APIService, validate_phone
 
 
 class TokenService(APIService):
@@ -9,6 +9,9 @@ class TokenService(APIService):
         super(TokenService, self).__init__(username, api_key)
 
     def create_checkout_token(self, phone_number, callback=None):
+
+        if not validate_phone(phone_number):
+            raise ValueError('Invalid phone number')
 
         url = self._make_url('/checkout/token/create')
         headers = dict(self._headers)

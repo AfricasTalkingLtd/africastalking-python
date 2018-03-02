@@ -3,7 +3,7 @@ from distutils.core import setup
 import sys
 import os
 
-version = '1.0.3'
+version = '1.0.4'
 
 try:
     import pypandoc
@@ -27,6 +27,7 @@ setup(
         'requests>=v2.18.4',
         'schema>=0.6.7'
     ],
+    python_requires=">=2.7.10",
     author_email='info@africastalking.com',
     url='https://github.com/AfricasTalkingLtd/africastalking-python',
     download_url='https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/' + version,

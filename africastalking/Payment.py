@@ -1,11 +1,11 @@
 import re
 import json
 from schema import Schema, And, SchemaError, Optional
-from Service import Service, AfricasTalkingException, validate_amount
+from Service import Service, validate_amount, validate_phone
 
 
 class PaymentService(Service):
-    Bank = {
+    BANK = {
         'FCMB_NG': 234001,
         'Zenith_NG': 234002,
         'Access_NG': 234003,
@@ -31,6 +31,26 @@ class PaymentService(Service):
         'CBA_KE': 254001,
         'UNKNOWN': -1,
     }
+
+    PROVIDER = {
+        'Athena': 'Athena',
+        'Mpesa': 'Mpesa'
+    }
+
+    TRANSFER_TYPE = {
+        'BusinessBuyGoods': 'BusinessBuyGoods',
+        'BusinessPayBill': 'BusinessPayBill',
+        'DisburseFundsToBusiness': 'DisburseFundsToBusiness',
+        'BusinessToBusinessTransfer': 'BusinessToBusinessTransfer'
+    }
+
+    REASON = {
+        'SalaryPayment': 'SalaryPayment',
+        'SalaryPaymentWithWithdrawalChargePaid': 'SalaryPaymentWithWithdrawalChargePaid',
+        'BusinessPayment': 'BusinessPayment',
+        'BusinessPaymentWithWithdrawalChargePaid': 'BusinessPaymentWithWithdrawalChargePaid',
+        'PromotionPayment': 'PromotionPayment'
+    }
     
     def __init__(self, username, api_key):
         super(PaymentService, self).__init__(username, api_key)
@@ -45,7 +65,10 @@ class PaymentService(Service):
     def mobile_checkout(self, product_name, phone_number, amount, metadata={}, callback=None):
 
         if not validate_amount(amount):
-            raise AfricasTalkingException('Invalid amount')
+            raise ValueError('Invalid amount')
+
+        if not validate_phone(phone_number):
+            raise ValueError('Invalid amount')
 
         amount = amount.split(' ')
         url = self._make_url('/mobile/checkout/request')
@@ -64,15 +87,11 @@ class PaymentService(Service):
     def mobile_b2c(self, product_name, consumers, callback=None):
 
         try:
-            reasons = ('SalaryPayment',
-                       'SalaryPaymentWithWithdrawalChargePaid',
-                       'BusinessPayment',
-                       'BusinessPaymentWithWithdrawalChargePaid',
-                       'PromotionPayment')
+            reasons = PaymentService.REASON.values()
             schema = Schema([
                 {
                     'name': And(str, len),
-                    'phoneNumber': And(str, len),
+                    'phoneNumber': And(str, lambda s: validate_phone(s)),
                     'currencyCode': And(str, lambda s: len(s) == 3),
                     'amount': And(lambda f: float(f) > 0),
                     Optional('providerChannel'): And(str, len),
@@ -82,7 +101,7 @@ class PaymentService(Service):
             ])
             consumers = schema.validate(consumers)
         except SchemaError as err:
-            raise AfricasTalkingException('Invalid consumers: ' + err.message)
+            raise ValueError('Invalid consumers: ' + err.message)
 
         url = self._make_url('/mobile/b2c/request')
         headers = dict(self._headers)
@@ -97,11 +116,8 @@ class PaymentService(Service):
     def mobile_b2b(self, product_name, business, callback=None):
 
         try:
-            providers = ('Mpesa', 'Athena')
-            types = ('BusinessBuyGoods',
-                     'BusinessPayBill',
-                     'DisburseFundsToBusiness',
-                     'BusinessToBusinessTransfer')
+            providers = PaymentService.PROVIDER.values()
+            types = PaymentService.TRANSFER_TYPE.values()
             schema = Schema({
                 'provider': And(str, lambda s: s in providers),
                 'transferType': And(str, lambda s: s in types),
@@ -113,7 +129,7 @@ class PaymentService(Service):
             })
             business = schema.validate(business)
         except SchemaError as err:
-            raise AfricasTalkingException('Invalid business: ' + err.message)
+            raise ValueError('Invalid business: ' + err.message)
 
         url = self._make_url('/mobile/b2b/request')
         headers = dict(self._headers)
@@ -131,7 +147,7 @@ class PaymentService(Service):
         try:
             bank_account_schema = Schema({
                 'accountNumber': And(str, len),
-                'bankCode': And(int, lambda i: i in PaymentService.Bank.values()),
+                'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
                 Optional('accountName'): And(str, len),
             })
             schema = Schema([{
@@ -143,7 +159,7 @@ class PaymentService(Service):
             }])
             recipients = schema.validate(recipients)
         except SchemaError as err:
-            raise AfricasTalkingException('Invalid recipients: ' + err.message)
+            raise ValueError('Invalid recipients: ' + err.message)
 
         url = self._make_url('/bank/transfer')
         headers = dict(self._headers)
@@ -159,21 +175,21 @@ class PaymentService(Service):
     def bank_checkout(self, product_name, amount, bank_account, narration, metadata={}, callback=None):
 
         if not validate_amount(amount):
-            raise AfricasTalkingException('Invalid amount')
+            raise ValueError('Invalid amount')
 
         if narration is None:
-            raise AfricasTalkingException('Invalid narration')
+            raise ValueError('Invalid narration')
 
         try:
             bank_account_schema = Schema({
                 'accountNumber': And(str, len),
-                'bankCode': And(int, lambda i: i in PaymentService.Bank.values()),
+                'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
                 Optional('accountName'): And(str, len),
                 Optional('dateOfBirth'): And(str, lambda date: re.match('(\d{4})-(\d{2})-(\d{2})$', date))
             })
             bank_account = bank_account_schema.validate(bank_account)
         except SchemaError as err:
-            raise AfricasTalkingException('Invalid recipients: ' + err.message)
+            raise ValueError('Invalid recipients: ' + err.message)
 
         amount = amount.split(' ')
         url = self._make_url('/bank/checkout/charge')
@@ -216,13 +232,13 @@ class PaymentService(Service):
                       payment_card=None, checkout_token=None, metadata={}, callback=None):
 
         if not validate_amount(amount):
-            raise AfricasTalkingException('Invalid amount')
+            raise ValueError('Invalid amount')
 
         if narration is None:
-            raise AfricasTalkingException('Invalid narration')
+            raise ValueError('Invalid narration')
 
         if payment_card is None and checkout_token is None:
-            raise AfricasTalkingException('You need to provide either checkout_token or payment_card')
+            raise ValueError('You need to provide either checkout_token or payment_card')
 
         countries = ('NG')
         amount = amount.split(' ')
@@ -251,7 +267,7 @@ class PaymentService(Service):
                 payment_card = payment_card_schema.validate(payment_card)
                 data['paymentCard'] = payment_card
             except SchemaError as err:
-                raise AfricasTalkingException('Invalid recipients: ' + err.message)
+                raise ValueError('Invalid recipients: ' + err.message)
         else:
             data['checkoutToken'] = checkout_token
 

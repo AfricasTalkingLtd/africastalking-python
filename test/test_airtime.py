@@ -25,8 +25,8 @@ class TestAirtimeService(unittest.TestCase):
 
     def test_send_multiple(self):
         res = service.send(recipients=[
-            {'phoneNumber': '0718769882', 'amount': 'USD ' + str(random.randint(1, 10))},
-            {'phoneNumber': '0718769881', 'amount': 'KES ' + str(random.randint(138, 13223))},
+            {'phoneNumber': '+2348160663047', 'amount': 'USD ' + str(random.randint(1, 10))},
+            {'phoneNumber': '+254718769881', 'amount': 'KES ' + str(random.randint(138, 13223))},
         ])
         assert res['numSent'] == 2
 
