@@ -66,12 +66,12 @@ See [example](example/) for more usage examples.
 
 Initialize the SDK by calling `africastalking.initialize(username, api_key)`. After initialization, you can get instances of offered services as follows:
 
-- [SMS](#SmsService): `africastalking.SMS`
-- [Airtime](#AirtimeService): `africastalking.Airtime`
-- [Payments](#PaymentService): `africastalking.Payments`
-- [Voice](#VoiceService): `africastalking.Voice`
-- [Account](#AccountService): `africastalking.Account`
-- [Token](#TokenService): `africastalking.Token`
+- [SMS](#smsservice): `africastalking.SMS`
+- [Airtime](#airtimeservice): `africastalking.Airtime`
+- [Payments](#paymentservice): `africastalking.Payments`
+- [Voice](#voiceservice): `africastalking.Voice`
+- [Account](#accountservice): `africastalking.Account`
+- [Token](#tokenservice): `africastalking.Token`
 
 ## Services
 
