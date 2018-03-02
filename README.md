@@ -363,7 +363,7 @@ token = africastalking.Token
 res = token.generate_auth_token()
 ```
 
-### `UssdService` *TODO?*
+### `UssdService`
 
 For more information, please read [http://docs.africastalking.com/ussd](http://docs.africastalking.com/ussd)
 
