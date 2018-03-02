@@ -3,7 +3,7 @@ from distutils.core import setup
 import sys
 import os
 
-version = '1.0.4'
+version = '1.0.5'
 
 try:
     import pypandoc
@@ -21,6 +21,7 @@ setup(
     packages=['africastalking'],
     description='Official Africa\'s Talking Python SDK',
     long_description=long_description,
+    data_files=[('', ['README.md'])],
     license='MIT',
     author='Africa\'s Talking',
     install_requires=[

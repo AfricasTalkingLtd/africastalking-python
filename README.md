@@ -1,7 +1,6 @@
 # africastalking-python
 
 ![](https://img.shields.io/pypi/v/africastalking.svg)
-![](https://img.shields.io/pypi/pyversions/africastalking.svg)
 
 > The SDK provides convenient access to the Africa's Talking APIs from python apps.
 
