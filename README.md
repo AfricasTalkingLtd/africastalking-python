@@ -72,7 +72,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Payments](#paymentservice): `africastalking.Payments`
 - [Voice](#voiceservice): `africastalking.Voice`
 - [Token](#tokenservice): `africastalking.Token`
-- [USSD](#tokenservice): `africastalking.USSD`
+- [USSD](#ussdservice): `africastalking.USSD`
 
 ## Services
 
