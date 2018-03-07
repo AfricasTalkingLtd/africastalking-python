@@ -183,7 +183,7 @@ For more information on:
 
 ### `PaymentService`
 
-- `card_checkout(product_name: str, amount: str, payment_card: dict, narration: str)`: Initiate card checkout.
+- `card_checkout(product_name: str, amount: str, payment_card: dict, narration: str, metadata: dict = {})`: Initiate card checkout.
 
 ```python
 import africastalking
@@ -209,7 +209,7 @@ payment = africastalking.Payment
 res = payment.validate_card_checkout(transaction_id='ATId_3829u49283u423u', otp='233333')
 ```
 
-- `bank_checkout(product_name: str, amount: str, bank_account: dict, narration: str)`: Initiate bank checkout.
+- `bank_checkout(product_name: str, amount: str, bank_account: dict, narration: str, metadata: dict = {})`: Initiate bank checkout.
 
 ```python
 import africastalking
