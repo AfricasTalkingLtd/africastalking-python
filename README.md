@@ -30,6 +30,10 @@ $ python3 -m pip install africastalking # python 3.x
 
 ## Usage
 
+The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account/africastalking.com).
+
+> You can use this SDK for either production or sandbox apps. For sandbox, the app username is **ALWAYS** `sandbox`
+
 ```python
 # import package
 import africastalking
@@ -81,7 +85,7 @@ The synchronous variant always return and instance a `dict` while the async one 
 
 All phone numbers use the international format. e.g. `+234xxxxxxxx`.
 
-All amount strings contain th currency code as well. e.g. `UGX 443.88`.
+All **amount strings** contain currency code as well. e.g. `UGX 443.88`.
 
 ### `AccountService`
 
