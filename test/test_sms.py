@@ -28,6 +28,17 @@ class TestSmsService(unittest.TestCase):
         assert len(recipients) == 2
         assert recipients[0]['status'] == 'Success'
 
+    
+    def test_heavy_single_send(self):
+        count = 100000
+        phone_numbers = list(map(lambda x: str("+254718" + str(x + count)), range(1, count)))
+        def on_finish(error, data):
+            if (error):
+                raise error
+            recipients = data['SMSMessageData']['Recipients']
+            assert len(recipients) == count
+        res = service.send('test_heavy_single_send()', phone_numbers, enqueue=True, sender_id='AT2FA', callback=on_finish)
+        
     def test_send_premium(self):
         res = service.send_premium('test_send_premium()', 'KiKi', 'Linky', ['+254718769882', '+254718769881'],
                                    sender_id='AT2FA', retry_duration_in_hours=10)
