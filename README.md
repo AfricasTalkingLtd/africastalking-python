@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/pypi/v/africastalking.svg)
 
-> The SDK provides convenient access to the Africa's Talking APIs from python apps.
+> The SDK provides convenient access to the Africa's Talking APIs to python apps.
 
 
 ## Documentation
@@ -11,19 +11,19 @@ Take a look at the [API docs here](http://docs.africastalking.com).
 ## Install
 
 ```bash
-$ pip  install africastalking # python 2.x
+$ pip  install africastalking # python 2.7.x
 
 OR
 
-$ python -m pip install africastalking # python 2.x
+$ python -m pip install africastalking # python 2.7.x
 
 OR
 
-$ pip3 install africastalking # python 3.x
+$ pip3 install africastalking # python 3.6.x
 
 OR
 
-$ python3 -m pip install africastalking # python 3.x
+$ python3 -m pip install africastalking # python 3.6.x
 
 ```
 
@@ -51,6 +51,7 @@ sms = africastalking.SMS
 
 # Use the service synchronously
 response = sms.send("Hello Message!", ["+2547xxxxxx"])
+print(response)
 
 # Or use it asynchronously
 def on_finish(error, response):
@@ -109,7 +110,7 @@ airtime = africastalking.Airtime
 res = airtime.send(phone_number='+254718769882', amount='KES 908')
 ```
 
-- `send(recipients: [dict])`: Send airtime to a bunch of phone numbers. The keys in the `recipients` dictionary are phone numbers while the values are airtime amounts. The amounts need to have currency info e.g. `UXG 4265`.
+- `send(recipients: [dict])`: Send airtime to a list of phone numbers. The keys in the `recipients` dictionary are phone numbers while the values are airtime amounts. The amounts need to have currency info e.g. `UXG 4265`.
 
 ```python
 import africastalking
@@ -126,7 +127,7 @@ For more information about status notification, please read [http://docs.africas
 
 ### `SmsService`
 
-- `send(message: str, recipients: [str], sender_id: str = None, enqueue: bool = False)`: Send a bulk message to recipients, optionally from sender_id (Short Code or Alphanumeric).
+- `send(message: str, recipients: [str], sender_id: str = None, enqueue: bool = False)`: Send a bulk message to recipients, optionally from `sender_id` (Short Code or Alphanumeric).
 
 
 ```python
