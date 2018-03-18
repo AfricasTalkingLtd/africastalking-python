@@ -1,11 +1,11 @@
-from Service import AfricasTalkingException
+from .Service import Service
 
-from Token import TokenService
-from Account import AccountService
-from Airtime import AirtimeService
-from SMS import SMSService
-from Payment import PaymentService
-from Voice import VoiceService
+from .Token import TokenService
+from .Account import AccountService
+from .Airtime import AirtimeService
+from .SMS import SMSService
+from .Payment import PaymentService
+from .Voice import VoiceService
 
 SMS = None
 Airtime = None
