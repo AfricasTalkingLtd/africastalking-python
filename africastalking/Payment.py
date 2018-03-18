@@ -1,7 +1,7 @@
 import re
 import json
-from schema import Schema, And, SchemaError, Optional
-from Service import Service, validate_amount, validate_phone
+from .schema import Schema, And, SchemaError, Optional
+from .Service import Service, validate_amount, validate_phone
 
 
 class PaymentService(Service):
