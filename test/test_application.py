@@ -1,20 +1,20 @@
 """
-Account
+Application
 
-fetchAccount(): Fetch app info i.e. balance.
+fetchApplicationData(): Fetch app info i.e. balance.
 """
 import africastalking
 import unittest
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.Account
+service = africastalking.Application
 
 
-class TestAccountService(unittest.TestCase):
+class TestApplicationService(unittest.TestCase):
 
     def test_fetch_account(self):
-        res = service.fetch_account()
+        res = service.fetch_application_data()
         assert res['UserData']['balance'] is not None
 
 

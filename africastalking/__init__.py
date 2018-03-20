@@ -1,7 +1,5 @@
-from Service import AfricasTalkingException
-
 from Token import TokenService
-from Account import AccountService
+from Application import ApplicationService
 from Airtime import AirtimeService
 from SMS import SMSService
 from Payment import PaymentService
@@ -14,7 +12,7 @@ Payment = None
 Payments = Payment
 USSD = None
 Voice = None
-Account = None
+Application = None
 Token = None
 
 
@@ -27,7 +25,7 @@ def initialize(username, api_key):
     globals()['Airtime'] = AirtimeService(username, api_key)
     globals()['Payment'] = PaymentService(username, api_key)
     globals()['Voice'] = VoiceService(username, api_key)
-    globals()['Account'] = AccountService(username, api_key)
+    globals()['Application'] = ApplicationService(username, api_key)
     globals()['Token'] = TokenService(username, api_key)
     # globals()['USSD'] = USSDService(username, api_key)
 

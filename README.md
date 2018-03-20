@@ -70,7 +70,7 @@ See [example](example/) for more usage examples.
 
 Initialize the SDK by calling `africastalking.initialize(username, api_key)`. After initialization, you can get instances of offered services as follows:
 
-- [Account](#accountservice): `africastalking.Account`
+- [Application](#applicationservice): `africastalking.Application`
 - [Airtime](#airtimeservice): `africastalking.Airtime`
 - [SMS](#smsservice): `africastalking.SMS`
 - [Payments](#paymentservice): `africastalking.Payments`
@@ -88,15 +88,15 @@ All phone numbers use the international format. e.g. `+234xxxxxxxx`.
 
 All **amount strings** contain currency code as well. e.g. `UGX 443.88`.
 
-### `AccountService`
+### `ApplicationService`
 
-- `fetch_account()`: Get app balance info.
+- `fetch_application_data()`: Get app balance info.
 
 ```python
 import africastalking
 africastalking.initialize(username='sandbox', api_key='someKey')
-account = africastalking.Account
-res = account.fetch_account()
+application = africastalking.Application
+res = application.fetch_application_data()
 ```
 
 ### `AirtimeService`
