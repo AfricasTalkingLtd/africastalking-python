@@ -262,6 +262,28 @@ recipients = [
 res = payment.bank_transfer(product_name='TestProduct', recipients=recipients)
 ```
 
+- `wallet_transfer(product_name: str, target_product_code: int, amount: str, metadata: dict)`: Transfer money from one Payment Product to another Payment Product hosted on Africa's Talking.
+
+.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+res = payment.wallet_transfer(product_name='TestProduct', target_product_code=2009, amount='KES 7732', metadata={'ID': '23GG')
+```
+
+- `topup_stash(product_name: str, amount: str, metadata: dict)`: Move money from a Payment Product to an app's stash.
+
+.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+res = payment.topup_stash(product_name='TestProduct', amount='KES 7732', metadata={'ID': '23GG')
+```
+
 - `mobile_checkout(product_name: str, phone_number: str, amount: str, metadata: dict = {})`: Initiate mobile checkout. An example amount would be `KES 323`
 
 ```python

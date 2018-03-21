@@ -16,6 +16,10 @@ mobileCheckout(productName: String, phoneNumber: String, amount: String): Initia
 mobileB2C(productName: String, consumers: List<Consumer>): Send mobile money to consumers.
 
 mobileB2B(productName: String, recipient: Business): Send mobile money to a business.
+
+walletTransfer(productName: String, targetProductCode: Integer, amount: String, metadata: Map<String, String>)
+
+topupStash(productName: String, amount: String, metadata: Map<String, String>)
 """
 import africastalking
 import unittest
@@ -76,6 +80,14 @@ class TestPaymentService(unittest.TestCase):
         }
         res = service.bank_transfer(product_name='TestProduct', recipients=[recipient])
         assert res['entries'][0]['status'] == 'Queued'
+
+    def test_wallet_transfer(self):
+        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, amount='KES 7732', metadata={'ID': 'ID'})
+        assert res['status'] == 'Success'
+
+    def test_topup_stash(self):
+        res = service.topup_stash(product_name='TestProduct', amount='KES 7732')
+        assert res['status'] == 'Success'
 
     def test_bank_checkout(self):
         bank_account = {

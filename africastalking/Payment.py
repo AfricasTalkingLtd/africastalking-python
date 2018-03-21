@@ -172,6 +172,45 @@ class PaymentService(Service):
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
+    def wallet_transfer(self, product_name, target_product_code, amount, metadata = {}, callback=None):
+        if not validate_amount(amount):
+            raise ValueError('Invalid amount')
+
+        amount = amount.split(' ')
+
+        url = self._make_url('/transfer/wallet')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        data = {
+            'username': self._username,
+            'productName': product_name,
+            'targetProductCode': target_product_code,
+            'currencyCode': amount[0],
+            'amount': amount[1],
+            'metadata': metadata
+        }
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
+
+    def topup_stash(self, product_name, amount, metadata = {}, callback=None):
+        if not validate_amount(amount):
+            raise ValueError('Invalid amount')
+
+        amount = amount.split(' ')
+
+        url = self._make_url('/topup/stash')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        data = {
+            'username': self._username,
+            'productName': product_name,
+            'currencyCode': amount[0],
+            'amount': amount[1],
+            'metadata': metadata
+        }
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
+
     def bank_checkout(self, product_name, amount, bank_account, narration, metadata={}, callback=None):
 
         if not validate_amount(amount):
