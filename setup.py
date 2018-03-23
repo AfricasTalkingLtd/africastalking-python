@@ -3,7 +3,7 @@ from distutils.core import setup
 import sys
 import os
 
-version = '1.1.2'
+version = '1.1.3'
 
 try:
     import pypandoc

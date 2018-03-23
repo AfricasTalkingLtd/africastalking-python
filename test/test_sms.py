@@ -36,7 +36,7 @@ class TestSmsService(unittest.TestCase):
             if (error):
                 raise error
             recipients = data['SMSMessageData']['Recipients']
-            assert len(recipients) == count
+            assert len(recipients) <= count
         res = service.send('test_heavy_single_send()', phone_numbers, enqueue=True, sender_id='AT2FA', callback=on_finish)
         
     def test_send_premium(self):
@@ -59,6 +59,10 @@ class TestSmsService(unittest.TestCase):
         res = service.create_subscription(short_code=8989, keyword='KiKi',
                                           phone_number='+254718769882', checkout_token=token)
         assert res['description'] == "Waiting for user input"
+
+    def test_delete_subscription(self):
+        res = service.delete_subscription(short_code=8989, keyword='KiKi', phone_number='+254718769882')
+        assert res['status'] == "Success"
 
 
 if __name__ == '__main__':

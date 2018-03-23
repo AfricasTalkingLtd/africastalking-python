@@ -95,4 +95,19 @@ class SMSService(APIService):
         }
 
         return self._make_request(url, 'POST', headers=self._headers, data=data, params=None, callback=callback)
+    
+    def delete_subscription(self, short_code, keyword, phone_number, callback=None):
+
+        if not validate_phone(phone_number):
+            raise ValueError('Invalid phone number')
+
+        url = self._make_url('/subscription/delete')
+        data = {
+            'username': self._username,
+            'shortCode': short_code,
+            'keyword': keyword,
+            'phoneNumber': phone_number
+        }
+
+        return self._make_request(url, 'POST', headers=self._headers, data=data, params=None, callback=callback)
 
