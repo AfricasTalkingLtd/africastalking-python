@@ -178,6 +178,15 @@ checkout_token = res['token']
 res = sms.create_subscription(short_code='6673', keyword='music', phone_number='+254718767882', checkout_token=checkout_token)
 ```
 
+- `delete_subscription(short_code: str, keyword: str, phone_number: str)`: Delete a premium subscription
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+sms = africastalking.SMS
+res = sms.delete_subscription(short_code='6673', keyword='music', phone_number='+254718767882')
+```
+
 
 
 For more information on: 
