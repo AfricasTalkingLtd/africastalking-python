@@ -213,7 +213,7 @@ class PaymentService(Service):
             })
             bank_account = bank_account_schema.validate(bank_account)
         except SchemaError as err:
-            raise ValueError('Invalid recipients: ' + err.message)
+            raise ValueError('Invalid bank account: ' + err.message)
 
         url = self._make_url('/bank/checkout/charge')
         headers = dict(self._headers)
@@ -286,7 +286,7 @@ class PaymentService(Service):
                 payment_card = payment_card_schema.validate(payment_card)
                 data['paymentCard'] = payment_card
             except SchemaError as err:
-                raise ValueError('Invalid recipients: ' + err.message)
+                raise ValueError('Invalid payment card: ' + err.message)
         else:
             data['checkoutToken'] = checkout_token
 
