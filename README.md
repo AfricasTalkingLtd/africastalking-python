@@ -188,7 +188,7 @@ For more information on:
 
 ### `PaymentService`
 
-- `card_checkout(product_name: str, amount: str, payment_card: dict, narration: str, metadata: dict = {})`: Initiate card checkout.
+- `card_checkout(product_name: str, currency_code:str, amount: float, payment_card: dict, narration: str, metadata: dict = {})`: Initiate card checkout.
 
 ```python
 import africastalking
@@ -202,7 +202,7 @@ card = {
     'expiryYear': 2022, # > 2018
     'authToken': '3322' # card pin
 }
-res = payment.card_checkout(product_name='TestProduct', amount='NGN 7822', payment_card=card, narration='Small Chops Checkout')
+res = payment.card_checkout(product_name='TestProduct', currency_code='NGN', amount=7822, payment_card=card, narration='Small Chops Checkout')
 ```
 
 - `validate_card_checkout(transaction_id: str, otp: str)`: Validate a card checkout
@@ -214,7 +214,7 @@ payment = africastalking.Payment
 res = payment.validate_card_checkout(transaction_id='ATId_3829u49283u423u', otp='233333')
 ```
 
-- `bank_checkout(product_name: str, amount: str, bank_account: dict, narration: str, metadata: dict = {})`: Initiate bank checkout.
+- `bank_checkout(product_name: str, currency_code: str, amount: float, bank_account: dict, narration: str, metadata: dict = {})`: Initiate bank checkout.
 
 ```python
 import africastalking
@@ -227,7 +227,7 @@ account = {
     # Optional YYYY-MM-DD // required only for Zenith Nigeria
     #'dateOfBirth': '2000-01-01'
 }
-res = payment.bank_checkout(product_name='TestProduct', amount='NGN 7822', bank_account=account, narration='Small Chops Checkout')
+res = payment.bank_checkout(product_name='TestProduct', currency_code='NGN', amount=7822, bank_account=account, narration='Small Chops Checkout')
 ```
 
 - `validate_bank_checkout(transaction_id: str, otp: str)`: Validate a bank checkout
@@ -262,7 +262,7 @@ recipients = [
 res = payment.bank_transfer(product_name='TestProduct', recipients=recipients)
 ```
 
-- `wallet_transfer(product_name: str, target_product_code: int, amount: str, metadata: dict)`: Transfer money from one Payment Product to another Payment Product hosted on Africa's Talking.
+- `wallet_transfer(product_name: str, target_product_code: int, currency_code: str, amount: float, metadata: dict)`: Transfer money from one Payment Product to another Payment Product hosted on Africa's Talking.
 
 .
 
@@ -270,10 +270,10 @@ res = payment.bank_transfer(product_name='TestProduct', recipients=recipients)
 import africastalking
 africastalking.initialize(username='sandbox', api_key='someKey')
 payment = africastalking.Payment
-res = payment.wallet_transfer(product_name='TestProduct', target_product_code=2009, amount='KES 7732', metadata={'ID': '23GG')
+res = payment.wallet_transfer(product_name='TestProduct', target_product_code=2009, currency_code='KES', amount=7732, metadata={'ID': '23GG')
 ```
 
-- `topup_stash(product_name: str, amount: str, metadata: dict)`: Move money from a Payment Product to an app's stash.
+- `topup_stash(product_name: str, currency_code: str, amount: float, metadata: dict)`: Move money from a Payment Product to an app's stash.
 
 .
 
@@ -281,16 +281,16 @@ res = payment.wallet_transfer(product_name='TestProduct', target_product_code=20
 import africastalking
 africastalking.initialize(username='sandbox', api_key='someKey')
 payment = africastalking.Payment
-res = payment.topup_stash(product_name='TestProduct', amount='KES 7732', metadata={'ID': '23GG')
+res = payment.topup_stash(product_name='TestProduct', currency_code='KES', amount=7732, metadata={'ID': '23GG')
 ```
 
-- `mobile_checkout(product_name: str, phone_number: str, amount: str, metadata: dict = {})`: Initiate mobile checkout. An example amount would be `KES 323`
+- `mobile_checkout(product_name: str, phone_number: str, currency_code: str, amount: float, metadata: dict = {})`: Initiate mobile checkout. An example amount would be `KES 323`
 
 ```python
 import africastalking
 africastalking.initialize(username='sandbox', api_key='someKey')
 payment = africastalking.Payment
-res = payment.mobile_checkout(product_name='TestProduct', amount="KES 565")
+res = payment.mobile_checkout(product_name='TestProduct', currency_code='KES', amount=565)
 ```
 
 - `mobile_b2c(product_name: str, consumers: [dict])`: Send mobile money to consumer. Each consumer is a `dict` of this format:
@@ -308,7 +308,7 @@ consumers = [
       "currencyCode": "KES",
       "amount": 6766.88,
       "providerChannel": "1212",
-      "reason": payment.REASON['SalaryPayment'],
+      "reason": 'SalaryPayment',
       "metadata": {}
     }
 ]
@@ -326,8 +326,8 @@ business = {
   "amount": 6766.88,
   "destinationChannel": "1212",
   "destinationAccount": "ABC",
-  "provider": payment.PROVIDER['Mpesa'],
-  "transferType": payment.TRANSFER_TYPE[''],
+  "provider": 'Mpesa',
+  "transferType": 'BusinessBuyGoods',
   "metadata": {}
 }
 res = payment.mobile_b2b(product_name='TestProduct', business=business)

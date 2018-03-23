@@ -8,8 +8,6 @@ from Voice import VoiceService
 SMS = None
 Airtime = None
 Payment = None
-# To avoid confusion
-Payments = Payment
 USSD = None
 Voice = None
 Application = None

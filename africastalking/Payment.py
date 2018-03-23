@@ -1,7 +1,7 @@
 import re
 import json
 from schema import Schema, And, SchemaError, Optional
-from Service import Service, validate_amount, validate_phone
+from Service import Service, validate_phone
 
 
 class PaymentService(Service):
@@ -62,15 +62,11 @@ class PaymentService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def mobile_checkout(self, product_name, phone_number, amount, metadata={}, callback=None):
-
-        if not validate_amount(amount):
-            raise ValueError('Invalid amount')
+    def mobile_checkout(self, product_name, phone_number, currency_code, amount, metadata={}, callback=None):
 
         if not validate_phone(phone_number):
             raise ValueError('Invalid amount')
 
-        amount = amount.split(' ')
         url = self._make_url('/mobile/checkout/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -78,8 +74,8 @@ class PaymentService(Service):
             'username': self._username,
             'productName': product_name,
             'phoneNumber': phone_number,
-            'currencyCode': amount[0],
-            'amount': amount[1],
+            'currencyCode': currency_code,
+            'amount': amount,
             'metadata': metadata
         })
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
@@ -172,12 +168,8 @@ class PaymentService(Service):
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
-    def wallet_transfer(self, product_name, target_product_code, amount, metadata = {}, callback=None):
-        if not validate_amount(amount):
-            raise ValueError('Invalid amount')
-
-        amount = amount.split(' ')
-
+    def wallet_transfer(self, product_name, target_product_code, currency_code, amount, metadata = {}, callback=None):
+        
         url = self._make_url('/transfer/wallet')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -185,36 +177,29 @@ class PaymentService(Service):
             'username': self._username,
             'productName': product_name,
             'targetProductCode': target_product_code,
-            'currencyCode': amount[0],
-            'amount': amount[1],
+            'currencyCode': currency_code,
+            'amount': amount,
             'metadata': metadata
         }
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
-    def topup_stash(self, product_name, amount, metadata = {}, callback=None):
-        if not validate_amount(amount):
-            raise ValueError('Invalid amount')
-
-        amount = amount.split(' ')
-
+    def topup_stash(self, product_name, currency_code, amount, metadata = {}, callback=None):
+        
         url = self._make_url('/topup/stash')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
         data = {
             'username': self._username,
             'productName': product_name,
-            'currencyCode': amount[0],
-            'amount': amount[1],
+            'currencyCode': currency_code,
+            'amount': amount,
             'metadata': metadata
         }
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
-    def bank_checkout(self, product_name, amount, bank_account, narration, metadata={}, callback=None):
-
-        if not validate_amount(amount):
-            raise ValueError('Invalid amount')
+    def bank_checkout(self, product_name, currency_code, amount, bank_account, narration, metadata={}, callback=None):
 
         if narration is None:
             raise ValueError('Invalid narration')
@@ -230,7 +215,6 @@ class PaymentService(Service):
         except SchemaError as err:
             raise ValueError('Invalid recipients: ' + err.message)
 
-        amount = amount.split(' ')
         url = self._make_url('/bank/checkout/charge')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -238,8 +222,8 @@ class PaymentService(Service):
             'username': self._username,
             'productName': product_name,
             'bankAccount': bank_account,
-            'currencyCode': amount[0],
-            'amount': amount[1],
+            'currencyCode': currency_code,
+            'amount': amount,
             'narration': str(narration),
             'metadata': metadata,
         }
@@ -267,11 +251,8 @@ class PaymentService(Service):
     def validate_card_checkout(self, transaction_id, otp, callback=None):
         return self.__validate_checkout('card', transaction_id, otp, callback)
 
-    def card_checkout(self, product_name, amount, narration,
+    def card_checkout(self, product_name, currency_code, amount, narration,
                       payment_card=None, checkout_token=None, metadata={}, callback=None):
-
-        if not validate_amount(amount):
-            raise ValueError('Invalid amount')
 
         if narration is None:
             raise ValueError('Invalid narration')
@@ -280,15 +261,14 @@ class PaymentService(Service):
             raise ValueError('You need to provide either checkout_token or payment_card')
 
         countries = ('NG')
-        amount = amount.split(' ')
         url = self._make_url('/card/checkout/charge')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
         data = {
             'username': self._username,
             'productName': product_name,
-            'currencyCode': amount[0],
-            'amount': amount[1],
+            'currencyCode': currency_code,
+            'amount': amount,
             'narration': str(narration),
             'metadata': metadata,
         }

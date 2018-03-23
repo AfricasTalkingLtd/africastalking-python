@@ -33,7 +33,7 @@ service = africastalking.Payment
 class TestPaymentService(unittest.TestCase):
 
     def test_mobile_checkout(self):
-        res = service.mobile_checkout(product_name='TestProduct', phone_number='+254718769882', amount="USD 10")
+        res = service.mobile_checkout(product_name='TestProduct', phone_number='+254718769882', currency_code="USD", amount=10)
         assert res['status'] == 'PendingConfirmation'
 
     def test_mobile_b2c(self):
@@ -82,11 +82,11 @@ class TestPaymentService(unittest.TestCase):
         assert res['entries'][0]['status'] == 'Queued'
 
     def test_wallet_transfer(self):
-        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, amount='KES 7732', metadata={'ID': 'ID'})
+        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
         assert res['status'] == 'Success'
 
     def test_topup_stash(self):
-        res = service.topup_stash(product_name='TestProduct', amount='KES 7732')
+        res = service.topup_stash(product_name='TestProduct', currency_code='KES', amount=8732)
         assert res['status'] == 'Success'
 
     def test_bank_checkout(self):
@@ -97,8 +97,8 @@ class TestPaymentService(unittest.TestCase):
             'accountName': 'Salama',
             'dateOfBirth': '2001-11-21',
         }
-        amount = 'NGN ' + str(783 + random.randint(34, 77742))
-        res = service.bank_checkout(product_name='TestProduct', amount=amount,
+        amount = 783 + random.randint(34, 77742)
+        res = service.bank_checkout(product_name='TestProduct', currency_code='NGN', amount=amount,
                                     bank_account=bank_account, narration='Hello')
         assert res['status'] == 'PendingValidation'
 
@@ -121,8 +121,8 @@ class TestPaymentService(unittest.TestCase):
             'countryCode': 'NG',
             'authToken': '3323'
         }
-        amount = 'NGN ' + str(783 + random.randint(34, 77742))
-        res = service.card_checkout(product_name='TestProduct', amount=amount,
+        amount = 783 + random.randint(34, 77742)
+        res = service.card_checkout(product_name='TestProduct', currency_code='NGN', amount=amount,
                                     payment_card=card, narration='Hello')
         assert res['status'] == 'PendingValidation'
 
