@@ -1,6 +1,6 @@
 from schema import Schema, And, SchemaError
 import json
-from Service import APIService, validate_amount, validate_phone
+from . Service import APIService, validate_amount, validate_phone
 
 
 class AirtimeService(APIService):

@@ -1,4 +1,4 @@
-from Service import APIService
+from . Service import APIService
 
 
 class ApplicationService(APIService):

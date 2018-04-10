@@ -1,4 +1,4 @@
-from Service import APIService, validate_phone
+from . Service import APIService, validate_phone
 
 
 class SMSService(APIService):

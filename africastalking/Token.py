@@ -1,6 +1,6 @@
 import json
 
-from Service import APIService, validate_phone
+from . Service import APIService, validate_phone
 
 
 class TokenService(APIService):

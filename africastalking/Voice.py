@@ -1,4 +1,4 @@
-from Service import Service, validate_phone
+from . Service import Service, validate_phone
 
 
 class VoiceService(Service):

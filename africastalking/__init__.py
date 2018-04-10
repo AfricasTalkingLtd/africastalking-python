@@ -1,9 +1,9 @@
-from Token import TokenService
-from Application import ApplicationService
-from Airtime import AirtimeService
-from SMS import SMSService
-from Payment import PaymentService
-from Voice import VoiceService
+from . Token import TokenService
+from . Application import ApplicationService
+from . Airtime import AirtimeService
+from . SMS import SMSService
+from . Payment import PaymentService
+from . Voice import VoiceService
 
 SMS = None
 Airtime = None
