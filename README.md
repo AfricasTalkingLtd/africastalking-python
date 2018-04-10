@@ -405,7 +405,7 @@ For more information, please read [http://docs.africastalking.com/ussd](http://d
 
 ## Development
 ```shell
-$ git clone https://github.com/aksalj/africastalking-python.git
+$ git clone https://github.com/AfricasTalkingLtd/africastalking-python.git
 $ cd africastalking-python
 $ touch .env
 ```
