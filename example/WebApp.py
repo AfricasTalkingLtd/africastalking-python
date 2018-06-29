@@ -34,7 +34,8 @@ def sendAirtime():
 	if request.method == "POST":
 		number = request.values['phone_number']
 		amount = request.values['amount']
-		return json.dumps(airtime.send(number, amount))
+		json.dumps(airtime.send(number, amount))
+		return redirect(url_for('home'))
 	return render_template('form.html', form=form)
 
 @app.route("/mobilecheckout", methods=['GET', 'POST'])
@@ -62,7 +63,8 @@ def mobileB2C():
 			'amount':request.values['amount'],
 			'metadata': {}
 		}]
-		return json.dumps(checkout.mobile_b2c(product_name, recipients))
+		json.dumps(checkout.mobile_b2c(product_name, recipients))
+		return redirect(url_for('home'))
 		
 	return render_template('form.html', form=form)
 
@@ -73,7 +75,8 @@ def VoiceCall():
 		source = request.values['source']
 		destination = request.values['destination']
 		#voice.call(source, destination)
-		return json.dumps(voice.call(source, destination))
+		json.dumps(voice.call(source, destination))
+		return redirect(url_for('home'))
 	return render_template('form.html', form=form)
 
 @app.route("/USSD", methods=['GET', 'POST'])
