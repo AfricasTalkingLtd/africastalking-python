@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{ url_for('sendSMS') }}">Send SMS</a>
+        <a class="nav-item nav-link" href="{{ url_for('sendAirtime') }}">Send Airtime</a>
+        <a class="nav-item nav-link" href="{{ url_for('mobilecheckout') }}"> Mobile Checkout</a>
+        <a class="nav-item nav-link" href="{{ url_for('mobileB2C') }}">MobileB2C</a>
+        <a class="nav-item nav-link" href="{{ url_for('VoiceCall') }}">Voice Call</a>
+    </div>
+{% endblock content %}
+
+

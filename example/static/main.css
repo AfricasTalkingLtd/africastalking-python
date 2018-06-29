@@ -1,0 +1,167 @@
+<STYLE TYPE="text/css">
+
+// content             Page Content
+// content_bold        Page Content Bold
+// copyright           Copyright Section
+// date                Date Format
+// sheading            Small Heading (smaller than content)
+// mheading            Content Size Heading
+// lheading            Larger Heading (larger than content)
+// xlheading           Extra Larger Heading (Much larger than content)
+
+// disabled            Ghosted Menu 
+// mainmenu            Main Menu
+
+// .monospace          To ensure that HTML form fields look the same on Netscape and IE
+
+// td.boxborder        Form Box Border Color
+// td.boxtitle         Form Box Title
+// td.theformleft      Form Label - LEFT side
+// td.theformright     Form Field - RIGHT side
+// td.theformcomment   Form Comments - Example: *required
+// td.theformbutton    Form Button Area - Example: Submit and Reset
+// td.theformtextarea  Text Area
+
+// td.boxbordererror   Error Message Box Border Color   
+// td.boxtitleerror    Error Message Box Title 
+// errormessage        Error Message Text
+// erroraction         Error Message Action (The provided instructions)
+
+// td.boxborderwarning Warning Message Box Border Color   
+// td.boxtitlewarning  Warning Message Box Title 
+// warningmessage      Warning Message Text
+// warningaction       Warning Message Action (The provided instructions)
+
+// td.boxbordersuccess Success Message Box Border Color   
+// td.boxtitlesuccess  Success Message Box Title 
+// successmessage      Success Message Text
+// successaction       Success Message Action (The provided instructions)
+
+a.bugfix               {;}
+
+.invisible             {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:6pt;font-weight:normal;text-decoration:none;}
+a.invisible            {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:6pt;font-weight:normal;text-decoration:underline;}
+a:hover.invisible      {color:#ffffff;text-decoration:underline;}
+
+.content               {color:#333333;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:normal;text-decoration:none;}
+a.content              {color:#000033;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:normal;text-decoration:underline;}
+a:hover.content        {color:#660000;text-decoration:underline;}
+
+.contentbold           {color:#333333;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.contentbold          {color:#000033;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.contentbold    {color:#660000;text-decoration:underline;}
+
+.productfocus          {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:normal;text-decoration:none;}
+a.productfocus         {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:normal;text-decoration:underline;}
+a:hover.productfocus   {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:normal;text-decoration:underline;}
+
+.copyright             {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:normal;text-decoration:none;}
+a.copyright            {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:normal;text-decoration:underline;}
+a:hover.copyright      {color:#339966;font-weight:bold;text-decoration:underline;}
+
+.date                  {color:#cc6600;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.date                 {color:#cc6600;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:underline;}
+a:hover.date           {color:#cc6600;text-decoration:underline;}
+
+.monospace             {font-family:Courier,monospace;}
+
+.pointer               {color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+
+.sheading              {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.sheading             {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:underline;}
+a:hover.sheading       {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:underline;}
+
+.mheading              {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.mheading             {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.mheading       {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+
+.redheading            {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.redheading           {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.redheading     {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+
+.oheading              {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.oheading             {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.oheading       {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+
+.lheading              {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:12pt;font-weight:bolder;text-decoration:none;}
+a.lheading             {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:12pt;font-weight:bolder;text-decoration:underline;}
+a:hover.lheading       {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:12pt;font-weight:bolder;text-decoration:underline;}
+
+.xlheading             {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:14pt;font-weight:bold;text-decoration:none;}
+a.xlheading            {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:14pt;font-weight:bold;text-decoration:underline;}
+a:hover.xlheading      {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:14pt;font-weight:bold;text-decoration:underline;}
+
+.pointer               {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.pointer              {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.pointer        {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+
+.request               {background:#ffffff;color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:normal;text-decoration:none;}
+a.request              {background:#ffffff;color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:normal;text-decoration:underline;}
+a:hover.request        {background:#ffffff;color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:normal;text-decoration:underline;}
+
+td.disabled            {background:#6699cc;color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}  
+.mainmenu              {color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.mainmenu             {color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a:hover.mainmenu       {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+td.menudivider         {background:#ffffff;}
+
+td.adminmenu           {background:#029b82;color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+.adminmenu             {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.adminmenu            {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a:hover.adminmenu      {color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+
+.bottommenu            {color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.bottommenu           {color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a:hover.bottommenu     {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+
+.submenudisabled       {color:#707070;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:normal;text-decoration:none;}  
+.submenu               {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a.submenu              {color:#ffffff;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+a:hover.submenu        {color:#ffcc00;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+
+td.familyborder        {background:#000000;}
+td.familytitle         {background:#029c84;color:#FFFFFF;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+td.categoryborder      {background:#000000;}
+td.categorytitle       {background:#663398;color:#FFFFFF;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+td.subcategoryborder   {background:#000000;}
+td.subcategorytitle    {background:#efefef;color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+
+td.boxborder           {background:#000000;}
+td.boxtitle            {background:#663398;color:#FFFFFF;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+td.theformleft         {background:#dddddd;color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+td.theformright        {background:#efefef;color:#303030;font-family:verdana,arial,helvetica,sans-serif;font-size:9pt;font-weight:normal;text-decoration:none;}
+td.theformcomment      {background:#efefef;color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:bold;text-decoration:none;}
+td.theformbutton       {background:#ffffff;color:#660000;font-family:verdana,arial,helvetica,sans-serif;font-size:9pt;font-weight:normal;text-decoration:none;}
+td.theformtextarea     {background:#efefef;color:#707070;font-family:Courier,monospace;}
+
+td.boxbordererror      {background:#000000;}
+td.boxtitleerror       {background:#990000;color:#FFFFFF;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.errormessage          {color:#000000;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.erroraction           {color:#990000;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.erroraction          {color:#990000;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.erroraction    {color:#990000;text-decoration:underline;}
+
+td.boxborderwarning    {background:#000000;}
+td.boxtitlewarning     {background:#CC6600;color:#FFFFFF;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.warningmessage        {color:#000000;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.warningaction         {color:#CC6600;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.warningaction        {color:#CC6600;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.warningaction  {color:#CC6600;text-decoration:underline;}
+
+td.boxbordersuccess    {background:#000000;}
+td.boxtitlesuccess     {background:#029c84;color:#FFFFFF;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.successmessage        {color:#000000;font-family:arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.successaction         {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+a.successaction        {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+a:hover.successaction  {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:underline;}
+
+.figure                {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:10pt;font-weight:bold;text-decoration:none;}
+.submitbutton          {background:#E0E0E0;color:#000000;font-family:verdana,arial,helvetica,sans-serif;font-size:8pt;font-weight:normal;text-decoration:none;}
+.pulldown              {background:#ffffff;color:#003366;font-family:verdana,arial,helvetica,sans-serif;font-size:5pt;font-weight:normal;text-decoration:none;}
+
+td.parameterbold       {background:#efefef;color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:bold;text-decoration:none;}
+td.parameter           {background:#eeeeee;color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:bold;text-decoration:none;}
+a.parameterbold        {color:#663399;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:bold;text-decoration:underline;}
+a:hover.parameterbold  {color:#CC6600;font-family:verdana,arial,helvetica,sans-serif;font-size:7pt;font-weight:bold;text-decoration:underline;}
+
+</style>
