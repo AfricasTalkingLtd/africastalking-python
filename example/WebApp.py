@@ -1,7 +1,7 @@
 import africastalking, json
 
 from flask import Flask, render_template, url_for, flash, redirect, request
-from forms import SMSForm, AirtimeForm, CheckOutForm, VoiceForm, B2CForm
+from forms import SMSForm, AirtimeForm, CheckOutForm, VoiceForm, B2CForm, PremiumSmsForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd67cf7963921cd7f01f8ea3d3cef0857'
@@ -22,6 +22,18 @@ voice    = africastalking.Voice
 def home():
 	return render_template('home.html')
 
+@app.route("/premiumSMS", methods = ['GET', 'POST'])
+def premiumSMS():
+	form     = PremiumSmsForm()
+	if request.method == "POST":
+		#From 	= request.values['From']
+		message = request.values['message']
+		keyword = request.values['keyword']
+		link_id = request.values['linkId']
+		number = request.values['phone_number']
+		return json.dumps(sms.send_premium(message, keyword, link_id, recipients=[number]))
+		#return redirect(url_for('home'))
+	return render_template('form.html', form = form)
 @app.route("/sendSMS", methods = ['GET', 'POST'])
 def sendSMS():
 	form = SMSForm()
@@ -30,7 +42,6 @@ def sendSMS():
 		json.dumps(sms.send("How are you doing today", [number]))
 		return redirect(url_for('home'))
 	return render_template('form.html', form = form)
-
 @app.route("/sendAirtime", methods = ['GET', 'POST'])
 def sendAirtime():
 	form = AirtimeForm(data = request.form)
