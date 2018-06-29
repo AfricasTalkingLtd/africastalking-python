@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.fields.html5 import TelField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired
 
 class SMSForm(FlaskForm):
   phone_number  = TelField("Phone Number", validators=[DataRequired()], render_kw={'placeholder': 'Phone Number eg. +254712345678'})
