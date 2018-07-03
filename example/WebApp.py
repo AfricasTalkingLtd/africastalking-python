@@ -6,6 +6,7 @@ from forms import SMSForm, AirtimeForm, CheckOutForm, VoiceForm, B2CForm, Premiu
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd67cf7963921cd7f01f8ea3d3cef0857'
 
+
 # Initialize SDK
 username = "sandbox"    # use 'sandbox' for development in the test environment
 api_key  = "61e711157d969e942234f562c6d70ad62ef6d903de85de6f8e152ed381637373"      # use your sandbox app API key for development in the test environment
@@ -17,8 +18,7 @@ airtime  = africastalking.Airtime
 checkout = africastalking.Payment
 voice    = africastalking.Voice
 
-@app.route("/")
-@app.route("/home",methods = ['GET', 'POST'])
+@app.route("/" ,methods = ['GET', 'POST'])
 def home():
 	return render_template('home.html')
 
@@ -34,6 +34,7 @@ def premiumSMS():
 		return json.dumps(sms.send_premium(message, keyword, link_id, recipients=[number]))
 		#return redirect(url_for('home'))
 	return render_template('form.html', form = form)
+
 @app.route("/sendSMS", methods = ['GET', 'POST'])
 def sendSMS():
 	form = SMSForm()
@@ -42,6 +43,7 @@ def sendSMS():
 		json.dumps(sms.send("How are you doing today", [number]))
 		return redirect(url_for('home'))
 	return render_template('form.html', form = form)
+
 @app.route("/sendAirtime", methods = ['GET', 'POST'])
 def sendAirtime():
 	form = AirtimeForm(data = request.form)

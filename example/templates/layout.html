@@ -11,58 +11,57 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
     <title>Africa's Talking</title>
     <style type="text/css">
-    nav {
-        background-color: #E67E22;
-    }
+        nav {
+            background-color: #E67E22;
+        }
 
-    p,
-    a span {
-        color: #196F3D;
-    }
+        p,
+        a span {
+            color: #196F3D;
+        }
     </style>
-</head>
 
-<body>
-    <!---header--->
-    <div class="container">
-        <header class="site-header">
-            <nav class="navbar navbar-expand-md fixed-top">
-                <div class="container">
-                    <a class="navbar-brand mr-4" href="{{url_for('home')}}">
+    <body>
+        <!---header--->
+        <div class="container">
+            <header class="site-header">
+                <nav class="navbar navbar-expand-md fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand mr-4" href="{{url_for('home')}}">
           <span>Africa's Talking</span>
             </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <!-- Navbar Right Side -->
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="{{url_for('home')}}">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <!-- Navbar Right Side -->
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="{{url_for('home')}}">
              <span>Home</span> 
             </a>
-                        <a class="nav-item nav-link" href="http://docs.africastalking.com" target="_blank">
+                            <a class="nav-item nav-link" href="http://docs.africastalking.com" target="_blank">
               <span> Docs </span> 
             </a>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </header>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div class="col-md-6">
-            <pre><span id="response"></span></pre>
+                </nav>
+            </header>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div class="col-md-6">
+                <pre><span id="response"></span></pre>
+            </div>
+            <div class="col-md-6">
+                {% block content %} {% endblock %}
+            </div>
         </div>
-        <div class="col-md-6">
-            {% block content %} {% endblock %}
-        </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/json.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/xml.min.js"></script>
-    <script src="{{url_for('static', filename='main.js')}}"></script>
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/json.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/xml.min.js"></script>
+        <script src="{{url_for('static', filename='main.js')}}"></script>
+    </body>
 
 </html>

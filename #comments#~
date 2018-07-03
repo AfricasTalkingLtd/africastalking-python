@@ -1,0 +1,15 @@
+research pep8 for the imports and cleaning up the code.
+python imports
+custom imports
+then the others.
+
+put the things iin an .env
+remove the home route
+
+anticipate the errors using the try catch statements
+consistency with the caps(Probably camel case)
+
+import flake
+
+clean up the markups
+move the styling to the style file

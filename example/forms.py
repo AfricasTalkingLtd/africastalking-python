@@ -8,7 +8,7 @@ class SMSForm(FlaskForm):
   sendSMS       = SubmitField("Send")
 
 class PremiumSmsForm(FlaskForm):
-  From          = TelField("Phone Number", validators=[DataRequired()], render_kw={'placeholder': 'Phone Number eg. +254712345678'})
+  #From          = TelField("Phone Number", validators=[DataRequired()], render_kw={'placeholder': 'Phone Number eg. +254712345678'})
   message       = StringField("Message", validators=[DataRequired()], render_kw={'placeholder': 'Message eg. Hello'})
   keyword       = StringField("Keyword", validators=[DataRequired()], render_kw={'placeholder': 'keyword eg. music'})
   linkId        = StringField("Link ID", validators=[DataRequired()], render_kw={'placeholder': 'LinkId eg. 233dddd'})
