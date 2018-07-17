@@ -299,7 +299,7 @@ res = payment.topup_stash(product_name='TestProduct', currency_code='KES', amoun
 import africastalking
 africastalking.initialize(username='sandbox', api_key='someKey')
 payment = africastalking.Payment
-res = payment.mobile_checkout(product_name='TestProduct', currency_code='KES', amount=565)
+res = payment.mobile_checkout(product_name='TestProduct', phone_number='+25472XXXXXX' ,currency_code='KES', amount=565)
 ```
 
 - `mobile_b2c(product_name: str, consumers: [dict])`: Send mobile money to consumer. Each consumer is a `dict` of this format:
