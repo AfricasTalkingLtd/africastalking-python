@@ -84,7 +84,6 @@ class TestPaymentService(unittest.TestCase):
 
     def test_wallet_transfer(self):
         res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
-        print(res)
         assert res['status'] == 'Success'
 
     def test_topup_stash(self):
