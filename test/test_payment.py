@@ -45,11 +45,11 @@ class TestPaymentService(unittest.TestCase):
             'amount': 892,
             # Optionals
             'reason': service.REASON['SalaryPayment'],
-            'providerChannel': '1122',
+            'providerChannel': '1212',
             'metadata': {}
         }
-        res = service.mobile_b2c(product_name='Another Product', consumers=[consumer])
-        assert res['value'] == 'KES 892.0000'
+        res = service.mobile_b2c(product_name='TestProduct', consumers=[consumer])
+        assert res['totalValue'] == 'KES 892.0000'
 
     def test_mobile_b2b(self):
         business = {
@@ -84,6 +84,7 @@ class TestPaymentService(unittest.TestCase):
 
     def test_wallet_transfer(self):
         res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
+        print(res)
         assert res['status'] == 'Success'
 
     def test_topup_stash(self):
