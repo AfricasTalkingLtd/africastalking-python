@@ -369,7 +369,7 @@ filters = {
 }
 res = payment.fetch_product_transactions(product_name='TestProduct', filters=filters)
 ```
-- `find_payment_transaction(transaction_id: str)`: Find a particular payment transaction.
+- `find_transaction(transaction_id: str)`: Find a particular payment transaction.
 
 ```python
 import africastalking

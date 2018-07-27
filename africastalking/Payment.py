@@ -306,7 +306,7 @@ class PaymentService(Service):
             filters['count'] = "100"
         return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
 
-    def find_payment_transaction(self, transaction_id=None, callback=None):
+    def find_transaction(self, transaction_id=None, callback=None):
         url = self._make_url('/query/transaction/find')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'

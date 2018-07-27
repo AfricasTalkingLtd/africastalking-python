@@ -144,9 +144,9 @@ class TestPaymentService(unittest.TestCase):
         res = service.fetch_product_transactions('TestProduct', filters)
         assert res['status'] == 'Success'
 
-    def test_fetch_product_transaction(self):
+    def test_find_transaction(self):
         transaction_id = 'ATPid_07c0c1776759d41beac6f77e43723489'
-        res = service.find_payment_transaction(transaction_id)
+        res = service.find_transaction(transaction_id)
         assert res['status'] == 'Success'
 
     def test_fetch_wallet_transactions(self):
