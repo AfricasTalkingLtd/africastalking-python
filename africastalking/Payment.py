@@ -292,3 +292,50 @@ class PaymentService(Service):
 
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
+
+    def fetch_product_transactions(self, product_name, filters = {}, callback=None):
+        
+        url = self._make_url('/query/transaction/fetch')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        filters['username'] = self._username
+        filters['productName'] = product_name
+        if ('pageNumber' not in filters) or (filters['pageNumber'] is None):
+            filters['pageNumber'] = "1"
+        if ('count' not in filters) or (filters['count'] is None):
+            filters['count'] = "100"
+        return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
+
+    def find_payment_transaction(self, transaction_id=None, callback=None):
+        url = self._make_url('/query/transaction/find')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        if transaction_id is None:
+            raise ValueError('Specify a transaction id.')
+        params = {
+            'username': self._username,
+            'transactionId': transaction_id
+        }
+        return self._make_request(url, 'GET', headers=headers, params=params, data=None, callback=callback)
+
+    def fetch_wallet_transactions(self, filters = {}, callback=None):
+
+        url = self._make_url('/query/wallet/fetch')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        filters['username'] = self._username
+        if ('pageNumber' not in filters) or (filters['pageNumber'] is None):
+            filters['pageNumber'] = "1"
+        if ('count' not in filters) or (filters['count'] is None):
+            filters['count'] = "100"
+        return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
+
+    def fetch_wallet_balance(self, callback=None):
+        url = self._make_url('/query/wallet/balance')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        params = {
+            'username': self._username
+        }
+        return self._make_request(url, 'GET', headers=headers, params=params, data=None, callback=callback)
+        

@@ -341,6 +341,68 @@ business = {
 }
 res = payment.mobile_b2b(product_name='TestProduct', business=business)
 ```
+- `fetch_product_transactions(product_name: str, filters: dict)`: Fetch transactions of a particular payment product.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+filters = {
+    # pageNumber start from 1 and NOT 0
+    "pageNumber": "1",
+    "count": "100",
+    # Date format has to be YYYY-MM-DD
+    "startDate": "2018-01-01",
+    "endDate": "2018-12-31",
+    # Possible categories are: BankCheckout, CardCheckout, MobileCheckout, MobileC2B, MobileB2C, MobileB2B, BankTransfer, WalletTransfer, UserStashTopup
+    "category": "UserStashTopup",
+    # Providers include Mpesa, Segovia, Flutterwave, Admin, Athena
+    "provider": "Athena",
+    # Possible statuses are Success, Failed
+    "status": "Failed",
+    # Possible sources are phoneNumber, BankAccount, Card, Wallet
+    "source": "phoneNumber",
+    # Possible destinations are PhoneNumber, BankAccount, Card, Wallet
+    "destination": "PhoneNumber",
+    # Channel to consider e.g. Paybill Number
+    "providerChannel": "1212"
+}
+res = payment.fetch_product_transactions(product_name='TestProduct', filters=filters)
+```
+- `find_payment_transaction(transaction_id: str)`: Find a particular payment transaction.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+res = payment.find_payment_transaction(transaction_id='ATPid_07c0c1776759d41beac6f77e43723489')
+```
+- `fetch_wallet_transactions(transaction_id: str)`: Fetch your wallet transactions.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+filters = {
+    # pageNumber start from 1 and NOT 0
+    "pageNumber": "1",
+    "count": "100",
+    # Date format has to be YYYY-MM-DD
+    "startDate": "2018-01-01",
+    "endDate": "2018-12-31",
+    # Possible categories are: Debit, Credit, Refund, Topup
+    "category": "Debit,Credit", # A comma delimited list of transaction categories you would like to consider.
+}
+res = payment.fetch_wallet_transactions(filters=filters)
+```
+- `fetch_wallet_balance()`: Fetch your wallet balance.
+
+```python
+import africastalking
+africastalking.initialize(username='sandbox', api_key='someKey')
+payment = africastalking.Payment
+res = payment.fetch_wallet_balance()
+```
 
 
 For more information, please read [http://docs.africastalking.com/payments](http://docs.africastalking.com/payments)

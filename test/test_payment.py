@@ -24,6 +24,7 @@ topupStash(productName: String, amount: String, metadata: Map<String, String>)
 import africastalking
 import unittest
 import random
+import time
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
@@ -44,11 +45,11 @@ class TestPaymentService(unittest.TestCase):
             'amount': 892,
             # Optionals
             'reason': service.REASON['SalaryPayment'],
-            'providerChannel': '1212',
+            'providerChannel': '1122',
             'metadata': {}
         }
-        res = service.mobile_b2c(product_name='TestProduct', consumers=[consumer])
-        assert res['totalValue'] == 'KES 892.0000'
+        res = service.mobile_b2c(product_name='Another Product', consumers=[consumer])
+        assert res['value'] == 'KES 892.0000'
 
     def test_mobile_b2b(self):
         business = {
@@ -126,6 +127,44 @@ class TestPaymentService(unittest.TestCase):
                                     payment_card=card, narration='Hello')
         assert res['status'] == 'PendingValidation'
 
+    def test_fetch_product_transactions(self):
+        product_name='TestProduct'
+        res = service.fetch_product_transactions('TestProduct')
+        assert res['status'] == 'Success'
 
+    def test_fetch_product_transactions_with_filters(self):
+        filters = {
+            "startDate": "2018-01-01",
+            "endDate": "2018-12-31",
+            "category": "UserStashTopup",
+            "status": "Failed"
+        }
+        # to prevent throttling
+        time.sleep(5)
+        res = service.fetch_product_transactions('TestProduct', filters)
+        assert res['status'] == 'Success'
+
+    def test_fetch_product_transaction(self):
+        transaction_id = 'ATPid_07c0c1776759d41beac6f77e43723489'
+        res = service.find_payment_transaction(transaction_id)
+        assert res['status'] == 'Success'
+
+    def test_fetch_wallet_transactions(self):
+        res = service.fetch_wallet_transactions()
+        assert res['status'] == 'Success'
+
+    def test_fetch_wallet_transactions_with_filters(self):
+        filters = {
+            "startDate": "2018-01-01",
+            "endDate": "2018-12-31",
+            "categories": "Debit"
+        }
+        res = service.fetch_wallet_transactions()
+        assert res['status'] == 'Success'
+
+    def test_fetch_wallet_balance(self):
+        res = service.fetch_wallet_balance()
+        assert res['status'] == 'Success'
+        
 if __name__ == '__main__':
     unittest.main()
