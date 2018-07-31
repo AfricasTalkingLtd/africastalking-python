@@ -72,6 +72,7 @@ class mobile_b2c(Resource):
       return payment.mobile_b2c(product_name, recipients)
 api.add_resource(mobile_b2c, '/mobile_b2c')
 
+
 @app.route("/ussd", methods = ['GET', 'POST'])
 def ussd():
   session_id   = request.values.get("sessionId", None)
@@ -105,7 +106,6 @@ def ussd():
 
   return response
 
-
 @app.route("/voice", methods = ['GET', 'POST'])
 def voice():
   session_id   = request.values.get("sessionId", None)
@@ -127,8 +127,8 @@ def voice():
 
   elif dtmfDigits == '1':
     response = '<Response>'
-    response += '<Say voice="man" playBeep="false" >Your balance is 1234 Shillings'
-    response+= 'Goodbye</Say><Reject/> </Response>'
+    response += '<Say voice="man" playBeep="false" >Your balance is 1234 Shillings</Say>'
+    response+= '<Reject/> </Response>'
 
   elif dtmfDigits == '0':
     response = '<Response>'
@@ -136,6 +136,7 @@ def voice():
     response+= '<Reject/> </Response>'
 
   return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)
