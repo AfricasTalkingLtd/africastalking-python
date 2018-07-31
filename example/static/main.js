@@ -16,8 +16,7 @@ $( "#sms" ).click(function() {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:5000/sms",
-        crossDomain: true,
+        url: "/sms",
         data: { number: phone }
     })
         .done(function( msg ) {
@@ -46,8 +45,7 @@ $( "#airtime" ).click(function() {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:5000/airtime",
-        crossDomain: true,
+        url: "/airtime",
         data: { 
             number: phone, 
             amount: amount
@@ -85,8 +83,7 @@ $( "#mobileCheckout" ).click(function() {
     
     $.ajax({
         method: "POST",
-        url: "http://localhost:5000/mobile_checkout",
-        crossDomain: true,
+        url: "/mobile_checkout",
         data: { 
             number: phone, 
             amount: amount, 
@@ -129,8 +126,7 @@ $( "#mobileB2C" ).click(function() {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:5000/mobile_b2c",
-        crossDomain: true,
+        url: "/mobile_b2c",
         data: { 
             number: phone, 
             amount: amount, 
