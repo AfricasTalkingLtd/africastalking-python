@@ -62,13 +62,13 @@ class mobile_b2c(Resource):
       amount = full_amount[4:]
       name = str(request.form['name'])
       recipients     = [
-		{
-			'name': name,
-			'phoneNumber':number,
-			'currencyCode':currency_code,
-			'amount':amount,
-			'metadata': {}
-		}]
+    {
+      'name': name,
+      'phoneNumber':number,
+      'currencyCode':currency_code,
+      'amount':amount,
+      'metadata': {}
+    }]
       return payment.mobile_b2c(product_name, recipients)
 api.add_resource(mobile_b2c, '/mobile_b2c')
 
@@ -105,6 +105,37 @@ def ussd():
 
   return response
 
+
+@app.route("/voice", methods = ['GET', 'POST'])
+def voice():
+  session_id   = request.values.get("sessionId", None)
+  isActive  = request.values.get("isActive", None)
+  phone_number = request.values.get("callerNumber", None)
+
+  response = '<Response> <GetDigits timeout="30" finishOnKey="#">'
+  response += '<Say voice="man" playBeep="false">Please enter your account '
+  response += 'number followed by the hash sign</Say> </GetDigits> </Response>'
+
+  dtmfDigits = request.values.get("dtmfDigits", None)
+
+  if dtmfDigits == '1234':
+    print dtmfDigits
+    response = '<Response> <GetDigits timeout="30" finishOnKey="#">'
+    response +=' <Say voice="man" playBeep="false"> Press 1 followed by a hash '
+    response +='sign to get your account balance or 0 followed by a hash sign to'
+    response += ' quit</Say> </GetDigits></Response>'
+
+  elif dtmfDigits == '1':
+    response = '<Response>'
+    response += '<Say voice="man" playBeep="false" >Your balance is 1234 Shillings'
+    response+= 'Goodbye</Say><Reject/> </Response>'
+
+  elif dtmfDigits == '0':
+    response = '<Response>'
+    response += '<Say voice="man" playBeep="false" >Its been a pleasure, good bye </Say>'
+    response+= '<Reject/> </Response>'
+
+  return response
+
 if __name__ == '__main__':
     app.run(debug=True)
-
