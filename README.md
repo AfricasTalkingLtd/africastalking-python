@@ -242,16 +242,17 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `fetch_product_transactions(product_name: str, filters: dict)`: Fetch transactions of a particular payment product.
 
     - `productName`: Payment product on Africa's Talking. `REQUIRED`
-    - `pageNumber`: Page number to fetch results from. Starts from `1`. `REQUIRED`
-    - `count`: Number of results to fetch. `REQUIRED`
-    - `startDate`: Start Date to consider when fetching.
-    - `endDate`: End Date to consider when fetching.
-    - `category`: Category to consider when fetching.
-    - `provider`: Provider to consider when fetching.
-    - `status`: Status to consider when fetching.
-    - `source`: Source to consider when fetching.
-    - `destination`: Destination to consider when fetching.
-    - `providerChannel`: Provider channel to consider when fetching.
+    - `filters`: Transaction filters.
+      - `pageNumber`: Page number to fetch results from. Starts from `1`. `REQUIRED`
+      - `count`: Number of results to fetch. `REQUIRED`
+      - `startDate`: Start Date to consider when fetching.
+      - `endDate`: End Date to consider when fetching.
+      - `category`: Category to consider when fetching.
+      - `provider`: Provider to consider when fetching.
+      - `status`: Status to consider when fetching.
+      - `source`: Source to consider when fetching.
+      - `destination`: Destination to consider when fetching.
+      - `providerChannel`: Provider channel to consider when fetching.
     
 - `fetch_wallet_transactions(filters: dict)`: Fetch your wallet transactions.
 
