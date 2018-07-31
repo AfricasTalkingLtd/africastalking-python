@@ -86,9 +86,10 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `send(recipients: [dict])`: Send airtime
 
     - `recipients`: Contains an array of arrays containing the following keys
-            - `phoneNumber`: Recipient of airtime
-            - `amount`: Amount to send with currency e.g `KES 100`
-            
+    
+        - `phone_number`: Recipient of airtime
+        - `amount`: Amount to send with currency e.g `KES 100`
+
 ### `Sms`
 
 - `send(message: str, recipients: [str], sender_id: str = None, enqueue: bool = False)`: Send a message.
@@ -103,7 +104,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `message`: SMS content. `REQUIRED`
     - `recipients`: An array of phone numbers. `REQUIRED`
     - `keyword`: Your premium product keyword `REQUIRED`
-    - `link_id`: "[...] We forward the `linkId` to your application when a user sends a message to your onDemand service"
+    - `link_id`: "We forward the `linkId` to your application when a user sends a message to your onDemand service"
     - `retry_duration_in_hours`: "This specifies the number of hours your subscription message should be retried in case it's not delivered to the subscriber"
 
 - `fetch_messages(last_received_id: int = 0)`: Fetch your messages
