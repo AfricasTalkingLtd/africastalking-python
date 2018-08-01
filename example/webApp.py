@@ -15,7 +15,6 @@ africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 airtime  = africastalking.Airtime
 payment = africastalking.Payment
-voice    = africastalking.Voice
 
 @app.route('/')
 def index():
@@ -27,7 +26,6 @@ class send_sms(Resource):
     def post(self):
       number = str(request.form['number'])
       return sms.send("Test message", [number])
-
 api.add_resource(send_sms, '/sms')
 
 class send_airtime(Resource):
@@ -62,13 +60,13 @@ class mobile_b2c(Resource):
       amount = full_amount[4:]
       name = str(request.form['name'])
       recipients     = [
-    {
-      'name': name,
-      'phoneNumber':number,
-      'currencyCode':currency_code,
-      'amount':amount,
-      'metadata': {}
-    }]
+      {
+        'name': name,
+        'phoneNumber':number,
+        'currencyCode':currency_code,
+        'amount':amount,
+        'metadata': {}
+      }]
       return payment.mobile_b2c(product_name, recipients)
 api.add_resource(mobile_b2c, '/mobile_b2c')
 
