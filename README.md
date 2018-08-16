@@ -88,7 +88,8 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `recipients`: Contains an array of arrays containing the following keys
     
         - `phone_number`: Recipient of airtime
-        - `amount`: Amount to send with currency e.g `KES 100`
+        - `amount`: Amount to send with currency e.g `100`
+        - `currency_code`: 3-digit ISO format currency code (e.g `KES`, `USD`, `UGX` etc).
 
 ### `Sms`
 
