@@ -293,7 +293,7 @@ class PaymentService(Service):
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
-    def fetch_product_transactions(self, product_name, filters = {}, callback=None):
+    def product_transactions(self, product_name, filters = {}, callback=None):
         
         url = self._make_url('/query/transaction/fetch')
         headers = dict(self._headers)
@@ -318,7 +318,7 @@ class PaymentService(Service):
         }
         return self._make_request(url, 'GET', headers=headers, params=params, data=None, callback=callback)
 
-    def fetch_wallet_transactions(self, filters = {}, callback=None):
+    def wallet_transactions(self, filters = {}, callback=None):
 
         url = self._make_url('/query/wallet/fetch')
         headers = dict(self._headers)
@@ -330,7 +330,7 @@ class PaymentService(Service):
             filters['count'] = "100"
         return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
 
-    def fetch_wallet_balance(self, callback=None):
+    def wallet_balance(self, callback=None):
         url = self._make_url('/query/wallet/balance')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'

@@ -255,7 +255,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `destination`: Destination to consider when fetching.
       - `providerChannel`: Provider channel to consider when fetching.
     
-- `fetch_wallet_transactions(filters: dict)`: Fetch your wallet transactions.
+- `wallet_transactions(filters: dict)`: Fetch your wallet transactions.
 
     - `filters`: Wallet transactions filters. `REQUIRED`
       - `pageNumber`: Page number to fetch results from. Starts from `1`. `REQUIRED`
@@ -268,7 +268,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `transaction_id`: ID of trancation to find. `REQUIRED`
 
-- `fetch_wallet_balance()`: Fetch your wallet balance. 
+- `wallet_balance()`: Fetch your wallet balance. 
 
 
 ### `Voice`
