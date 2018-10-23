@@ -62,7 +62,8 @@ class PaymentService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def mobile_checkout(self, product_name, phone_number, currency_code, amount, metadata={}, callback=None):
+    def mobile_checkout(self, product_name, phone_number, currency_code, amount, metadata={},
+                        provider_channel=None, callback=None):
 
         if not validate_phone(phone_number):
             raise ValueError('Invalid amount')
@@ -70,14 +71,17 @@ class PaymentService(Service):
         url = self._make_url('/mobile/checkout/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        data = json.dumps({
+        data = {
             'username': self._username,
             'productName': product_name,
             'phoneNumber': phone_number,
             'currencyCode': currency_code,
             'amount': amount,
             'metadata': metadata
-        })
+        }
+        if provider_channel is not None:
+                data['providerChannel'] = provider_channel
+        data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def mobile_b2c(self, product_name, consumers, callback=None):
