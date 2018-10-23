@@ -134,13 +134,14 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     
 ### `Payments`
 
-- `mobile_checkout(product_name: str, phone_number: str, currency_code: str, amount: float, metadata: dict = {})`: Charge a customers mobile money account
+- `mobile_checkout(product_name: str, phone_number: str, currency_code: str, amount: float, metadata: dict = {}, provider_channel:str)`: Charge a customers mobile money account
 
     - `product_name`: Payment product on Africa's Talking. `REQUIRED`
     - `phone_number`: Customer phone number (in international format). `REQUIRED`
     - `currency_code`: 3-digit ISO format currency code (e.g `KES`, `USD`, `UGX` etc). `REQUIRED`
     - `amount`: Amount to charge. `REQUIRED`
     - `metadata`: Additional data to associate with the transaction. `REQUIRED`
+    - `provider_channel`: The provider channel the payment will be initiated from e.g a paybill number. `OPTIONAL`
     
 - `mobile_b2c(product_name: str, consumers: [dict])`: Send mobile money to customers:
 
