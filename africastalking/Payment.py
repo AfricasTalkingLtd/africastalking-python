@@ -62,7 +62,8 @@ class PaymentService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def mobile_checkout(self, product_name, phone_number, currency_code, amount, metadata={}, callback=None):
+    def mobile_checkout(self, product_name, phone_number, currency_code, amount, metadata={},
+                        provider_channel=None, callback=None):
 
         if not validate_phone(phone_number):
             raise ValueError('Invalid amount')
@@ -70,14 +71,17 @@ class PaymentService(Service):
         url = self._make_url('/mobile/checkout/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
-        data = json.dumps({
+        data = {
             'username': self._username,
             'productName': product_name,
             'phoneNumber': phone_number,
             'currencyCode': currency_code,
             'amount': amount,
             'metadata': metadata
-        })
+        }
+        if provider_channel is not None:
+                data['providerChannel'] = provider_channel
+        data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
     def mobile_b2c(self, product_name, consumers, callback=None):
@@ -292,3 +296,50 @@ class PaymentService(Service):
 
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
+
+    def product_transactions(self, product_name, filters = {}, callback=None):
+        
+        url = self._make_url('/query/transaction/fetch')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        filters['username'] = self._username
+        filters['productName'] = product_name
+        if ('pageNumber' not in filters) or (filters['pageNumber'] is None):
+            filters['pageNumber'] = "1"
+        if ('count' not in filters) or (filters['count'] is None):
+            filters['count'] = "100"
+        return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
+
+    def find_transaction(self, transaction_id=None, callback=None):
+        url = self._make_url('/query/transaction/find')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        if transaction_id is None:
+            raise ValueError('Specify a transaction id.')
+        params = {
+            'username': self._username,
+            'transactionId': transaction_id
+        }
+        return self._make_request(url, 'GET', headers=headers, params=params, data=None, callback=callback)
+
+    def wallet_transactions(self, filters = {}, callback=None):
+
+        url = self._make_url('/query/wallet/fetch')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        filters['username'] = self._username
+        if ('pageNumber' not in filters) or (filters['pageNumber'] is None):
+            filters['pageNumber'] = "1"
+        if ('count' not in filters) or (filters['count'] is None):
+            filters['count'] = "100"
+        return self._make_request(url, 'GET', headers=headers, params=filters, data=None, callback=callback)
+
+    def wallet_balance(self, callback=None):
+        url = self._make_url('/query/wallet/balance')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        params = {
+            'username': self._username
+        }
+        return self._make_request(url, 'GET', headers=headers, params=params, data=None, callback=callback)
+        

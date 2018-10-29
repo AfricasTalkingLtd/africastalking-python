@@ -17,16 +17,17 @@ service = africastalking.Airtime
 
 class TestAirtimeService(unittest.TestCase):
 
-    def test_send_single(self):
-        amount = "KES " + str(random.randint(10, 1000))
-        phone = '+25471876' + str(random.randint(1000, 9999))
-        res = service.send(phone_number=phone, amount=amount)
-        assert res['numSent'] == 1
+    # def test_send_single(self):
+    #     currency_code = "KES"
+    #     amount = str(random.randint(10, 1000))
+    #     phone = '+25471876' + str(random.randint(1000, 9999))
+    #     res = service.send(phone_number=phone, amount=amount, currency_code=currency_code)
+    #     assert res['numSent'] == 1
 
     def test_send_multiple(self):
         res = service.send(recipients=[
-            {'phoneNumber': '+2348160663047', 'amount': 'USD ' + str(random.randint(1, 10))},
-            {'phoneNumber': '+254718769881', 'amount': 'KES ' + str(random.randint(138, 13223))},
+            {'phoneNumber': '+2348160663047', 'amount': str(random.randint(1, 10)), 'currency_code': 'USD'},
+            {'phoneNumber': '+254718769881', 'amount':str(random.randint(138, 13223)), 'currency_code':  'KES'},
         ])
         assert res['numSent'] == 2
 

@@ -11,9 +11,16 @@ class AirtimeService(APIService):
         super(AirtimeService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1/airtime'
 
-    def send(self, phone_number=None, amount=None, recipients=None, callback=None):
+    def send(self, phone_number=None, amount=None, currency_code=None, recipients=None, callback=None):
 
-        if phone_number is not None and amount is not None:
+        if recipients is not None:
+            def join_amount_and_currency(obj):
+                obj['amount'] = " ".join([str(obj['currency_code']), str(obj['amount'])])
+                del obj['currency_code']
+                return obj
+            recipients = list(map(join_amount_and_currency, recipients))
+        if all(key is not None for key in [phone_number, amount, currency_code ]) and recipients is None:
+            amount = " ".join([str(currency_code), str(amount)])
             recipients = [
                 {'phoneNumber': str(phone_number), 'amount': str(amount)},
             ]

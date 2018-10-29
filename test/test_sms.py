@@ -51,17 +51,17 @@ class TestSmsService(unittest.TestCase):
         assert len(res) >= 0
 
     def test_fetch_subscriptions(self):
-        res = service.fetch_subscriptions(short_code=8989, keyword='KiKi', last_received_id=0)
+        res = service.fetch_subscriptions(short_code=13715, keyword='KiKi', last_received_id=0)
         assert len(res) >= 0
 
     def test_create_subscription(self):
         token = token_service.create_checkout_token('+254718769882')['token']
-        res = service.create_subscription(short_code=8989, keyword='KiKi',
+        res = service.create_subscription(short_code=13715, keyword='KiKi',
                                           phone_number='+254718769882', checkout_token=token)
         assert res['description'] == "Waiting for user input"
 
     def test_delete_subscription(self):
-        res = service.delete_subscription(short_code=8989, keyword='KiKi', phone_number='+254718769882')
+        res = service.delete_subscription(short_code=13715, keyword='KiKi', phone_number='+254718769882')
         assert res['status'] == "Success"
 
 
