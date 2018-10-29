@@ -44,15 +44,16 @@ service = africastalking.Voice
 class TestVoiceService(unittest.TestCase):
 
     def test_call(self):
-        res = service.call(source="+254718769881", destination="+254718769880")
+        res = service.call(source="+254711223355", destination="+254711223366")
         assert res['errorMessage'] != 'None'
 
     def test_fetch_queued_calls(self):
-        res = service.fetch_queued_calls(phone_number='+254718769880')
+        res = service.fetch_queued_calls(phone_number='+254711223366')
+        
         assert res['status'] == 'Success'
 
     def test_media_upload(self):
-        res = service.media_upload(phone_number='+254718769889', url='https://aksalj.com')
+        res = service.media_upload(phone_number='+254711223355', url='https://aksalj.com')
         assert res == 'The request has been fulfilled and resulted in a new resource being created.'
 
 

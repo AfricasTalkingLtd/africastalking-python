@@ -45,7 +45,7 @@ class TestPaymentService(unittest.TestCase):
             'amount': 892,
             # Optionals
             'reason': service.REASON['SalaryPayment'],
-            'providerChannel': '1212',
+            'providerChannel': '1122',
             'metadata': {}
         }
         res = service.mobile_b2c(product_name='TestProduct', consumers=[consumer])
@@ -83,7 +83,7 @@ class TestPaymentService(unittest.TestCase):
         assert res['entries'][0]['status'] == 'Queued'
 
     def test_wallet_transfer(self):
-        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2009, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
+        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2647, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
         assert res['status'] == 'Success'
 
     def test_topup_stash(self):
@@ -129,7 +129,7 @@ class TestPaymentService(unittest.TestCase):
 
     def test_fetch_product_transactions(self):
         product_name='TestProduct'
-        res = service.fetch_product_transactions('TestProduct')
+        res = service.product_transactions('TestProduct')
         assert res['status'] == 'Success'
 
     def test_fetch_product_transactions_with_filters(self):
@@ -141,16 +141,16 @@ class TestPaymentService(unittest.TestCase):
         }
         # to prevent throttling
         time.sleep(5)
-        res = service.fetch_product_transactions('TestProduct', filters)
+        res = service.product_transactions('TestProduct', filters)
         assert res['status'] == 'Success'
 
     def test_find_transaction(self):
-        transaction_id = 'ATPid_07c0c1776759d41beac6f77e43723489'
+        transaction_id = 'ATPid_8b938630c08eb9973e8438291451f76b'
         res = service.find_transaction(transaction_id)
         assert res['status'] == 'Success'
 
     def test_fetch_wallet_transactions(self):
-        res = service.fetch_wallet_transactions()
+        res = service.wallet_transactions()
         assert res['status'] == 'Success'
 
     def test_fetch_wallet_transactions_with_filters(self):
@@ -159,11 +159,11 @@ class TestPaymentService(unittest.TestCase):
             "endDate": "2018-12-31",
             "categories": "Debit"
         }
-        res = service.fetch_wallet_transactions()
+        res = service.wallet_transactions()
         assert res['status'] == 'Success'
 
     def test_fetch_wallet_balance(self):
-        res = service.fetch_wallet_balance()
+        res = service.wallet_balance()
         assert res['status'] == 'Success'
         
 if __name__ == '__main__':
