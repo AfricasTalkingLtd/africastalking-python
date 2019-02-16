@@ -6,7 +6,7 @@
 
 
 ## Documentation
-Take a look at the [API docs here](http://docs.africastalking.com).
+Take a look at the [API docs here](https://build.at-labs.io/discover/).
 
 ## Install
 
@@ -30,7 +30,7 @@ $ python3 -m pip install africastalking # python 3.6.x
 
 ## Usage
 
-The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account/africastalking.com).
+The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account.africastalking.com/).
 
 > You can use this SDK for either production or sandbox apps. For sandbox, the app username is **ALWAYS** `sandbox`
 
@@ -173,7 +173,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
         - `accountName`: Name of the bank account. `REQUIRED`
         - `accountNumber`: Account number. `REQUIRED`
-        - `bankCode`: A [6-Digit Integer Code](http://docs.africastalking.com/bank/checkout#bankCodes) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
+        - `bankCode`: A [6-Digit Integer Code](https://build.at-labs.io/docs/payments%2Fbank%2Fcheckout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
         - `dateOfBirth`: Date of birth of the account owner (in the format `YYYY-MM-DD`). Required for Zenith Bank Nigeria.
 
     - `currency_ode`: 3-digit ISO format currency code (only `NGN` is supported at present). `REQUIRED`
@@ -195,7 +195,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
             - `accountName`: Name of the bank account. `REQUIRED`
             - `accountNumber`: Account number. `REQUIRED`
-            - `bankCode`: A [6-Digit Integer Code](http://docs.africastalking.com/bank/checkout#bankCodes) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
+            - `bankCode`: A [6-Digit Integer Code](https://build.at-labs.io/docs/payments%2Fbank%2Fcheckout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
             - `dateOfBirth`: Date of birth of the account owner (in the format `YYYY-MM-DD`). Required for Zenith Bank Nigeria.
 
         - `currencyCode`: 3-digit ISO format currency code (only `NGN` is supported at present). `REQUIRED`
@@ -299,7 +299,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 ### `Ussd`
 
-For more information, please read [http://docs.africastalking.com/ussd](http://docs.africastalking.com/ussd)
+For more information, please read [http://docs.africastalking.com/ussd](https://build.at-labs.io/docs/ussd%2Foverview)
 
 
 ## Development
