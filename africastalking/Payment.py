@@ -66,7 +66,7 @@ class PaymentService(Service):
                         provider_channel=None, callback=None):
 
         if not validate_phone(phone_number):
-            raise ValueError('Invalid amount')
+            raise ValueError('Invalid phone number.')
 
         url = self._make_url('/mobile/checkout/request')
         headers = dict(self._headers)
