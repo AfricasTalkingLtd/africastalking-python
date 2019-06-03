@@ -40,7 +40,7 @@ class TestSmsService(unittest.TestCase):
         res = service.send('test_heavy_single_send()', phone_numbers, enqueue=True, sender_id='AT2FA', callback=on_finish)
         
     def test_send_premium(self):
-        res = service.send_premium('test_send_premium()', 'KiKi', 'Linky', ['+254718769882', '+254718769881'],
+        res = service.send_premium('test_send_premium()', 'Linky', ['+254718769882', '+254718769881'], 'KiKi',
                                    sender_id='AT2FA', retry_duration_in_hours=10)
         recipients = res['SMSMessageData']['Recipients']
         assert len(recipients) == 2

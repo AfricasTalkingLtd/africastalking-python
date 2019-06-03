@@ -31,7 +31,7 @@ class SMSService(APIService):
 
         return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
-    def send_premium(self, message, keyword, link_id, recipients, sender_id=None,
+    def send_premium(self, message, link_id, recipients, keyword=None, sender_id=None,
                      retry_duration_in_hours=None, callback=None):
 
         for phone in recipients:
@@ -44,9 +44,11 @@ class SMSService(APIService):
             'to': ','.join(recipients),
             'message': message,
             'bulkSMSMode': 0,
-            'keyword': keyword,
             'linkId': link_id
         }
+
+        if keyword is not None:
+            data['keyword'] = keyword
 
         if sender_id is not None:
             data['from'] = sender_id

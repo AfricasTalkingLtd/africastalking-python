@@ -104,7 +104,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `message`: SMS content. `REQUIRED`
     - `recipients`: An array of phone numbers. `REQUIRED`
-    - `keyword`: Your premium product keyword `REQUIRED`
+    - `keyword`: Your premium product keyword. 
     - `link_id`: "We forward the `linkId` to your application when a user sends a message to your onDemand service"
     - `retry_duration_in_hours`: "This specifies the number of hours your subscription message should be retried in case it's not delivered to the subscriber"
 
