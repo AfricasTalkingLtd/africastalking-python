@@ -27,7 +27,6 @@ $ python3 -m pip install africastalking # python 3.6.x
 
 ```
 
-
 ## Usage
 
 The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account.africastalking.com/).
@@ -100,11 +99,12 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `sender_id`: Shortcode or alphanumeric ID that is registered with your Africa's Talking account.
     - `enqueue`: Set to `true` if you would like to deliver as many messages to the API without waiting for an acknowledgement from telcos.
 
-- `send_premium(message: str, keyword: str, link_id: str, recipients: [str])`: Send a premium SMS
+- `send_premium(message: str, short_code: str, recipients: [str])`: Send a premium SMS
 
     - `message`: SMS content. `REQUIRED`
+    - `short_code`: Your premium product shortCode. `REQUIRED`
     - `recipients`: An array of phone numbers. `REQUIRED`
-    - `keyword`: Your premium product keyword. 
+    - `keyword`: Your premium product keyword.
     - `link_id`: "We forward the `linkId` to your application when a user sends a message to your onDemand service"
     - `retry_duration_in_hours`: "This specifies the number of hours your subscription message should be retried in case it's not delivered to the subscriber"
 
