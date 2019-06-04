@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Africa's Talking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="http://docs.africastalking.com" target="_blank">Docs</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Africa's Talking</h3>
+    </div>
+    <br/>
+    <br/>
+    <div class="col-md-6">
+        <pre><span id="response"></span></pre>
+    </div>
+    <div class="col-md-6">
+        <p class="lead">Try clicking some buttons</p>
+        <div class="col-sm-6 col-offset-sm-3">
+            <input id="phone" type="text" class="form-control" placeholder="Phone number e.g. +254718769882">
+        </div>
+        <p>
+            <a class="btn btn-success btn-sm" role="button" id="sms">Send SMS</a>
+        </p>
+        <div class="col-sm-6 col-offset-sm-3">
+            <input id="amount" type="text" class="form-control" placeholder="Amount e.g. USD 35">
+        </div>
+        <p>
+            <a class="btn btn-success btn-sm" role="button" id="airtime">Airtime</a>
+        </p>
+        <div class="col-sm-6 col-offset-sm-3">
+            <input id="product_name" type="text" class="form-control" placeholder="Product Name e.g. Braids">
+        </div>
+        <p>
+            <a class="btn btn-success btn-sm" role="button" id="mobileCheckout">Mobile Checkout</a>
+        </p>
+        <div class="col-sm-6 col-offset-sm-3">
+            <input id="name" type="text" class="form-control" placeholder="Name e.g. Sarah">
+        </div>
+        <p>
+            <a class="btn btn-success btn-sm" role="button" id="mobileB2C">Mobile B2C</a>
+        </p>
+    </div>
+    <div>
+        <p>Read <a href="https://github.com/AfricasTalkingLtd/africastalking-java">this</a> for more info on all available features</p>
+    </div>
+    </div>
+    <!-- /container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/xml.min.js"></script>
+    <script src="static/main.js"></script>
+</body>
+
+</html>
