@@ -117,7 +117,6 @@ def voice():
   dtmfDigits = request.values.get("dtmfDigits", None)
 
   if dtmfDigits == '1234':
-    print dtmfDigits
     response = '<Response> <GetDigits timeout="30" finishOnKey="#">'
     response +=' <Say voice="man" playBeep="false"> Press 1 followed by a hash '
     response +='sign to get your account balance or 0 followed by a hash sign to'
