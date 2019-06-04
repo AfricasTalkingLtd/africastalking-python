@@ -5,8 +5,7 @@ import os
 
 version = '1.1.6'
 
-with open('README.md', encoding='utf-8') as f:
-    long_description = f.read()
+long_description = open('README.md').read()
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
