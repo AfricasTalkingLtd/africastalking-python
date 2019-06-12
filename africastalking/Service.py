@@ -5,8 +5,7 @@ import requests
 
 def validate_amount(amount_str):
     try:
-        parts = amount_str.split(' ')
-        return len(parts[0]) == 3 and float(parts[1])
+        return float(amount_str)
     except ValueError:
         return False
 
