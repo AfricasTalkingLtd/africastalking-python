@@ -1,4 +1,3 @@
-from schema import Schema, And, SchemaError
 import json
 from . Service import APIService, validate_amount, validate_phone, validate_currency
 
@@ -20,7 +19,7 @@ class AirtimeService(APIService):
 
         def value_validator(phoneNumber, amount, currency_code):
             if not validate_phone(phoneNumber):
-                return 'Invalid phone number.'
+                return 'Invalid phone number'
             elif not validate_amount(amount):
                 return 'Invalid amount' 
             elif not validate_currency(currency_code):
@@ -36,7 +35,7 @@ class AirtimeService(APIService):
         
         for recipient in recipients:
             if not set(recipient.keys()) == {'phoneNumber', 'amount', 'currency_code'}:
-                raise(ValueError(f"Invalid/missing required keys in: {recipient}")) 
+                raise(ValueError(f"must specify phoneNumber, currencyCode and amount for recipient: {recipient}")) 
 
             else:
                 phoneNumber = recipient['phoneNumber']
