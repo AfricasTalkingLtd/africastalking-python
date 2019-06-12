@@ -2,6 +2,8 @@ import re
 import threading
 import requests
 
+def validate_currency(currency_str):
+    return len(currency_str) == 3
 
 def validate_amount(amount_str):
     try:
