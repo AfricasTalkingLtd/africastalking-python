@@ -14,8 +14,18 @@ class VoiceService(Service):
 
     def call(self, source, destination, callback=None):
 
-        if not validate_phone(destination):
-            raise ValueError('Invalid destination phone number')
+        phone_numbers = destination.split(',')
+
+        for index, phone_number in enumerate(phone_numbers):
+            phone_number = phone_number.replace(' ', '')
+
+            if not validate_phone(phone_number):
+                raise ValueError(
+                    f'Invalid destination phone number: {phone_number}')
+
+            phone_numbers[index] = phone_number
+
+        destination = ','.join(phone_numbers)
 
         url = self._make_url('/call')
         data = {
