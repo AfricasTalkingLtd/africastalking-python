@@ -274,10 +274,10 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 ### `Voice`
 
-- `call(source: str, destination: str)`: Initiate a phone call
+- `call(callFrom: str, callTo: [str])`: Initiate a phone call
 
-    - `destination`: Phone number that you wish to dial (in international format). `REQUIRED`
-    - `source`: Phone number on Africa's Talking (in international format). `REQUIRED`
+	- `callFrom`: Phone number on Africa's Talking (in international format). `REQUIRED`
+    - `callTo`: An array of phone numbers that you wish to dial (in international format). `REQUIRED`    
 
 - `fetch_queued_calls(phone_number: str)`: Get queued calls
 

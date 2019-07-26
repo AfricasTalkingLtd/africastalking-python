@@ -12,26 +12,18 @@ class VoiceService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def call(self, source, destination, callback=None):
+    def call(self, callFrom, callTo, callback=None):
 
-        phone_numbers = destination.split(',')
-
-        for index, phone_number in enumerate(phone_numbers):
-            phone_number = phone_number.replace(' ', '')
-
+        for phone_number in callTo:
             if not validate_phone(phone_number):
-                raise ValueError(
-                    f'Invalid destination phone number: {phone_number}')
+                raise ValueError( 'Invalid callTo phone number:' + phone_number)
 
-            phone_numbers[index] = phone_number
-
-        destination = ','.join(phone_numbers)
-
+        callTo = ','.join(callTo)
         url = self._make_url('/call')
         data = {
             'username': self._username,
-            'from': source,
-            'to': destination,
+            'from': callFrom,
+            'to': callTo,
         }
         return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
 
