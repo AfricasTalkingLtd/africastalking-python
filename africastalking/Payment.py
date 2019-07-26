@@ -142,6 +142,30 @@ class PaymentService(Service):
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
+    def mobile_data(self, product_name, recepients, callback=None):
+
+        try:
+            schema = Schema([{
+                'phoneNumber': And(str, lambda s: validate_phone(s)),
+                'quantity': And(lambda f: float(f) > 0),
+                'unit': And(str, lambda s: validate_data_unit(s)),
+                'validity': And(str, lambda s: validate_data_validity(s)),
+                Optional('metadata'): And(dict)
+            }])
+            recipients = schema.validate(recipients)
+        except SchemaError as err:
+            raise ValueError('Invalid recipients: ' + err.message)
+        url = self._make_url('/mobile/data/request')
+        headers = dict(self._headers)
+        headers['Content-Type'] = 'application/json'
+        data = {
+            'username': self._username,
+            'productName': product_name,
+            'recipients': recipients,
+        }
+        data = json.dumps(data)
+        return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
+        
     def bank_transfer(self, product_name, recipients, callback=None):
 
         try:

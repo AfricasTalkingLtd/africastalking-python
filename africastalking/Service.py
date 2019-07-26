@@ -17,6 +17,16 @@ def validate_phone(phone_str):
     except ValueError:
         return False
 
+def validate_data_units(data_unit):
+    if data_unit in ['MB', 'GB']:
+        return True
+    return False
+
+def validate_data_validity(data_unit):
+    if data_unit in ['Daily', 'Monthly', 'Weekly']:
+        return True
+    return False
+
 
 class AfricasTalkingException(Exception):
     pass
