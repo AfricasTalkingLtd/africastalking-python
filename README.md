@@ -166,6 +166,17 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `amount`: Amount to pay. `REQUIRED`
       - `metadata`: Additional data to associate with the transaction. `REQUIRED`
 
+- `mobile_b2b(product_name: str, recipients: dict)`: Send mobile data to customers.
+
+    - `product_name`: Payment product on Africa's Talking. `REQUIRED`
+    - `recipients`:  A list of recipients. Each recipient has:
+      - `phoneNumber`: Customer phone number (in international format). `REQUIRED`
+      - `quantity`: Mobile data amount. `REQUIRED`
+      - `unit`: Mobile data unit. Can either be `MB` or `GB`. `REQUIRED`
+      - `validity`: How long the mobile data is valid for. Must be one of `Daily`, `Weekly` and `Monthly`. `REQUIRED`
+      - `metadata`: Additional data to associate with the transaction. `REQUIRED`
+
+
 - `bank_checkout(product_name: str, currency_code: str, amount: float, bank_account: dict, narration: str, metadata: dict = {})`: Initiate bank checkout.
 
     - `product_name`: Payment product on Africa's Talking. `REQUIRED`
