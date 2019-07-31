@@ -142,7 +142,7 @@ class PaymentService(Service):
         data = json.dumps(data)
         return self._make_request(url, 'POST', headers=headers, params=None, data=data, callback=callback)
 
-    def mobile_data(self, product_name, recepients, callback=None):
+    def mobile_data(self, product_name, recipients, callback=None):
 
         try:
             schema = Schema([{
