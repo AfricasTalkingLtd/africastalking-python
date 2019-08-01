@@ -20,7 +20,7 @@ class TestAirtimeService(unittest.TestCase):
     def test_send_single(self):
         currency_code = "KES"
         amount = str(random.randint(10, 1000))
-        phone = '+25471876' + str(random.randint(1000, 9999))
+        phone = '+254718763456' 
         res = service.send(phone_number=phone, amount=amount, currency_code=currency_code)
         assert res['numSent'] == 1
 
