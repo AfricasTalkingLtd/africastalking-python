@@ -1,5 +1,5 @@
 import json
-from . Service import APIService, validate_amount, validate_phone, validate_currency
+from . Service import APIService, validate_amount, validate_phone, validate_currency, validate_keys
 
 
 class AirtimeService(APIService):
@@ -29,12 +29,15 @@ class AirtimeService(APIService):
 
         
         if recipients is None:
+            if not all([phone_number, amount, currency_code]):
+                raise(ValueError("must specify phoneNumber, currencyCode and amount for recipient"))
+
             recipients= [
                 {'phoneNumber': str(phone_number), 'amount': str(amount), 'currency_code': str(currency_code)}
             ]            
         
         for recipient in recipients:
-            if not set(recipient.keys()) == {'phoneNumber', 'amount', 'currency_code'}:
+            if not validate_keys(recipient, {'phoneNumber', 'amount', 'currency_code'}):
                 raise(ValueError("must specify phoneNumber, currencyCode and amount for recipient: %s" %(recipient))) 
 
             else:
