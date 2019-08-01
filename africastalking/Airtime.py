@@ -35,7 +35,7 @@ class AirtimeService(APIService):
         
         for recipient in recipients:
             if not set(recipient.keys()) == {'phoneNumber', 'amount', 'currency_code'}:
-                raise(ValueError(f"must specify phoneNumber, currencyCode and amount for recipient: {recipient}")) 
+                raise(ValueError("must specify phoneNumber, currencyCode and amount for recipient: %s" %(recipient))) 
 
             else:
                 phoneNumber = recipient['phoneNumber']
@@ -44,7 +44,7 @@ class AirtimeService(APIService):
                 validation_err = value_validator(phoneNumber, amount, currency_code)
 
                 if validation_err:
-                    raise(ValueError(f"Recipient data error: '{validation_err}' in {recipient}"))
+                    raise(ValueError("Recipient data error: %s in %s" %(validation_err, recipient)))
                 else:
                     join_amount_and_currency(recipient) 
 
