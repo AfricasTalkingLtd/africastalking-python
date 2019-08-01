@@ -99,7 +99,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `sender_id`: Shortcode or alphanumeric ID that is registered with your Africa's Talking account.
     - `enqueue`: Set to `true` if you would like to deliver as many messages to the API without waiting for an acknowledgement from telcos.
 
-- `send_premium(message: str, short_code: str, recipients: [str])`: Send a premium SMS
+- `send_premium(message: str, short_code: str, recipients: [str], link_id: [str] = None, retry_duration_in_hours [int] = None)`: Send a premium SMS
 
     - `message`: SMS content. `REQUIRED`
     - `short_code`: Your premium product shortCode. `REQUIRED`
