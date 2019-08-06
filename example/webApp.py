@@ -33,8 +33,10 @@ class send_airtime(Resource):
       return {'hello': 'world'}
     def post(self):
       number = str(request.form['number'])
-      amount = str(request.form['amount'])
-      return airtime.send(number, amount)
+      full_amount = str(request.form['amount'])
+      currency_code = full_amount[0:3]
+      amount = full_amount[4:]
+      return airtime.send(number, amount, currency_code)
 api.add_resource(send_airtime, '/airtime')
 
 class mobile_checkout(Resource):
