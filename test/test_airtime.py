@@ -17,12 +17,12 @@ service = africastalking.Airtime
 
 class TestAirtimeService(unittest.TestCase):
 
-    # def test_send_single(self):
-    #     currency_code = "KES"
-    #     amount = str(random.randint(10, 1000))
-    #     phone = '+25471876' + str(random.randint(1000, 9999))
-    #     res = service.send(phone_number=phone, amount=amount, currency_code=currency_code)
-    #     assert res['numSent'] == 1
+    def test_send_single(self):
+        currency_code = "KES"
+        amount = str(random.randint(10, 1000))
+        phone = '+254718763456' 
+        res = service.send(phone_number=phone, amount=amount, currency_code=currency_code)
+        assert res['numSent'] == 1
 
     def test_send_multiple(self):
         res = service.send(recipients=[
@@ -31,6 +31,24 @@ class TestAirtimeService(unittest.TestCase):
         ])
         assert res['numSent'] == 2
 
+    def test_missing_parameter_send_failure(self):
+
+        def missing_amount():
+            service.send(recipients=[
+                {'phoneNumber': '+254718769881', 'currency_code': 'KES'}
+            ])
+        def missing_phoneNumber():
+            service.send(recipients=[
+                {'amount':str(random.randint(138, 13223)), 'currency_code': 'KES'}
+            ])
+        def missing_currencyCode():    
+            service.send(recipients=[
+                {'phoneNumber': '+254718769881', 'amount':str(random.randint(138, 13223))}
+            ])    
+
+        self.assertRaises(ValueError, missing_amount)
+        self.assertRaises(ValueError, missing_phoneNumber)
+        self.assertRaises(ValueError, missing_currencyCode)    
 
 if __name__ == '__main__':
     unittest.main()

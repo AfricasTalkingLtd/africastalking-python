@@ -1,6 +1,5 @@
-from schema import Schema, And, SchemaError
 import json
-from . Service import APIService, validate_amount, validate_phone
+from . Service import APIService, validate_amount, validate_phone, validate_currency, validate_keys
 
 
 class AirtimeService(APIService):
@@ -13,28 +12,44 @@ class AirtimeService(APIService):
 
     def send(self, phone_number=None, amount=None, currency_code=None, recipients=None, callback=None):
 
-        if recipients is not None:
-            def join_amount_and_currency(obj):
+        def join_amount_and_currency(obj):
                 obj['amount'] = " ".join([str(obj['currency_code']), str(obj['amount'])])
                 del obj['currency_code']
                 return obj
-            recipients = list(map(join_amount_and_currency, recipients))
-        if all(key is not None for key in [phone_number, amount, currency_code ]) and recipients is None:
-            amount = " ".join([str(currency_code), str(amount)])
-            recipients = [
-                {'phoneNumber': str(phone_number), 'amount': str(amount)},
-            ]
 
-        try:
-            schema = Schema([
-                {
-                    'phoneNumber': And(str, lambda s: validate_phone(s)),
-                    'amount': And(str, lambda s: validate_amount(s))
-                }
-            ])
-            recipients = schema.validate(recipients)
-        except SchemaError as err:
-            raise ValueError('Invalid recipients: ' + err.message)
+        def value_validator(phoneNumber, amount, currency_code):
+            if not validate_phone(phoneNumber):
+                return 'Invalid phone number'
+            elif not validate_amount(amount):
+                return 'Invalid amount' 
+            elif not validate_currency(currency_code):
+                return 'Invalid currency code'
+            else:
+                return False              
+
+        
+        if recipients is None:
+            if not all([phone_number, amount, currency_code]):
+                raise(ValueError("must specify phoneNumber, currencyCode and amount for recipient"))
+
+            recipients= [
+                {'phoneNumber': str(phone_number), 'amount': str(amount), 'currency_code': str(currency_code)}
+            ]            
+        
+        for recipient in recipients:
+            if not validate_keys(recipient, {'phoneNumber', 'amount', 'currency_code'}):
+                raise(ValueError("must specify phoneNumber, currencyCode and amount for recipient: %s" %(recipient))) 
+
+            else:
+                phoneNumber = recipient['phoneNumber']
+                amount = recipient['amount']
+                currency_code = recipient['currency_code']
+                validation_err = value_validator(phoneNumber, amount, currency_code)
+
+                if validation_err:
+                    raise(ValueError("Recipient data error: %s in %s" %(validation_err, recipient)))
+                else:
+                    join_amount_and_currency(recipient) 
 
         url = self._make_url('/send')
         data = {
