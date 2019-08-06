@@ -1,7 +1,7 @@
 import re
 import json
 from schema import Schema, And, SchemaError, Optional
-from . Service import Service, validate_phone
+from . Service import Service, validate_phone, validate_data_units, validate_data_validity
 
 
 class PaymentService(Service):
@@ -148,7 +148,7 @@ class PaymentService(Service):
             schema = Schema([{
                 'phoneNumber': And(str, lambda s: validate_phone(s)),
                 'quantity': And(lambda f: float(f) > 0),
-                'unit': And(str, lambda s: validate_data_unit(s)),
+                'unit': And(str, lambda s: validate_data_units(s)),
                 'validity': And(str, lambda s: validate_data_validity(s)),
                 Optional('metadata'): And(dict)
             }])
