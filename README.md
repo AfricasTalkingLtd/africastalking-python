@@ -99,7 +99,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `sender_id`: Shortcode or alphanumeric ID that is registered with your Africa's Talking account.
     - `enqueue`: Set to `true` if you would like to deliver as many messages to the API without waiting for an acknowledgement from telcos.
 
-- `send_premium(message: str, short_code: str, recipients: [str])`: Send a premium SMS
+- `send_premium(message: str, short_code: str, recipients: [str], link_id: [str] = None, retry_duration_in_hours [int] = None)`: Send a premium SMS
 
     - `message`: SMS content. `REQUIRED`
     - `short_code`: Your premium product shortCode. `REQUIRED`
@@ -284,10 +284,10 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 ### `Voice`
 
-- `call(source: str, destination: str)`: Initiate a phone call
+- `call(callFrom: str, callTo: [str])`: Initiate a phone call
 
-    - `destination`: Phone number that you wish to dial (in international format). `REQUIRED`
-    - `source`: Phone number on Africa's Talking (in international format). `REQUIRED`
+	- `callFrom`: Phone number on Africa's Talking (in international format). `REQUIRED`
+    - `callTo`: An array of phone numbers that you wish to dial (in international format). `REQUIRED`    
 
 - `fetch_queued_calls(phone_number: str)`: Get queued calls
 

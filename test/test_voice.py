@@ -44,7 +44,7 @@ service = africastalking.Voice
 class TestVoiceService(unittest.TestCase):
 
     def test_call(self):
-        res = service.call(source="+254711223355", destination="+254711223366")
+        res = service.call(callFrom="+254711223355", callTo=["+254711223366", "+254711223344"])
         assert res['errorMessage'] != 'None'
 
     def test_fetch_queued_calls(self):
