@@ -18,10 +18,21 @@ def validate_phone(phone_str):
     except ValueError:
         return False
 
+def validate_data_units(data_unit):
+    if data_unit in ['MB', 'GB']:
+        return True
+    return False
+
+def validate_data_validity(data_validity):
+    if data_validity in ['Daily', 'Monthly', 'Weekly']:
+        return True
+    return False
+
 def validate_keys(test_dict, valid_keys_set):
     if set(test_dict.keys()) == valid_keys_set:
         return True
     return False  
+
 
 class AfricasTalkingException(Exception):
     pass
