@@ -24,7 +24,7 @@ def validate_data_units(data_unit):
     return False
 
 def validate_data_validity(data_validity):
-    if data_validity in ['Daily', 'Monthly', 'Weekly']:
+    if data_validity in ['Day', 'Week', 'Month']:
         return True
     return False
 

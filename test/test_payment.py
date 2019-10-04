@@ -70,7 +70,7 @@ class TestPaymentService(unittest.TestCase):
             "phoneNumber":"+254711223344",
             "quantity":10,
             "unit":"GB",
-            "validity":"Daily",
+            "validity":"Month",
             "metadata":{"some":"information"}
         }
         res = service.mobile_data(product_name='TestProduct', recipients=[recipient])
