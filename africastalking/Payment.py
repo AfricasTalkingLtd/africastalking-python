@@ -1,6 +1,6 @@
 import re
 import json
-from schema import Schema, And, SchemaError, Optional
+from schema import Schema, And, Optional
 from . Service import Service, validate_phone, validate_data_units, validate_data_validity
 
 
@@ -86,23 +86,19 @@ class PaymentService(Service):
 
     def mobile_b2c(self, product_name, consumers, callback=None):
 
-        try:
-            reasons = PaymentService.REASON.values()
-            schema = Schema([
-                {
-                    'name': And(str, len),
-                    'phoneNumber': And(str, lambda s: validate_phone(s)),
-                    'currencyCode': And(str, lambda s: len(s) == 3),
-                    'amount': And(lambda f: float(f) > 0),
-                    Optional('providerChannel'): And(str, len),
-                    Optional('reason'): And(str, lambda s: s in reasons),
-                    Optional('metadata'): And(dict)
-                }
-            ])
-            consumers = schema.validate(consumers)
-        except SchemaError as err:
-            raise ValueError('Invalid consumers: ' + err.message)
-
+        reasons = PaymentService.REASON.values()
+        schema = Schema([
+            {
+                'name': And(str, len),
+                'phoneNumber': And(str, lambda s: validate_phone(s)),
+                'currencyCode': And(str, lambda s: len(s) == 3),
+                'amount': And(lambda f: float(f) > 0),
+                Optional('providerChannel'): And(str, len),
+                Optional('reason'): And(str, lambda s: s in reasons),
+                Optional('metadata'): And(dict)
+            }
+        ])
+        consumers = schema.validate(consumers)
         url = self._make_url('/mobile/b2c/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -115,22 +111,18 @@ class PaymentService(Service):
 
     def mobile_b2b(self, product_name, business, callback=None):
 
-        try:
-            providers = PaymentService.PROVIDER.values()
-            types = PaymentService.TRANSFER_TYPE.values()
-            schema = Schema({
-                'provider': And(str, lambda s: s in providers),
-                'transferType': And(str, lambda s: s in types),
-                'currencyCode': And(str, lambda s: len(s) == 3),
-                'amount': And(lambda f: float(f) > 0),
-                'destinationChannel': And(str, len),
-                'destinationAccount': And(str, len),
-                Optional('metadata'): And(dict)
-            })
-            business = schema.validate(business)
-        except SchemaError as err:
-            raise ValueError('Invalid business: ' + err.message)
-
+        providers = PaymentService.PROVIDER.values()
+        types = PaymentService.TRANSFER_TYPE.values()
+        schema = Schema({
+            'provider': And(str, lambda s: s in providers),
+            'transferType': And(str, lambda s: s in types),
+            'currencyCode': And(str, lambda s: len(s) == 3),
+            'amount': And(lambda f: float(f) > 0),
+            'destinationChannel': And(str, len),
+            'destinationAccount': And(str, len),
+            Optional('metadata'): And(dict)
+        })
+        business = schema.validate(business)
         url = self._make_url('/mobile/b2b/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -144,17 +136,14 @@ class PaymentService(Service):
 
     def mobile_data(self, product_name, recipients, callback=None):
 
-        try:
-            schema = Schema([{
-                'phoneNumber': And(str, lambda s: validate_phone(s)),
-                'quantity': And(lambda f: float(f) > 0),
-                'unit': And(str, lambda s: validate_data_units(s)),
-                'validity': And(str, lambda s: validate_data_validity(s)),
-                Optional('metadata'): And(dict)
-            }])
-            recipients = schema.validate(recipients)
-        except SchemaError as err:
-            raise ValueError('Invalid recipients: ' + err.message)
+        schema = Schema([{
+            'phoneNumber': And(str, lambda s: validate_phone(s)),
+            'quantity': And(lambda f: float(f) > 0),
+            'unit': And(str, lambda s: validate_data_units(s)),
+            'validity': And(str, lambda s: validate_data_validity(s)),
+            Optional('metadata'): And(dict)
+        }])
+        recipients = schema.validate(recipients)
         url = self._make_url('/mobile/data/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -168,23 +157,19 @@ class PaymentService(Service):
         
     def bank_transfer(self, product_name, recipients, callback=None):
 
-        try:
-            bank_account_schema = Schema({
-                'accountNumber': And(str, len),
-                'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
-                Optional('accountName'): And(str, len),
-            })
-            schema = Schema([{
-                'bankAccount': And(dict, lambda s: bank_account_schema.validate(s)),
-                'currencyCode': And(str, lambda s: len(s) == 3),
-                'amount': And(lambda f: float(f) > 0),
-                'narration': And(str, len),
-                Optional('metadata'): And(dict)
-            }])
-            recipients = schema.validate(recipients)
-        except SchemaError as err:
-            raise ValueError('Invalid recipients: ' + err.message)
-
+        bank_account_schema = Schema({
+            'accountNumber': And(str, len),
+            'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
+            Optional('accountName'): And(str, len),
+        })
+        schema = Schema([{
+            'bankAccount': And(dict, lambda s: bank_account_schema.validate(s)),
+            'currencyCode': And(str, lambda s: len(s) == 3),
+            'amount': And(lambda f: float(f) > 0),
+            'narration': And(str, len),
+            Optional('metadata'): And(dict)
+        }])
+        recipients = schema.validate(recipients)
         url = self._make_url('/bank/transfer')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -232,17 +217,13 @@ class PaymentService(Service):
         if narration is None:
             raise ValueError('Invalid narration')
 
-        try:
-            bank_account_schema = Schema({
-                'accountNumber': And(str, len),
-                'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
-                Optional('accountName'): And(str, len),
-                Optional('dateOfBirth'): And(str, lambda date: re.match('(\d{4})-(\d{2})-(\d{2})$', date))
-            })
-            bank_account = bank_account_schema.validate(bank_account)
-        except SchemaError as err:
-            raise ValueError('Invalid bank account: ' + err.message)
-
+        bank_account_schema = Schema({
+            'accountNumber': And(str, len),
+            'bankCode': And(int, lambda i: i in PaymentService.BANK.values()),
+            Optional('accountName'): And(str, len),
+            Optional('dateOfBirth'): And(str, lambda date: re.match('(\d{4})-(\d{2})-(\d{2})$', date))
+        })
+        bank_account = bank_account_schema.validate(bank_account)
         url = self._make_url('/bank/checkout/charge')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
@@ -302,19 +283,16 @@ class PaymentService(Service):
         }
 
         if payment_card is not None:
-            try:
-                payment_card_schema = Schema({
-                    'number': And(str, len),
-                    'countryCode': And(str, lambda i: i in countries),
-                    'cvvNumber': And(int),
-                    'expiryMonth': And(int, lambda i: 1 <= i <= 12),
-                    'expiryYear': And(int, lambda i: i >= 2018),
-                    'authToken': And(str, len),
-                })
-                payment_card = payment_card_schema.validate(payment_card)
-                data['paymentCard'] = payment_card
-            except SchemaError as err:
-                raise ValueError('Invalid payment card: ' + err.message)
+            payment_card_schema = Schema({
+                'number': And(str, len),
+                'countryCode': And(str, lambda i: i in countries),
+                'cvvNumber': And(int),
+                'expiryMonth': And(int, lambda i: 1 <= i <= 12),
+                'expiryYear': And(int, lambda i: i >= 2018),
+                'authToken': And(str, len),
+            })
+            payment_card = payment_card_schema.validate(payment_card)
+            data['paymentCard'] = payment_card
         else:
             data['checkoutToken'] = checkout_token
 

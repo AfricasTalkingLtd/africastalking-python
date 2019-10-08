@@ -66,7 +66,7 @@ class TestPaymentService(unittest.TestCase):
         assert res['status'] == 'Queued'
 
     def test_mobile_data(self):
-        recepient = {
+        recipient = {
             "phoneNumber":"+254711223344",
             "quantity":10,
             "unit":"GB",
