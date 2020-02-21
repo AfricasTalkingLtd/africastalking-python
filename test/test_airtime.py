@@ -20,8 +20,9 @@ class TestAirtimeService(unittest.TestCase):
     def test_send_single(self):
         currency_code = "KES"
         amount = str(random.randint(10, 1000))
-        phone = '+254718763456' 
-        res = service.send(phone_number=phone, amount=amount, currency_code=currency_code)
+        phone = '+254718763456'
+        idempotency_key = 'req-1234'
+        res = service.send(phone_number=phone, amount=amount, currency_code=currency_code, idempotency_key=idempotency_key)
         assert res['numSent'] == 1
 
     def test_send_multiple(self):
