@@ -60,13 +60,18 @@ class Service(object):
         }
         self._baseUrl = 'https://api.' + self._PRODUCTION_DOMAIN
 
+        self._contentUrl = 'https://content.' + self._PRODUCTION_DOMAIN
+
         self._init_service()
 
     def _is_sandbox(self):
         return self._username == 'sandbox'
 
-    def _make_url(self, path):
-        return self._baseUrl + path
+    def _make_url(self, path, content=None):
+        if content is None:
+            return self._baseUrl + path
+        else:
+            return self._contentUrl + path
 
     def _init_service(self):
         raise NotImplementedError

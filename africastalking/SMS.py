@@ -38,7 +38,7 @@ class SMSService(APIService):
             if not validate_phone(phone):
                 raise ValueError('Invalid phone number: ' + phone)
 
-        url = self._make_url('/messaging')
+        url = self._make_url('/messaging', content=True)
         data = {
             'username': self._username,
             'to': ','.join(recipients),
@@ -70,7 +70,7 @@ class SMSService(APIService):
         return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)
 
     def fetch_subscriptions(self, short_code, keyword, last_received_id=None, callback=None):
-        url = self._make_url('/subscription')
+        url = self._make_url('/subscription', content=True)
         params = {
             'username': self._username,
             'shortCode': short_code,
@@ -87,7 +87,7 @@ class SMSService(APIService):
         if not validate_phone(phone_number):
             raise ValueError('Invalid phone number')
 
-        url = self._make_url('/subscription/create')
+        url = self._make_url('/subscription/create', content=True)
         data = {
             'username': self._username,
             'shortCode': short_code,
@@ -103,7 +103,7 @@ class SMSService(APIService):
         if not validate_phone(phone_number):
             raise ValueError('Invalid phone number')
 
-        url = self._make_url('/subscription/delete')
+        url = self._make_url('/subscription/delete', content=True)
         data = {
             'username': self._username,
             'shortCode': short_code,
