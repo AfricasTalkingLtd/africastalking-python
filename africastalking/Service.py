@@ -154,5 +154,7 @@ class APIService(Service):
         self._baseUrl = 'https://api.'
         if self._is_sandbox():
             self._baseUrl += self._SANDBOX_DOMAIN
+            self._contentUrl = self._baseUrl
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
+            self._contentUrl = 'https://content.' + self._PRODUCTION_DOMAIN
