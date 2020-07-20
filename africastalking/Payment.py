@@ -125,12 +125,12 @@ class PaymentService(Service):
                 'amount': And(lambda f: float(f) > 0),
                 'destinationChannel': And(str, len),
                 'destinationAccount': And(str, len),
+                Optional('requester'): And(str, lambda s: validate_phone(s)),
                 Optional('metadata'): And(dict)
             })
             business = schema.validate(business)
         except SchemaError as err:
             raise ValueError('Invalid business: ' + err.message)
-
         url = self._make_url('/mobile/b2b/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
