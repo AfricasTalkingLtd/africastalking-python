@@ -24,7 +24,7 @@ def validate_data_units(data_unit):
     return False
 
 def validate_data_validity(data_validity):
-    if data_validity in ['Daily', 'Monthly', 'Weekly']:
+    if data_validity in ['Day', 'Week', 'Month']:
         return True
     return False
 
@@ -60,13 +60,18 @@ class Service(object):
         }
         self._baseUrl = 'https://api.' + self._PRODUCTION_DOMAIN
 
+        self._contentUrl = 'https://content.' + self._PRODUCTION_DOMAIN
+
         self._init_service()
 
     def _is_sandbox(self):
         return self._username == 'sandbox'
 
-    def _make_url(self, path):
-        return self._baseUrl + path
+    def _make_url(self, path, content=None):
+        if content is None:
+            return self._baseUrl + path
+        else:
+            return self._contentUrl + path
 
     def _init_service(self):
         raise NotImplementedError
@@ -149,5 +154,7 @@ class APIService(Service):
         self._baseUrl = 'https://api.'
         if self._is_sandbox():
             self._baseUrl += self._SANDBOX_DOMAIN
+            self._contentUrl = self._baseUrl
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
+            self._contentUrl = 'https://content.' + self._PRODUCTION_DOMAIN

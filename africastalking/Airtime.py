@@ -10,7 +10,8 @@ class AirtimeService(APIService):
         super(AirtimeService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1/airtime'
 
-    def send(self, phone_number=None, amount=None, currency_code=None, recipients=None, callback=None):
+    def send(self, phone_number=None, amount=None, currency_code=None, recipients=None,
+             idempotency_key=None, callback=None):
 
         def join_amount_and_currency(obj):
                 obj['amount'] = " ".join([str(obj['currency_code']), str(obj['amount'])])
@@ -56,4 +57,6 @@ class AirtimeService(APIService):
             'username': self._username,
             'recipients': json.dumps(recipients)
         }
+        if idempotency_key:
+            self._headers['Idempotency-Key'] = idempotency_key
         return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
