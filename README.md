@@ -164,6 +164,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `destinationChannel`: Name or number of the channel that will receive payment by the provider. `REQUIRED`
       - `destinationAccount`: Name used by the business to receive money on the provided destinationChannel. `REQUIRED`
       - `amount`: Amount to pay. `REQUIRED`
+      - `requester`: PhoneNumber through which KPLC will send tokens when using B2B to buy electricity tokens.
       - `metadata`: Additional data to associate with the transaction. `REQUIRED`
 
 - `mobile_data(product_name: str, recipients: dict)`: Send mobile data to customers.

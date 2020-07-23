@@ -111,18 +111,22 @@ class PaymentService(Service):
 
     def mobile_b2b(self, product_name, business, callback=None):
 
-        providers = PaymentService.PROVIDER.values()
-        types = PaymentService.TRANSFER_TYPE.values()
-        schema = Schema({
-            'provider': And(str, lambda s: s in providers),
-            'transferType': And(str, lambda s: s in types),
-            'currencyCode': And(str, lambda s: len(s) == 3),
-            'amount': And(lambda f: float(f) > 0),
-            'destinationChannel': And(str, len),
-            'destinationAccount': And(str, len),
-            Optional('metadata'): And(dict)
-        })
-        business = schema.validate(business)
+        try:
+            providers = PaymentService.PROVIDER.values()
+            types = PaymentService.TRANSFER_TYPE.values()
+            schema = Schema({
+                'provider': And(str, lambda s: s in providers),
+                'transferType': And(str, lambda s: s in types),
+                'currencyCode': And(str, lambda s: len(s) == 3),
+                'amount': And(lambda f: float(f) > 0),
+                'destinationChannel': And(str, len),
+                'destinationAccount': And(str, len),
+                Optional('requester'): And(str, lambda s: validate_phone(s)),
+                Optional('metadata'): And(dict)
+            })
+            business = schema.validate(business)
+        except SchemaError as err:
+            raise ValueError('Invalid business: ' + err.message)
         url = self._make_url('/mobile/b2b/request')
         headers = dict(self._headers)
         headers['Content-Type'] = 'application/json'
