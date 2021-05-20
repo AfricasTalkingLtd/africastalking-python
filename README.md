@@ -112,12 +112,11 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `last_received_id`: This is the id of the message you last processed. Defaults to `0`
     
-- `create_subscription(short_code: str, keyword: str, phone_number: str, checkout_token: str)`: Create a premium subscription
+- `create_subscription(short_code: str, keyword: str, phone_number: str)`: Create a premium subscription
 
     - `short_code`: Premium short code mapped to your account. `REQUIRED`
     - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
     - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-    - `checkout_token`: Token used to validate the subscription request `REQUIRED`. See [token service](#token)
 
 - `fetch_subscriptions(short_code: str, keyword: str, last_received_id: int = 0)`: Fetch your premium subscription data
 
@@ -300,10 +299,6 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
 
 ### `Token`
-
-- `create_checkout_token(phone_number: str)`: Create a new checkout token for `phone_number`.
-
-    - `phone_number`: Phone number to create checkout token for
 
 - `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 

@@ -82,7 +82,7 @@ class SMSService(APIService):
 
         return self._make_request(url, 'GET', headers=self._headers, params=params, data=None, callback=callback)
 
-    def create_subscription(self, short_code, keyword, phone_number, checkout_token, callback=None):
+    def create_subscription(self, short_code, keyword, phone_number, callback=None):
 
         if not validate_phone(phone_number):
             raise ValueError('Invalid phone number')
@@ -93,7 +93,6 @@ class SMSService(APIService):
             'shortCode': short_code,
             'keyword': keyword,
             'phoneNumber': phone_number,
-            'checkoutToken': checkout_token,
         }
 
         return self._make_request(url, 'POST', headers=self._headers, data=data, params=None, callback=callback)
