@@ -9,7 +9,7 @@ fetchMessages(lastReceivedId: Optional<Integer>): Fetch your messages
 
 fetchSubscriptions(shortCode: String, keyword: String, lastReceivedId: Optional<Integer>): Fetch your premium subscription data
 
-createSubscription(shortCode: String, keyword: String, phoneNumber: String, checkoutToken: String): Create a premium subscription
+createSubscription(shortCode: String, keyword: String, phoneNumber: String): Create a premium subscription
 """
 import africastalking
 import unittest
@@ -55,9 +55,8 @@ class TestSmsService(unittest.TestCase):
         assert len(res) >= 0
 
     def test_create_subscription(self):
-        token = token_service.create_checkout_token('+254718769882')['token']
         res = service.create_subscription(short_code=13715, keyword='KiKi',
-                                          phone_number='+254718769882', checkout_token=token)
+                                          phone_number='+254718769882')
         assert res['description'] == "Waiting for user input"
 
     def test_delete_subscription(self):
