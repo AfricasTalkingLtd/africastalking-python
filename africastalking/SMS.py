@@ -9,6 +9,28 @@ class SMSService(APIService):
         super(SMSService, self)._init_service()
         self._baseUrl = self._baseUrl + '/version1'
 
+    async def send_async(self, message, recipients, sender_id=None, enqueue=False, callback=None):
+
+        for phone in recipients:
+            if not validate_phone(phone):
+                raise ValueError('Invalid phone number: ' + phone)
+
+        url = self._make_url('/messaging')
+        data = {
+            'username': self._username,
+            'to': ','.join(recipients),
+            'message': message,
+            'bulkSMSMode': 1,
+        }
+
+        if sender_id is not None:
+            data['from'] = sender_id
+
+        if enqueue:
+            data['enqueue'] = 1
+
+        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
+
     def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):
 
         for phone in recipients:
