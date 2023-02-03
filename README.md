@@ -213,7 +213,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
         - `narration`: A short description of the transaction. `REQUIRED`
         - `metadata`: Additonal data to associate with the transaction. `REQUIRED`
 
-- `card_checkout(product_name: str, currency_code:str, amount: float, payment_card: dict, narration: str, metadata: dict = {})`: Initiate card checkout.
+- `card_checkout(product_name: str, currency_code:str, amount: float, payment_card: dict, checkout: str, narration: str, metadata: dict = {})`: Initiate card checkout.
 
     - `product_name`: Payment product on Africa's Talking. `REQUIRED`
     - `payment_card`: Payment card to be charged:
