@@ -90,6 +90,8 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
         - `amount`: Amount to send with currency e.g `100`
         - `currency_code`: 3-digit ISO format currency code (e.g `KES`, `USD`, `UGX` etc).
 
+    - `max_num_retry`: This allows you to specify the maximum number of retries in case of failed airtime deliveries due to various reasons such as telco unavailability. The default retry period is 8 hours and retries occur every 60seconds. For example, setting max_num_retry=4 means the transaction will be retried every 60seconds for the next 4 hours.OPTIONAL.
+
 ### `Sms`
 
 - `send(message: str, recipients: [str], sender_id: str = None, enqueue: bool = False)`: Send a message.
