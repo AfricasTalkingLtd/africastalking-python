@@ -32,150 +32,173 @@ service = africastalking.Payment
 
 
 class TestPaymentService(unittest.TestCase):
-
     def test_mobile_checkout(self):
-        res = service.mobile_checkout(product_name='TestProduct', phone_number='+254718769882', currency_code="USD", amount=10)
-        assert res['status'] == 'PendingConfirmation'
+        res = service.mobile_checkout(
+            product_name="TestProduct",
+            phone_number="+254718769882",
+            currency_code="USD",
+            amount=10,
+        )
+        assert res["status"] == "PendingConfirmation"
 
     def test_mobile_b2c(self):
         consumer = {
-            'name': 'Salama',
-            'phoneNumber': '+254718769882',
-            'currencyCode': 'KES',
-            'amount': 892,
+            "name": "Salama",
+            "phoneNumber": "+254718769882",
+            "currencyCode": "KES",
+            "amount": 892,
             # Optionals
-            'reason': service.REASON['SalaryPayment'],
-            'providerChannel': '1122',
-            'metadata': {}
+            "reason": service.REASON["SalaryPayment"],
+            "providerChannel": "1122",
+            "metadata": {},
         }
-        res = service.mobile_b2c(product_name='TestProduct', consumers=[consumer])
-        assert res['totalValue'] == 'KES 892.0000'
+        res = service.mobile_b2c(product_name="TestProduct", consumers=[consumer])
+        assert res["totalValue"] == "KES 892.0000"
 
     def test_mobile_b2b(self):
         business = {
-            'provider': 'Athena',
-            'transferType': 'BusinessToBusinessTransfer',
-            'currencyCode': 'KES',
-            'amount': 892.78,
-            'destinationChannel': 'ABC',
-            'destinationAccount': 'DEF',
+            "provider": "Athena",
+            "transferType": "BusinessToBusinessTransfer",
+            "currencyCode": "KES",
+            "amount": 892.78,
+            "destinationChannel": "ABC",
+            "destinationAccount": "DEF",
             # Optionals
-            'metadata': {}
+            "metadata": {},
         }
-        res = service.mobile_b2b(product_name='TestProduct', business=business)
-        assert res['status'] == 'Queued'
+        res = service.mobile_b2b(product_name="TestProduct", business=business)
+        assert res["status"] == "Queued"
 
     def test_mobile_data(self):
         recipient = {
-            "phoneNumber":"+254711223344",
-            "quantity":10,
-            "unit":"GB",
-            "validity":"Month",
-            "metadata":{"some":"information"}
+            "phoneNumber": "+254711223344",
+            "quantity": 10,
+            "unit": "GB",
+            "validity": "Month",
+            "metadata": {"some": "information"},
         }
-        res = service.mobile_data(product_name='TestProduct', recipients=[recipient])
-        assert res['status'] == 'Success'
+        res = service.mobile_data(product_name="TestProduct", recipients=[recipient])
+        assert res["status"] == "Success"
 
     def test_bank_transfer(self):
         recipient = {
-            'bankAccount': {
-                'accountNumber': '2342342343',
-                'bankCode': service.BANK['FCMB_NG'],
+            "bankAccount": {
+                "accountNumber": "2342342343",
+                "bankCode": service.BANK["FCMB_NG"],
                 # Optionals
-                'accountName': 'Salama',
+                "accountName": "Salama",
             },
-            'currencyCode': 'NGN',
-            'amount': 89233.89 + random.randint(32, 7783),
-            'narration': 'Test transfer',
+            "currencyCode": "NGN",
+            "amount": 89233.89 + random.randint(32, 7783),
+            "narration": "Test transfer",
             # Optionals
-            'metadata': {}
+            "metadata": {},
         }
-        res = service.bank_transfer(product_name='TestProduct', recipients=[recipient])
-        assert res['entries'][0]['status'] == 'Queued'
+        res = service.bank_transfer(product_name="TestProduct", recipients=[recipient])
+        assert res["entries"][0]["status"] == "Queued"
 
     def test_wallet_transfer(self):
-        res = service.wallet_transfer(product_name='TestProduct', target_product_code=2647, currency_code="KES", amount=7732, metadata={'ID': 'ID'})
-        assert res['status'] == 'Success'
+        res = service.wallet_transfer(
+            product_name="TestProduct",
+            target_product_code=2647,
+            currency_code="KES",
+            amount=7732,
+            metadata={"ID": "ID"},
+        )
+        assert res["status"] == "Success"
 
     def test_topup_stash(self):
-        res = service.topup_stash(product_name='TestProduct', currency_code='KES', amount=8732)
-        assert res['status'] == 'Success'
+        res = service.topup_stash(
+            product_name="TestProduct", currency_code="KES", amount=8732
+        )
+        assert res["status"] == "Success"
 
     def test_bank_checkout(self):
         bank_account = {
-            'accountNumber': '2342342343',
-            'bankCode': service.BANK['FCMB_NG'],
+            "accountNumber": "2342342343",
+            "bankCode": service.BANK["FCMB_NG"],
             # Optionals
-            'accountName': 'Salama',
-            'dateOfBirth': '2001-11-21',
+            "accountName": "Salama",
+            "dateOfBirth": "2001-11-21",
         }
         amount = 783 + random.randint(34, 77742)
-        res = service.bank_checkout(product_name='TestProduct', currency_code='NGN', amount=amount,
-                                    bank_account=bank_account, narration='Hello')
-        assert res['status'] == 'PendingValidation'
+        res = service.bank_checkout(
+            product_name="TestProduct",
+            currency_code="NGN",
+            amount=amount,
+            bank_account=bank_account,
+            narration="Hello",
+        )
+        assert res["status"] == "PendingValidation"
 
     def test_validate_bank_checkout(self):
-        fake_id = '624241f8' + str(random.randint(34, 43332))
+        fake_id = "624241f8" + str(random.randint(34, 43332))
         res = service.validate_bank_checkout(transaction_id=fake_id, otp=4433)
-        assert res['status'] == 'InvalidRequest'
+        assert res["status"] == "InvalidRequest"
 
     def test_validate_card_checkout(self):
-        fake_id = '624241f8' + str(random.randint(34, 43332))
+        fake_id = "624241f8" + str(random.randint(34, 43332))
         res = service.validate_card_checkout(transaction_id=fake_id, otp=4433)
-        assert res['status'] == 'InvalidRequest'
+        assert res["status"] == "InvalidRequest"
 
     def test_card_checkout(self):
         card = {
-            'number': '9223372036854775807',
-            'cvvNumber': 2233,
-            'expiryMonth': 11,
-            'expiryYear': 2049,
-            'countryCode': 'NG',
-            'authToken': '3323'
+            "number": "9223372036854775807",
+            "cvvNumber": 2233,
+            "expiryMonth": 11,
+            "expiryYear": 2049,
+            "countryCode": "NG",
+            "authToken": "3323",
         }
         amount = 783 + random.randint(34, 77742)
-        res = service.card_checkout(product_name='TestProduct', currency_code='NGN', amount=amount,
-                                    payment_card=card, narration='Hello')
-        assert res['status'] == 'PendingValidation'
+        res = service.card_checkout(
+            product_name="TestProduct",
+            currency_code="NGN",
+            amount=amount,
+            payment_card=card,
+            narration="Hello",
+        )
+        assert res["status"] == "PendingValidation"
 
     def test_fetch_product_transactions(self):
-        product_name='TestProduct'
-        res = service.product_transactions('TestProduct')
-        assert res['status'] == 'Success'
+        product_name = "TestProduct"
+        res = service.product_transactions("TestProduct")
+        assert res["status"] == "Success"
 
     def test_fetch_product_transactions_with_filters(self):
         filters = {
             "startDate": "2018-01-01",
             "endDate": "2018-12-31",
             "category": "UserStashTopup",
-            "status": "Failed"
+            "status": "Failed",
         }
         # to prevent throttling
         time.sleep(5)
-        res = service.product_transactions('TestProduct', filters)
-        assert res['status'] == 'Success'
+        res = service.product_transactions("TestProduct", filters)
+        assert res["status"] == "Success"
 
     def test_find_transaction(self):
-        transaction_id = 'ATPid_8b938630c08eb9973e8438291451f76b'
+        transaction_id = "ATPid_8b938630c08eb9973e8438291451f76b"
         res = service.find_transaction(transaction_id)
-        assert res['status'] == 'Success'
+        assert res["status"] == "Success"
 
     def test_fetch_wallet_transactions(self):
         res = service.wallet_transactions()
-        assert res['status'] == 'Success'
+        assert res["status"] == "Success"
 
     def test_fetch_wallet_transactions_with_filters(self):
         filters = {
             "startDate": "2018-01-01",
             "endDate": "2018-12-31",
-            "categories": "Debit"
+            "categories": "Debit",
         }
         res = service.wallet_transactions()
-        assert res['status'] == 'Success'
+        assert res["status"] == "Success"
 
     def test_fetch_wallet_balance(self):
         res = service.wallet_balance()
-        assert res['status'] == 'Success'
-        
-if __name__ == '__main__':
+        assert res["status"] == "Success"
+
+
+if __name__ == "__main__":
     unittest.main()

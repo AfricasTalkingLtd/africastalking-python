@@ -90,6 +90,8 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
         - `amount`: Amount to send with currency e.g `100`
         - `currency_code`: 3-digit ISO format currency code (e.g `KES`, `USD`, `UGX` etc).
 
+    - `max_num_retry`: This allows you to specify the maximum number of retries in case of failed airtime deliveries due to various reasons such as telco unavailability. The default retry period is 8 hours and retries occur every 60seconds. For example, setting max_num_retry=4 means the transaction will be retried every 60seconds for the next 4 hours.OPTIONAL.
+
 ### `Sms`
 
 - `send(message: str, recipients: [str], sender_id: str = None, enqueue: bool = False)`: Send a message.
@@ -112,12 +114,11 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `last_received_id`: This is the id of the message you last processed. Defaults to `0`
     
-- `create_subscription(short_code: str, keyword: str, phone_number: str, checkout_token: str)`: Create a premium subscription
+- `create_subscription(short_code: str, keyword: str, phone_number: str)`: Create a premium subscription
 
     - `short_code`: Premium short code mapped to your account. `REQUIRED`
     - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
     - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-    - `checkout_token`: Token used to validate the subscription request `REQUIRED`. See [token service](#token)
 
 - `fetch_subscriptions(short_code: str, keyword: str, last_received_id: int = 0)`: Fetch your premium subscription data
 
@@ -300,10 +301,6 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
 
 ### `Token`
-
-- `create_checkout_token(phone_number: str)`: Create a new checkout token for `phone_number`.
-
-    - `phone_number`: Phone number to create checkout token for
 
 - `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 
