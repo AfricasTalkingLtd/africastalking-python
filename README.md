@@ -6,7 +6,7 @@
 
 
 ## Documentation
-Take a look at the [API docs here](https://build.at-labs.io/discover/).
+Take a look at the [API docs here](https://developers.africastalking.com).
 
 ## Install
 
@@ -185,7 +185,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
         - `accountName`: Name of the bank account. `REQUIRED`
         - `accountNumber`: Account number. `REQUIRED`
-        - `bankCode`: A [6-Digit Integer Code](https://build.at-labs.io/docs/payments%2Fbank%2Fcheckout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
+        - `bankCode`: A [6-Digit Integer Code](https://developers.africastalking.com/docs/payments/bank/checkout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
         - `dateOfBirth`: Date of birth of the account owner (in the format `YYYY-MM-DD`). Required for Zenith Bank Nigeria.
 
     - `currency_ode`: 3-digit ISO format currency code (only `NGN` is supported at present). `REQUIRED`
@@ -207,7 +207,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
             - `accountName`: Name of the bank account. `REQUIRED`
             - `accountNumber`: Account number. `REQUIRED`
-            - `bankCode`: A [6-Digit Integer Code](https://build.at-labs.io/docs/payments%2Fbank%2Fcheckout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
+            - `bankCode`: A [6-Digit Integer Code](https://developers.africastalking.com/docs/payments/bank/checkout) for the bank that we allocate. See `payments::BANK*` for supported banks. `REQUIRED`
             - `dateOfBirth`: Date of birth of the account owner (in the format `YYYY-MM-DD`). Required for Zenith Bank Nigeria.
 
         - `currencyCode`: 3-digit ISO format currency code (only `NGN` is supported at present). `REQUIRED`
@@ -307,7 +307,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 ### `Ussd`
 
-For more information, please read [http://docs.africastalking.com/ussd](https://build.at-labs.io/docs/ussd%2Foverview)
+For more information, please read [https://developers.africastalking.com/docs/ussd](https://developers.africastalking.com/docs/ussd/overview)
 
 
 ## Development
