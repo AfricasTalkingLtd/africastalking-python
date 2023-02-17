@@ -42,20 +42,26 @@ service = africastalking.Voice
 
 
 class TestVoiceService(unittest.TestCase):
-
     def test_call(self):
-        res = service.call(callFrom="+254711223355", callTo=["+254711223366", "+254711223344"])
-        assert res['errorMessage'] != 'None'
+        res = service.call(
+            callFrom="+254711223355", callTo=["+254711223366", "+254711223344"]
+        )
+        assert res["errorMessage"] != "None"
 
     def test_fetch_queued_calls(self):
-        res = service.fetch_queued_calls(phone_number='+254711223366')
-        
-        assert res['status'] == 'Success'
+        res = service.fetch_queued_calls(phone_number="+254711223366")
+
+        assert res["status"] == "Success"
 
     def test_media_upload(self):
-        res = service.media_upload(phone_number='+254711223355', url='https://aksalj.com')
-        assert res == 'The request has been fulfilled and resulted in a new resource being created.'
+        res = service.media_upload(
+            phone_number="+254711223355", url="https://aksalj.com"
+        )
+        assert (
+            res
+            == "The request has been fulfilled and resulted in a new resource being created."
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,4 +1,4 @@
-from . Service import Service, validate_phone
+from .Service import Service, validate_phone
 
 
 class VoiceService(Service):
@@ -6,7 +6,7 @@ class VoiceService(Service):
         super(VoiceService, self).__init__(username, api_key)
 
     def _init_service(self):
-        self._baseUrl = 'https://voice.'
+        self._baseUrl = "https://voice."
         if self._is_sandbox():
             self._baseUrl += self._SANDBOX_DOMAIN
         else:
@@ -16,38 +16,59 @@ class VoiceService(Service):
 
         for phone_number in callTo:
             if not validate_phone(phone_number):
-                raise ValueError( 'Invalid callTo phone number:' + phone_number)
+                raise ValueError("Invalid callTo phone number:" + phone_number)
 
-        callTo = ','.join(callTo)
-        url = self._make_url('/call')
+        callTo = ",".join(callTo)
+        url = self._make_url("/call")
         data = {
-            'username': self._username,
-            'from': callFrom,
-            'to': callTo,
+            "username": self._username,
+            "from": callFrom,
+            "to": callTo,
         }
-        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
+        return self._make_request(
+            url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
+        )
 
     def fetch_queued_calls(self, phone_number, callback=None):
 
         if not validate_phone(phone_number):
-            raise ValueError('Invalid phone number')
+            raise ValueError("Invalid phone number")
 
-        url = self._make_url('/queueStatus')
+        url = self._make_url("/queueStatus")
         data = {
-            'username': self._username,
-            'phoneNumbers': phone_number,
+            "username": self._username,
+            "phoneNumbers": phone_number,
         }
-        return self._make_request(url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
+        return self._make_request(
+            url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
+        )
 
     def media_upload(self, phone_number, url, callback=None):
 
         if not validate_phone(phone_number):
-            raise ValueError('Invalid phone number')
+            raise ValueError("Invalid phone number")
 
-        call_url = self._make_url('/mediaUpload')
+        call_url = self._make_url("/mediaUpload")
         data = {
-            'username': self._username,
-            'phoneNumber': phone_number,
-            'url': url,
+            "username": self._username,
+            "phoneNumber": phone_number,
+            "url": url,
         }
-        return self._make_request(call_url, 'POST', headers=self._headers, params=None, data=data, callback=callback)
+        return self._make_request(
+            call_url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
+        )

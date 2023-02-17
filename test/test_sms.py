@@ -21,48 +21,72 @@ service = africastalking.SMS
 
 
 class TestSmsService(unittest.TestCase):
-
     def test_send(self):
-        res = service.send('test_send()', ['+254718769882', '+254718769881'], enqueue=True, sender_id='AT2FA')
-        recipients = res['SMSMessageData']['Recipients']
+        res = service.send(
+            "test_send()",
+            ["+254718769882", "+254718769881"],
+            enqueue=True,
+            sender_id="AT2FA",
+        )
+        recipients = res["SMSMessageData"]["Recipients"]
         assert len(recipients) == 2
-        assert recipients[0]['status'] == 'Success'
+        assert recipients[0]["status"] == "Success"
 
-    
     def test_heavy_single_send(self):
         count = 100000
-        phone_numbers = list(map(lambda x: str("+254718" + str(x + count)), range(1, count)))
+        phone_numbers = list(
+            map(lambda x: str("+254718" + str(x + count)), range(1, count))
+        )
+
         def on_finish(error, data):
-            if (error):
+            if error:
                 raise error
-            recipients = data['SMSMessageData']['Recipients']
+            recipients = data["SMSMessageData"]["Recipients"]
             assert len(recipients) <= count
-        res = service.send('test_heavy_single_send()', phone_numbers, enqueue=True, sender_id='AT2FA', callback=on_finish)
-        
+
+        res = service.send(
+            "test_heavy_single_send()",
+            phone_numbers,
+            enqueue=True,
+            sender_id="AT2FA",
+            callback=on_finish,
+        )
+
     def test_send_premium(self):
-        res = service.send_premium('test_send_premium()', 'AT2FA', ['+254718769882', '+254718769881'], 'KiKi',
-                                   'Linky', retry_duration_in_hours=10)
-        recipients = res['SMSMessageData']['Recipients']
+        res = service.send_premium(
+            "test_send_premium()",
+            "AT2FA",
+            ["+254718769882", "+254718769881"],
+            "KiKi",
+            "Linky",
+            retry_duration_in_hours=10,
+        )
+        recipients = res["SMSMessageData"]["Recipients"]
         assert len(recipients) == 2
-        assert recipients[0]['status'] == 'Success'
+        assert recipients[0]["status"] == "Success"
 
     def test_fetch_messages(self):
         res = service.fetch_messages(0)
         assert len(res) >= 0
 
     def test_fetch_subscriptions(self):
-        res = service.fetch_subscriptions(short_code=13715, keyword='KiKi', last_received_id=0)
+        res = service.fetch_subscriptions(
+            short_code=13715, keyword="KiKi", last_received_id=0
+        )
         assert len(res) >= 0
 
     def test_create_subscription(self):
-        res = service.create_subscription(short_code=13715, keyword='KiKi',
-                                          phone_number='+254718769882')
-        assert res['description'] == "Waiting for user input"
+        res = service.create_subscription(
+            short_code=13715, keyword="KiKi", phone_number="+254718769882"
+        )
+        assert res["description"] == "Waiting for user input"
 
     def test_delete_subscription(self):
-        res = service.delete_subscription(short_code=13715, keyword='KiKi', phone_number='+254718769882')
-        assert res['status'] == "Success"
+        res = service.delete_subscription(
+            short_code=13715, keyword="KiKi", phone_number="+254718769882"
+        )
+        assert res["status"] == "Success"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
