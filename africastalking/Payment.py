@@ -1,6 +1,6 @@
 import re
 import json
-from schema import Schema, And, Optional
+from schema import Schema, And, Optional, SchemaError
 from .Service import (
     Service,
     validate_phone,
