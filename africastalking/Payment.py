@@ -1,5 +1,6 @@
 import re
 import json
+from jsonschema import SchemaError
 from schema import Schema, And, Optional
 from .Service import (
     Service,
