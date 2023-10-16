@@ -163,3 +163,15 @@ class APIService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
             self._contentUrl = "https://content." + self._PRODUCTION_DOMAIN
+
+
+class ChatService(Service):
+    def __init__(self, username, api_key):
+        super(ChatService, self).__init__(username, api_key)
+
+    def _init_service(self):
+        self._baseUrl = "https://chat."
+        if self._is_sandbox():
+            self._baseUrl += self._SANDBOX_DOMAIN
+        else:
+            self._baseUrl += self._PRODUCTION_DOMAIN
