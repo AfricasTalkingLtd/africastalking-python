@@ -12,11 +12,10 @@ service = africastalking.Application
 
 
 class TestApplicationService(unittest.TestCase):
-
     def test_fetch_account(self):
         res = service.fetch_application_data()
-        assert res['UserData']['balance'] is not None
+        assert res["UserData"]["balance"] is not None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
