@@ -56,8 +56,8 @@ class WhatsappService(ChatService):
 
         if message["type"] == MessageType.MEDIA:
             if (
-                not message["type"]["media"]
-                or not message["type"]["media"] in MediaType
+                not message["media"]
+                or not message["media"] in MediaType
             ):
                 raise (
                     ValueError(
@@ -100,4 +100,4 @@ class WhatsappService(ChatService):
     def send_template(
         self, message, product_id, channel_number, customer_number, channel
     ):
-        self.send(message, product_id, channel, channel_number, customer_number)
+        self.send(message, product_id, channel_number, customer_number, channel)
