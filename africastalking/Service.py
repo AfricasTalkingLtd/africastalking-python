@@ -108,11 +108,17 @@ class Service(object):
 
             if method == "GET":
                 res = self.__make_get_request(
-                    url=url, headers=headers, data=data, params=params
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
                 )
             elif method == "POST":
                 res = self.__make_post_request(
-                    url=url, headers=headers, data=data, params=params
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
                 )
             else:
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
@@ -163,15 +169,3 @@ class APIService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
             self._contentUrl = "https://content." + self._PRODUCTION_DOMAIN
-
-
-class ChatService(Service):
-    def __init__(self, username, api_key):
-        super(ChatService, self).__init__(username, api_key)
-
-    def _init_service(self):
-        self._baseUrl = "https://chat."
-        if self._is_sandbox():
-            self._baseUrl += self._SANDBOX_DOMAIN
-        else:
-            self._baseUrl += self._PRODUCTION_DOMAIN

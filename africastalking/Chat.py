@@ -1,38 +1,131 @@
-from .Service import ChatService, validate_phone
+import json
+import requests
+import threading
+from .Service import Service, validate_phone, AfricasTalkingException
 from schema import Schema, And, Optional, SchemaError
 
 
-chatTypes = {"whatsapp": "WhatsApp", "telegram": "Telegram"}
+chatTypes = {"Whatsapp": "WhatsApp", "Telegram": "Telegram"}
 
-messageTypes = {"text": "Text", "media": "Media", "location": "Location"}
+messageTypes = {"Text": "Text", "Media": "Media", "Location": "Location"}
 
 mediaTypes = {
-    "image": "Image",
-    "audio": "Audio",
-    "video": "Video",
-    "sticker": "Sticker",
-    "voice": "Voice",
+    "Image": "Image",
+    "Audio": "Audio",
+    "Video": "Video",
+    "Sticker": "Sticker",
+    "Voice": "Voice",
 }
 
 
-class WhatsappService(ChatService):
+class ChatService(Service):
     def __init__(self, username, api_key):
-        super(WhatsappService, self).__init__(username, api_key)
+        super(ChatService, self).__init__(username, api_key)
+        self._headers = {
+            "Accept": "application/json",
+            "User-Agent": "africastalking-python/2.0.0",
+            "ApiKey": self._api_key,
+            "Content-Type": "application/json",
+        }
 
     def _init_service(self):
-        super(WhatsappService, self)._init_service()
+        self._baseUrl = "https://chat." + self._PRODUCTION_DOMAIN
 
-    def send(self, message, product_id, channel_number, customer_number, channel):
-        data = {
-            "username": self._username,
-            "productId": product_id,
-            "channelNumber": channel_number,
-            "channel": channel,
-            "customerNumber": customer_number,
-            "body": message,
-        }
-        messageSchema = Schema(
-            [
+    @staticmethod
+    def __make_get_request(url, headers, data, params, callback=None):
+        res = requests.get(url=url, headers=headers, params=params, json=data)
+
+        if callback is None or callback == {}:
+            return res
+        else:
+            callback(res)
+
+    @staticmethod
+    def __make_post_request(url, headers, data, params, callback=None):
+        res = requests.post(
+            url=url,
+            headers=headers,
+            params=params,
+            json=data,
+        )
+        if callback is None or callback == {}:
+            return res
+        else:
+            callback(res)
+
+    def _make_request(self, url, method, headers, data, params, callback=None):
+        method = method.upper()
+        if callback is None:
+
+            if method == "GET":
+                res = self.__make_get_request(
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
+                )
+            elif method == "POST":
+                res = self.__make_post_request(
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
+                )
+            else:
+                raise AfricasTalkingException("Unexpected HTTP method: " + method)
+
+            if 200 <= res.status_code < 300:
+                if res.headers.get("content-type") == "application/json":
+                    return res.json()
+                else:
+                    return res.text
+            else:
+                raise AfricasTalkingException(res.text)
+        elif not callable(callback):
+            raise RuntimeError("callback has to be callable. e.g. a function")
+        else:
+
+            def cb(response):
+                if 200 <= response.status_code < 300:
+                    if response.headers.get("content-type") == "application/json":
+                        callback(None, response.json())
+                    else:
+                        callback(None, response.text)
+                else:
+                    callback(AfricasTalkingException(response.text), None)
+
+            if method == "GET":
+                _target = self.__make_get_request
+            elif method == "POST":
+                _target = self.__make_post_request
+            else:
+                raise AfricasTalkingException("Unexpected HTTP method: " + method)
+
+            thread = threading.Thread(
+                target=_target, args=(url, headers, data, params, cb)
+            )
+            thread.start()
+            return thread
+
+    def send(
+        self,
+        message,
+        product_id,
+        channel_number,
+        customer_number,
+        channel,
+        callback=None,
+    ):
+        try:
+            data = {
+                "username": self._username,
+                "productId": product_id,
+                "channelNumber": channel_number,
+                "channel": channel,
+                "customerNumber": customer_number,
+                "body": message,
+            }
+            messageSchema = Schema(
                 {
                     "productId": And(str, len),
                     "username": And(str, len),
@@ -49,14 +142,23 @@ class WhatsappService(ChatService):
                         Optional("text"): And(str, len),
                     },
                 }
-            ]
-        )
-        data = messageSchema.validate(data)
+            )
+            data = messageSchema.validate(data)
+        except SchemaError as err:
+            raise ValueError("Invalid body: " + err)
 
         url = self._make_url("/message/send")
+        print(url)
+        print(self._headers)
+        print(data)
 
         return self._make_request(
-            url, "POST", headers=self._headers, params=None, data=data
+            url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
         )
 
     def consent_response(self, channel_number, customer_number, channel, opt_in):

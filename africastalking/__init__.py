@@ -4,6 +4,7 @@ from .Airtime import AirtimeService
 from .SMS import SMSService
 from .Payment import PaymentService
 from .Voice import VoiceService
+from .Chat import ChatService
 
 SMS = None
 Airtime = None
@@ -12,6 +13,7 @@ USSD = None
 Voice = None
 Application = None
 Token = None
+Chat = None
 
 
 def initialize(username, api_key):
@@ -25,4 +27,5 @@ def initialize(username, api_key):
     globals()["Voice"] = VoiceService(username, api_key)
     globals()["Application"] = ApplicationService(username, api_key)
     globals()["Token"] = TokenService(username, api_key)
+    globals()["Chat"] = ChatService(username, api_key)
     # globals()['USSD'] = USSDService(username, api_key)
