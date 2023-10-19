@@ -70,6 +70,8 @@ class ChatService(Service):
 
             if 200 <= res.status_code < 300:
                 if res.headers.get("content-type") == "application/json":
+                    if res.json()['statusCode'] > 400:
+                        raise AfricasTalkingException(res.json()['description'])
                     return res.json()
                 else:
                     return res.text
@@ -82,6 +84,8 @@ class ChatService(Service):
             def cb(response):
                 if 200 <= response.status_code < 300:
                     if response.headers.get("content-type") == "application/json":
+                        if res.json()['statusCode'] > 400:
+                            raise AfricasTalkingException(res.json()['description'])
                         callback(None, response.json())
                     else:
                         callback(None, response.text)
