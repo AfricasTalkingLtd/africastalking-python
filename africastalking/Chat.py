@@ -21,12 +21,6 @@ mediaTypes = {
 class ChatService(Service):
     def __init__(self, username, api_key):
         super(ChatService, self).__init__(username, api_key)
-        self._headers = {
-            "Accept": "application/json",
-            "User-Agent": "africastalking-python/2.0.0",
-            "ApiKey": self._api_key,
-            "Content-Type": "application/json",
-        }
 
     def _init_service(self):
         self._baseUrl = "https://chat." + self._PRODUCTION_DOMAIN
@@ -130,14 +124,34 @@ class ChatService(Service):
                     "productId": And(str, len),
                     "username": And(str, len),
                     "productId": And(str, len),
-                    "channelNumber": And(str, lambda s: validate_phone(s)),
-                    "channel": And(str, lambda s: s in chatTypes),
-                    "customerNumber": And(str, lambda s: validate_phone(s)),
+                    "channelNumber": And(
+                        str,
+                        lambda s: validate_phone(s),
+                        error=f"Invalid channel number: {channel_number}",
+                    ),
+                    "channel": And(
+                        str,
+                        lambda s: s in chatTypes,
+                        error=f"Invalid channel type, valid types are {list(chatTypes.keys())}",
+                    ),
+                    "customerNumber": And(
+                        str,
+                        lambda s: validate_phone(s),
+                        error=f"Invalid customer number: {customer_number}",
+                    ),
                     "body": {
-                        "type": And(str, lambda s: s in messageTypes),
+                        "type": And(
+                            str,
+                            lambda s: s in messageTypes,
+                            error=f"Invalid message type, valid types are {list(messageTypes.keys())}",
+                        ),
                         Optional("latitude"): And(float, len),
                         Optional("longitude"): And(float, len),
-                        Optional("media"): And(str, lambda s: s in mediaTypes),
+                        Optional("media"): And(
+                            str,
+                            lambda s: s in mediaTypes,
+                            error=f"Invalid media type, valid types are {list(mediaTypes.keys())}",
+                        ),
                         Optional("url"): And(str, len),
                         Optional("text"): And(str, len),
                     },
@@ -145,12 +159,9 @@ class ChatService(Service):
             )
             data = messageSchema.validate(data)
         except SchemaError as err:
-            raise ValueError("Invalid body: " + err)
+            raise ValueError(err)
 
         url = self._make_url("/message/send")
-        print(url)
-        print(self._headers)
-        print(data)
 
         return self._make_request(
             url,
