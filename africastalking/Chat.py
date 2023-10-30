@@ -25,86 +25,6 @@ class ChatService(Service):
     def _init_service(self):
         self._baseUrl = "https://chat." + self._PRODUCTION_DOMAIN
 
-    @staticmethod
-    def __make_get_request(url, headers, data, params, callback=None):
-        res = requests.get(url=url, headers=headers, params=params, json=data)
-
-        if callback is None or callback == {}:
-            return res
-        else:
-            callback(res)
-
-    @staticmethod
-    def __make_post_request(url, headers, data, params, callback=None):
-        res = requests.post(
-            url=url,
-            headers=headers,
-            params=params,
-            json=data,
-        )
-        if callback is None or callback == {}:
-            return res
-        else:
-            callback(res)
-
-    def _make_request(self, url, method, headers, data, params, callback=None):
-        method = method.upper()
-        if callback is None:
-
-            if method == "GET":
-                res = self.__make_get_request(
-                    url=url,
-                    headers=headers,
-                    data=data,
-                    params=params,
-                )
-            elif method == "POST":
-                res = self.__make_post_request(
-                    url=url,
-                    headers=headers,
-                    data=data,
-                    params=params,
-                )
-            else:
-                raise AfricasTalkingException("Unexpected HTTP method: " + method)
-
-            if 200 <= res.status_code < 300:
-                if res.headers.get("content-type") == "application/json":
-                    if res.json()['statusCode'] > 400:
-                        raise AfricasTalkingException(res.json()['description'])
-                    return res.json()
-                else:
-                    return res.text
-            else:
-                raise AfricasTalkingException(res.text)
-        elif not callable(callback):
-            raise RuntimeError("callback has to be callable. e.g. a function")
-        else:
-
-            def cb(response):
-                if 200 <= response.status_code < 300:
-                    if response.headers.get("content-type") == "application/json":
-                        if res.json()['statusCode'] > 400:
-                            raise AfricasTalkingException(res.json()['description'])
-                        callback(None, response.json())
-                    else:
-                        callback(None, response.text)
-                else:
-                    callback(AfricasTalkingException(response.text), None)
-
-            if method == "GET":
-                _target = self.__make_get_request
-            elif method == "POST":
-                _target = self.__make_post_request
-            else:
-                raise AfricasTalkingException("Unexpected HTTP method: " + method)
-
-            thread = threading.Thread(
-                target=_target, args=(url, headers, data, params, cb)
-            )
-            thread.start()
-            return thread
-
     def send(
         self,
         message,
@@ -166,11 +86,14 @@ class ChatService(Service):
             raise ValueError(err)
 
         url = self._make_url("/message/send")
+        headers = dict(self._headers)
+        headers["Content-Type"] = "application/json"
+        data = json.dumps(data)
 
         return self._make_request(
             url,
             "POST",
-            headers=self._headers,
+            headers=headers,
             params=None,
             data=data,
             callback=callback,
@@ -185,6 +108,8 @@ class ChatService(Service):
                 raise ValueError("Invalid channel number: " + channel_number)
 
         url = self._make_url("/chat/consent")
+        headers = dict(self._headers)
+        headers["Content-Type"] = "application/json"
         data = {
             "username": self._username,
             "channelNumber": channel_number,
