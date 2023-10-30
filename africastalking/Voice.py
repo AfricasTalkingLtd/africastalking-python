@@ -13,7 +13,6 @@ class VoiceService(Service):
             self._baseUrl += self._PRODUCTION_DOMAIN
 
     def call(self, callFrom, callTo, callback=None):
-
         for phone_number in callTo:
             if not validate_phone(phone_number):
                 raise ValueError("Invalid callTo phone number:" + phone_number)
@@ -35,7 +34,6 @@ class VoiceService(Service):
         )
 
     def fetch_queued_calls(self, phone_number, callback=None):
-
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number")
 
@@ -54,7 +52,6 @@ class VoiceService(Service):
         )
 
     def media_upload(self, phone_number, url, callback=None):
-
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number")
 

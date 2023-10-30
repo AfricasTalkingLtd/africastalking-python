@@ -1,6 +1,6 @@
 import json
 
-from .Service import APIService, validate_phone
+from .Service import APIService
 
 
 class TokenService(APIService):
@@ -8,7 +8,6 @@ class TokenService(APIService):
         super(TokenService, self).__init__(username, api_key)
 
     def generate_auth_token(self, callback=None):
-
         url = self._make_url("/auth-token/generate")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"

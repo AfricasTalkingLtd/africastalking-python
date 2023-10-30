@@ -75,6 +75,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Voice](#voice): `africastalking.Voice`
 - [Token](#token): `africastalking.Token`
 - [Application](#application): `africastalking.Application`
+- [MobileData](#mobiledata): `africastalking.MobileData`
 
 ### `Application`
 
@@ -168,15 +169,6 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `requester`: PhoneNumber through which KPLC will send tokens when using B2B to buy electricity tokens.
       - `metadata`: Additional data to associate with the transaction. `REQUIRED`
 
-- `mobile_data(product_name: str, recipients: dict)`: Send mobile data to customers.
-
-    - `product_name`: Payment product on Africa's Talking. `REQUIRED`
-    - `recipients`:  A list of recipients. Each recipient has:
-      - `phoneNumber`: Customer phone number (in international format). `REQUIRED`
-      - `quantity`: Mobile data amount. `REQUIRED`
-      - `unit`: Mobile data unit. Can either be `MB` or `GB`. `REQUIRED`
-      - `validity`: How long the mobile data is valid for. Must be one of `Day`, `Week` and `Month`. `REQUIRED`
-      - `metadata`: Additional data to associate with the transaction. `REQUIRED`
 
 - `bank_checkout(product_name: str, currency_code: str, amount: float, bank_account: dict, narration: str, metadata: dict = {})`: Initiate bank checkout.
 
@@ -299,6 +291,18 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
+
+### `MobileData`
+
+- `send(product_name: str, recipients: dict)`: Send mobile data to customers.
+
+    - `product_name`: Payment product on Africa's Talking. `REQUIRED`
+    - `recipients`:  A list of recipients. Each recipient has:
+      - `phoneNumber`: Customer phone number (in international format). `REQUIRED`
+      - `quantity`: Mobile data amount. `REQUIRED`
+      - `unit`: Mobile data unit. Can either be `MB` or `GB`. `REQUIRED`
+      - `validity`: How long the mobile data is valid for. Must be one of `Day`, `Week` and `Month`. `REQUIRED`
+      - `metadata`: Additional data to associate with the transaction. `REQUIRED`
 
 ### `Token`
 

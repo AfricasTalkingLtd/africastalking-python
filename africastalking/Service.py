@@ -45,11 +45,10 @@ class AfricasTalkingException(Exception):
 
 class Service(object):
     def __init__(self, username, api_key):
-
-        if type(username) is not str:
+        if not isinstance(username, str):
             raise RuntimeError("username has to be of type str.")
 
-        if type(api_key) is not str:
+        if not isinstance(api_key, str):
             raise RuntimeError("api_key has to be of type str.")
 
         self._PRODUCTION_DOMAIN = "africastalking.com"
@@ -105,14 +104,19 @@ class Service(object):
     def _make_request(self, url, method, headers, data, params, callback=None):
         method = method.upper()
         if callback is None:
-
             if method == "GET":
                 res = self.__make_get_request(
-                    url=url, headers=headers, data=data, params=params
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
                 )
             elif method == "POST":
                 res = self.__make_post_request(
-                    url=url, headers=headers, data=data, params=params
+                    url=url,
+                    headers=headers,
+                    data=data,
+                    params=params,
                 )
             else:
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
