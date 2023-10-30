@@ -4,8 +4,6 @@ from schema import Schema, And, Optional, SchemaError
 from .Service import (
     Service,
     validate_phone,
-    validate_data_units,
-    validate_data_validity,
 )
 
 
@@ -74,7 +72,6 @@ class PaymentService(Service):
         provider_channel=None,
         callback=None,
     ):
-
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number.")
 
@@ -97,7 +94,6 @@ class PaymentService(Service):
         )
 
     def mobile_b2c(self, product_name, consumers, callback=None):
-
         reasons = PaymentService.REASON.values()
         schema = Schema(
             [
@@ -128,7 +124,6 @@ class PaymentService(Service):
         )
 
     def mobile_b2b(self, product_name, business, callback=None):
-
         try:
             providers = PaymentService.PROVIDER.values()
             types = PaymentService.TRANSFER_TYPE.values()
@@ -162,35 +157,7 @@ class PaymentService(Service):
             url, "POST", headers=headers, params=None, data=data, callback=callback
         )
 
-    def mobile_data(self, product_name, recipients, callback=None):
-
-        schema = Schema(
-            [
-                {
-                    "phoneNumber": And(str, lambda s: validate_phone(s)),
-                    "quantity": And(lambda f: float(f) > 0),
-                    "unit": And(str, lambda s: validate_data_units(s)),
-                    "validity": And(str, lambda s: validate_data_validity(s)),
-                    Optional("metadata"): And(dict),
-                }
-            ]
-        )
-        recipients = schema.validate(recipients)
-        url = self._make_url("/mobile/data/request")
-        headers = dict(self._headers)
-        headers["Content-Type"] = "application/json"
-        data = {
-            "username": self._username,
-            "productName": product_name,
-            "recipients": recipients,
-        }
-        data = json.dumps(data)
-        return self._make_request(
-            url, "POST", headers=headers, params=None, data=data, callback=callback
-        )
-
     def bank_transfer(self, product_name, recipients, callback=None):
-
         bank_account_schema = Schema(
             {
                 "accountNumber": And(str, len),
@@ -232,7 +199,6 @@ class PaymentService(Service):
         metadata={},
         callback=None,
     ):
-
         url = self._make_url("/transfer/wallet")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
@@ -252,7 +218,6 @@ class PaymentService(Service):
     def topup_stash(
         self, product_name, currency_code, amount, metadata={}, callback=None
     ):
-
         url = self._make_url("/topup/stash")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
@@ -278,7 +243,6 @@ class PaymentService(Service):
         metadata={},
         callback=None,
     ):
-
         if narration is None:
             raise ValueError("Invalid narration")
 
@@ -311,7 +275,6 @@ class PaymentService(Service):
         )
 
     def __validate_checkout(self, checkout_type, transaction_id, otp, callback=None):
-
         assert checkout_type in ("bank", "card")
 
         url = self._make_url("/" + checkout_type + "/checkout/validate")
@@ -344,7 +307,6 @@ class PaymentService(Service):
         metadata={},
         callback=None,
     ):
-
         if narration is None:
             raise ValueError("Invalid narration")
 
@@ -388,7 +350,6 @@ class PaymentService(Service):
         )
 
     def product_transactions(self, product_name, filters={}, callback=None):
-
         url = self._make_url("/query/transaction/fetch")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
@@ -414,7 +375,6 @@ class PaymentService(Service):
         )
 
     def wallet_transactions(self, filters={}, callback=None):
-
         url = self._make_url("/query/wallet/fetch")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
