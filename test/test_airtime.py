@@ -21,12 +21,13 @@ class TestAirtimeService(unittest.TestCase):
         amount = str(random.randint(10, 1000))
         phone = "+254718763456"
         idempotency_key = "req-1234"
+        max_num_retry = 4
         res = service.send(
             phone_number=phone,
             amount=amount,
             currency_code=currency_code,
             idempotency_key=idempotency_key,
-            max_num_retry=4,
+            max_num_retry=max_num_retry,
         )
         assert res["numSent"] == 1
 

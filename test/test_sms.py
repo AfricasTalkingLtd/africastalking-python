@@ -44,7 +44,7 @@ class TestSmsService(unittest.TestCase):
             recipients = data["SMSMessageData"]["Recipients"]
             assert len(recipients) <= count
 
-        res = service.send(
+        service.send(
             "test_heavy_single_send()",
             phone_numbers,
             enqueue=True,

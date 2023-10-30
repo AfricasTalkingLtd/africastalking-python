@@ -161,7 +161,6 @@ class TestPaymentService(unittest.TestCase):
         assert res["status"] == "PendingValidation"
 
     def test_fetch_product_transactions(self):
-        product_name = "TestProduct"
         res = service.product_transactions("TestProduct")
         assert res["status"] == "Success"
 
@@ -192,7 +191,7 @@ class TestPaymentService(unittest.TestCase):
             "endDate": "2018-12-31",
             "categories": "Debit",
         }
-        res = service.wallet_transactions()
+        res = service.wallet_transactions(filters=filters)
         assert res["status"] == "Success"
 
     def test_fetch_wallet_balance(self):
