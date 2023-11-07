@@ -71,7 +71,6 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 - [SMS](#sms): `africastalking.SMS`
 - [Airtime](#airtime): `africastalking.Airtime`
-<!-- - [Payments](#payments): `africastalking.Payment` -->
 - [Voice](#voice): `africastalking.Voice`
 - [Token](#token): `africastalking.Token`
 - [Application](#application): `africastalking.Application`
