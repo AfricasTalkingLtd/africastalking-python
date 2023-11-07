@@ -45,3 +45,29 @@ class MobileDataService(Service):
         return self._make_request(
             url, "POST", headers=headers, params=None, data=data, callback=callback
         )
+
+    def find_transaction(self, transaction_id, callback=None):
+        url = self._make_url("/query/transaction/find")
+        headers = dict(self._headers)
+        headers["Content-Type"] = "application/json"
+        params = {
+            "username": self._username,
+            "transactionId": transaction_id,
+        }
+        return self._make_request(
+            url, "GET", headers=headers, data=None, params=params, callback=callback
+        )
+
+    def fetch_wallet_balance(self, callback=None):
+        url = self._make_url("/query/wallet/balance")
+        params = {
+            "username": self._username,
+        }
+        return self._make_request(
+            url,
+            "GET",
+            data=None,
+            headers=self._headers,
+            params=params,
+            callback=callback,
+        )

@@ -134,7 +134,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
     
     
-### `Payments`
+<!-- ### `Payments`
 
 - `mobile_checkout(product_name: str, phone_number: str, currency_code: str, amount: float, metadata: dict = {}, provider_channel:str)`: Charge a customers mobile money account
 
@@ -290,7 +290,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `upload_media_file(phone_number: str, url: str)`: Upload voice media file
 
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
-    - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
+    - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED` -->
 
 ### `MobileData`
 
@@ -302,7 +302,12 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `quantity`: Mobile data amount. `REQUIRED`
       - `unit`: Mobile data unit. Can either be `MB` or `GB`. `REQUIRED`
       - `validity`: How long the mobile data is valid for. Must be one of `Day`, `Week` and `Month`. `REQUIRED`
-      - `metadata`: Additional data to associate with the transaction. `REQUIRED`
+      - `isPromoBundle`: This is an optional field that can be either`true` and `false`. `OPTIONAL`
+      - `metadata`: Additional data to associate with the transaction. `OPTIONAL`
+
+- `find_transaction(transaction_id: str)`: Find a mobile data transaction.
+
+- `fetch_wallet_balance()`: Fetch a mobile data product balance.
 
 ### `Token`
 
