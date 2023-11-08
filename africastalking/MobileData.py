@@ -27,7 +27,6 @@ class MobileDataService(Service):
                     "quantity": And(lambda f: float(f) > 0),
                     "unit": And(str, lambda s: validate_data_units(s)),
                     "validity": And(str, lambda s: validate_data_validity(s)),
-                    Optional("isPromoBundle"): And(bool),
                     Optional("metadata"): And(dict),
                 }
             ]
