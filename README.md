@@ -75,6 +75,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Token](#token): `africastalking.Token`
 - [Application](#application): `africastalking.Application`
 - [Mobile Data](#mobiledata): `africastalking.MobileData`
+- [Insights](#insights): `africastalking.Insights`
 
 ### `Application`
 
