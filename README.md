@@ -169,6 +169,9 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 - `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 
+### `Insights`
+
+- `check_sim_swap_state([phoneNumbers])`: Check the sim swap state of a given [array of ] phone number(s).
 
 ### `Ussd`
 
