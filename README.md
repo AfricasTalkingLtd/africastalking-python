@@ -172,7 +172,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 ### `Insights`
 
-- `check_sim_swap_state([phoneNumbers])`: Check the sim swap state of a given [array of ] phone number(s).
+- `check_sim_swap_state(phone_numbers: [str])`: Check the sim swap state of a given [array of ] phone number(s).
 
 ### `Ussd`
 
