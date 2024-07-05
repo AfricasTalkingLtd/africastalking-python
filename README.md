@@ -190,8 +190,8 @@ Make sure your `.env` file has the following content then run `python -m unittes
 
 ```ini
 # AT API
-USERNAME=sandbox
-API_KEY=some_key
+AT_USERNAME=sandbox
+AT_API_KEY=some_key
 ```
 
 ## Issues
