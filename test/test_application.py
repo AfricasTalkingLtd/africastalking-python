@@ -3,6 +3,7 @@ Application
 
 fetchApplicationData(): Fetch app info i.e. balance.
 """
+
 import africastalking
 import unittest
 from test import USERNAME, API_KEY

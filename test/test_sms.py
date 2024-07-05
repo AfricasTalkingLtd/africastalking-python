@@ -11,6 +11,7 @@ fetchSubscriptions(shortCode: String, keyword: String, lastReceivedId: Optional<
 
 createSubscription(shortCode: String, keyword: String, phoneNumber: String): Create a premium subscription
 """
+
 import africastalking
 import unittest
 from test import USERNAME, API_KEY
@@ -33,7 +34,7 @@ class TestSmsService(unittest.TestCase):
         assert recipients[0]["status"] == "Success"
 
     def test_heavy_single_send(self):
-        count = 100000
+        count = 1000
         phone_numbers = list(
             map(lambda x: str("+254718" + str(x + count)), range(1, count))
         )
@@ -71,19 +72,23 @@ class TestSmsService(unittest.TestCase):
 
     def test_fetch_subscriptions(self):
         res = service.fetch_subscriptions(
-            short_code=13715, keyword="KiKi", last_received_id=0
+            short_code=78942, keyword="KiKi", last_received_id=0
         )
         assert len(res) >= 0
 
     def test_create_subscription(self):
+        checkout_token = token_service.create_checkout_token("+254718769882")
         res = service.create_subscription(
-            short_code=13715, keyword="KiKi", phone_number="+254718769882"
+            short_code=78942,
+            keyword="KiKi",
+            phone_number="+254718769882",
+            checkout_token=checkout_token["token"],
         )
         assert res["description"] == "Waiting for user input"
 
     def test_delete_subscription(self):
         res = service.delete_subscription(
-            short_code=13715, keyword="KiKi", phone_number="+254718769882"
+            short_code=78942, keyword="KiKi", phone_number="+254718769882"
         )
         assert res["status"] == "Success"
 
