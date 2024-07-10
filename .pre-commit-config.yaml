@@ -1,0 +1,15 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.5.0
+  hooks:
+    - id: ruff-format
+    - id: ruff
+-   repo: local
+    hooks:
+    -   id: unittest
+        name: unittest
+        entry: python -m unittest 
+        language: python
+        'types': [python]
+        additional_dependencies: [requests, schema]
+        pass_filenames: false

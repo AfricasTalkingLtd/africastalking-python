@@ -1,5 +1,5 @@
 """
-Application
+Insights
 
 fetchApplicationData(): Fetch app info i.e. balance.
 """
@@ -9,13 +9,13 @@ import unittest
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
-service = africastalking.Application
+service = africastalking.Insights
 
 
-class TestApplicationService(unittest.TestCase):
-    def test_fetch_account(self):
-        res = service.fetch_application_data()
-        assert res["UserData"]["balance"] is not None
+class TestInsightsService(unittest.TestCase):
+    def test_sim_swap_state(self):
+        res = service.check_sim_swap_state(["+254712345678"])
+        assert res["status"] == "Processed"
 
 
 if __name__ == "__main__":

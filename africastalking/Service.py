@@ -59,7 +59,7 @@ class Service(object):
         self._headers = {
             "Accept": "application/json",
             "User-Agent": "africastalking-python/2.0.0",
-            "ApiKey": self._api_key,
+            "apiKey": self._api_key,
         }
         self._baseUrl = "https://api." + self._PRODUCTION_DOMAIN
 

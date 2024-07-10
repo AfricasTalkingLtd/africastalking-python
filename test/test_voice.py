@@ -33,6 +33,7 @@ ActionBuilder: Build voice xml when callback URL receives a POST from the voice 
     build(): Finally build the xml
 
 """
+
 import africastalking
 import unittest
 from test import USERNAME, API_KEY
@@ -41,6 +42,7 @@ africastalking.initialize(USERNAME, API_KEY)
 service = africastalking.Voice
 
 
+@unittest.skipIf(USERNAME == "sandbox", "Skipping due to voice sandbox")
 class TestVoiceService(unittest.TestCase):
     def test_call(self):
         res = service.call(

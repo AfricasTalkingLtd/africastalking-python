@@ -1,4 +1,4 @@
 import os
 
-USERNAME = os.getenv("USERNAME", "sandbox")
-API_KEY = os.getenv("API_KEY", "fake")
+USERNAME = os.getenv("AT_USERNAME", "sandbox")
+API_KEY = os.getenv("AT_API_KEY", "fake")
