@@ -6,6 +6,7 @@ createCheckoutToken(phoneNumber: String): Create a new checkout token for phoneN
 generateAuthToken(): Generate an auth token to us for authentication instead of the API key.
 
 """
+
 import africastalking
 import unittest
 from test import USERNAME, API_KEY

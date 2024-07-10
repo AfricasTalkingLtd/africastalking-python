@@ -24,10 +24,12 @@ class VoiceService(Service):
             "from": callFrom,
             "to": callTo,
         }
+        headers = dict(self._headers)
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         return self._make_request(
             url,
             "POST",
-            headers=self._headers,
+            headers,
             params=None,
             data=data,
             callback=callback,

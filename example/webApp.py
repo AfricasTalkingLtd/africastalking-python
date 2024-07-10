@@ -93,8 +93,8 @@ api.add_resource(mobile_b2c, "/mobile_b2c")
 
 @app.route("/ussd", methods=["GET", "POST"])
 def ussd():
-    session_id = request.values.get("sessionId", None)
-    serviceCode = request.values.get("serviceCode", None)
+    # session_id = request.values.get("sessionId", None)
+    # service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
 
@@ -127,9 +127,9 @@ def ussd():
 
 @app.route("/voice", methods=["GET", "POST"])
 def voice():
-    session_id = request.values.get("sessionId", None)
-    isActive = request.values.get("isActive", None)
-    phone_number = request.values.get("callerNumber", None)
+    # session_id = request.values.get("sessionId", None)
+    # is_active = request.values.get("isActive", None)
+    # phone_number = request.values.get("callerNumber", None)
 
     response = '<Response> <GetDigits timeout="30" finishOnKey="#">'
     response += '<Say voice="man" playBeep="false">Please enter your account '

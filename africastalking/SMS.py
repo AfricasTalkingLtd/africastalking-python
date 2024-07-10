@@ -8,6 +8,8 @@ class SMSService(APIService):
     def _init_service(self):
         super(SMSService, self)._init_service()
         self._baseUrl = self._baseUrl + "/version1"
+        if self._contentUrl:
+            self._contentUrl = self._contentUrl + "/version1"
 
     def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):
         for phone in recipients:
@@ -116,7 +118,9 @@ class SMSService(APIService):
             callback=callback,
         )
 
-    def create_subscription(self, short_code, keyword, phone_number, callback=None):
+    def create_subscription(
+        self, short_code, keyword, phone_number, checkout_token, callback=None
+    ):
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number")
 
@@ -126,6 +130,7 @@ class SMSService(APIService):
             "shortCode": short_code,
             "keyword": keyword,
             "phoneNumber": phone_number,
+            "checkoutToken": checkout_token,
         }
 
         return self._make_request(

@@ -75,6 +75,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Token](#token): `africastalking.Token`
 - [Application](#application): `africastalking.Application`
 - [Mobile Data](#mobiledata): `africastalking.MobileData`
+- [Insights](#insights): `africastalking.Insights`
 
 ### `Application`
 
@@ -169,6 +170,9 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 - `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 
+### `Insights`
+
+- `check_sim_swap_state(phone_numbers: [str])`: Check the sim swap state of a given [array of ] phone number(s).
 
 ### `Ussd`
 
@@ -186,8 +190,8 @@ Make sure your `.env` file has the following content then run `python -m unittes
 
 ```ini
 # AT API
-USERNAME=sandbox
-API_KEY=some_key
+AT_USERNAME=sandbox
+AT_API_KEY=some_key
 ```
 
 ## Issues
