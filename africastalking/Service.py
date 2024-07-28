@@ -2,6 +2,7 @@ import re
 import threading
 import requests
 
+TIMEOUT = 10
 
 def validate_currency(currency_str):
     return len(currency_str) == 3
@@ -81,7 +82,7 @@ class Service(object):
 
     @staticmethod
     def __make_get_request(url, headers, data, params, callback=None):
-        res = requests.get(url=url, headers=headers, params=params, data=data)
+        res = requests.get(url=url, headers=headers, params=params, data=data, timeout=TIMEOUT)
 
         if callback is None or callback == {}:
             return res
@@ -95,6 +96,7 @@ class Service(object):
             headers=headers,
             params=params,
             data=data,
+            timeout=TIMEOUT
         )
         if callback is None or callback == {}:
             return res
