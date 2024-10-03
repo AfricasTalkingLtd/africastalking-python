@@ -76,6 +76,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Application](#application): `africastalking.Application`
 - [Mobile Data](#mobiledata): `africastalking.MobileData`
 - [Insights](#insights): `africastalking.Insights`
+- [Whatsapp](#whatsapp): `africastalking.Whatsapp`
 
 ### `Application`
 
@@ -173,6 +174,22 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 ### `Insights`
 
 - `check_sim_swap_state(phone_numbers: [str])`: Check the sim swap state of a given [array of ] phone number(s).
+
+### `Whatsapp`
+
+- `send(body: dict, wa_number: str, phone_number: str)`: Send a whatsapp message to a given phone number.
+
+    - `wa_number`: The number being used to send the message that is associated with the account. `REQUIRED`
+    - `phone_number`: The number that is to receive the message. `REQUIRED`
+    - `body`:  The message to be sent. The message has a combination of the following:
+      - `message`: The message to be sent to the client. `OPTIONAL`
+      - `mediaType`: The type of message being sent Can be one of `Image`, `Video`, `Audio` or `Voice`. `OPTIONAL`
+      - `url`: The hosted URL of what is being sent. `OPTIONAL`
+      - `caption`: The caption associated with an image or video that is being sent. `OPTIONAL`
+      - `action`: A dictionary with a list of actions. `OPTIONAL`
+      - `body`: A dictionary containing what is being sent with the interactive button or list. `OPTIONAL`
+      - `header`: A dictionary containing what header is being sent with the interactive button or list.`OPTIONAL`
+      - `footer`: A dictionary containing what footer is being sent with the interactive button or list.`OPTIONAL`
 
 ### `Ussd`
 
