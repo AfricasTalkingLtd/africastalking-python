@@ -16,7 +16,7 @@ def validate_amount(amount_str):
 
 def validate_phone(phone_str):
     try:
-        return re.match("^\+\d{1,3}\d{3,}$", phone_str)
+        return re.match(r"^\+\d{1,3}\d{3,}$", phone_str) is not None
     except ValueError:
         return False
 
