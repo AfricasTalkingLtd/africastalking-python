@@ -133,6 +133,12 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
     - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
 
+- `send_hashed(message: str, masked_number: str, sender_id: str, telco: str = Safaricom)`: Send a message to a hashed number.
+
+    - `message`: SMS content. `REQUIRED`
+    - `masked_number`: The hashed number being sent to. `REQUIRED`
+    - `sender_id`: Shortcode or alphanumeric ID that is registered with your Africa's Talking account. `REQUIRED`
+    - `telco`: The telco being used.
 
 ### `Voice`
 
