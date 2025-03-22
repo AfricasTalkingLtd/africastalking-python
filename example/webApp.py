@@ -10,7 +10,6 @@ api = Api(app)
 username = os.getenv("user_name", "sandbox")
 api_key = os.getenv("api_key", "fake")
 
-
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 airtime = africastalking.Airtime
@@ -22,7 +21,7 @@ def index():
     return render_template("index.html")
 
 
-class send_sms(Resource):
+class SendSms(Resource):
     def get(self):
         return {"hello": "world"}
 
@@ -31,10 +30,10 @@ class send_sms(Resource):
         return sms.send("Test message", [number])
 
 
-api.add_resource(send_sms, "/sms")
+api.add_resource(SendSms, "/sms")
 
 
-class send_airtime(Resource):
+class SendAirtime(Resource):
     def get(self):
         return {"hello": "world"}
 
@@ -46,10 +45,10 @@ class send_airtime(Resource):
         return airtime.send(number, amount, currency_code)
 
 
-api.add_resource(send_airtime, "/airtime")
+api.add_resource(SendAirtime, "/airtime")
 
 
-class mobile_checkout(Resource):
+class MobileCheckout(Resource):
     def get(self):
         return {"hello": "world"}
 
@@ -62,10 +61,10 @@ class mobile_checkout(Resource):
         return payment.mobile_checkout(product_name, number, currency_code, amount)
 
 
-api.add_resource(mobile_checkout, "/mobile_checkout")
+api.add_resource(MobileCheckout, "/mobile_checkout")
 
 
-class mobile_b2c(Resource):
+class MobileB2c(Resource):
     def get(self):
         return {"hello": "world"}
 
@@ -88,7 +87,7 @@ class mobile_b2c(Resource):
         return payment.mobile_b2c(product_name, recipients)
 
 
-api.add_resource(mobile_b2c, "/mobile_b2c")
+api.add_resource(MobileB2c, "/mobile_b2c")
 
 
 @app.route("/ussd", methods=["GET", "POST"])
@@ -112,8 +111,8 @@ def ussd():
         response = "END Your phone number is " + phone_number
 
     elif text == "1*1":
-        accountNumber = "ACC1001"
-        response = "END Your account number is " + accountNumber
+        account_number = "ACC1001"
+        response = "END Your account number is " + account_number
 
     elif text == "1*2":
         balance = "KES 10,000"
@@ -135,22 +134,22 @@ def voice():
     response += '<Say voice="man" playBeep="false">Please enter your account '
     response += "number followed by the hash sign</Say> </GetDigits> </Response>"
 
-    dtmfDigits = request.values.get("dtmfDigits", None)
+    dtmf_digits = request.values.get("dtmfDigits", None)
 
-    if dtmfDigits == "1234":
+    if dtmf_digits == "1234":
         response = '<Response> <GetDigits timeout="30" finishOnKey="#">'
         response += ' <Say voice="man" playBeep="false"> Press 1 followed by a hash '
         response += "sign to get your account balance or 0 followed by a hash sign to"
         response += " quit</Say> </GetDigits></Response>"
 
-    elif dtmfDigits == "1":
+    elif dtmf_digits == "1":
         response = "<Response>"
         response += (
             '<Say voice="man" playBeep="false" >Your balance is 1234 Shillings</Say>'
         )
         response += "<Reject/> </Response>"
 
-    elif dtmfDigits == "0":
+    elif dtmf_digits == "0":
         response = "<Response>"
         response += (
             '<Say voice="man" playBeep="false" >Its been a pleasure, good bye </Say>'
