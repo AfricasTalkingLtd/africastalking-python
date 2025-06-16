@@ -15,6 +15,7 @@ africastalking.initialize(username, api_key)
 sms = africastalking.SMS
 airtime = africastalking.Airtime
 payment = africastalking.Payment
+ussd = africastalking.USSD
 
 
 @app.route("/")
@@ -92,37 +93,51 @@ api.add_resource(mobile_b2c, "/mobile_b2c")
 
 
 @app.route("/ussd", methods=["GET", "POST"])
-def ussd():
-    # session_id = request.values.get("sessionId", None)
-    # service_code = request.values.get("serviceCode", None)
+def ussd_handler():
+    session_id = request.values.get("sessionId", None)
+    service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
-    text = request.values.get("text", "default")
+    text = request.values.get("text", "")
+    network_code = request.values.get("networkCode", None)
 
-    if text == "":
-        response = "CON What would you want to check \n"
+    # Validate request using USSD service
+    validation = ussd.validate_ussd_request(session_id, phone_number, network_code, service_code, text)
+    if not validation['valid']:
+        return ussd.build_menu("Invalid request. Please try again.", end_session=True)
+
+    # Parse user input using USSD service helpers
+    user_inputs = ussd.parse_ussd_input(text)
+    menu_level = ussd.get_menu_level(text)
+
+    # Handle menu levels
+    if menu_level == 0:
+        response = "What would you want to check \n"
         response += "1. My Account \n"
         response += "2. My phone number"
+        return ussd.build_menu(response)
 
     elif text == "1":
-        response = "CON Choose account information you want to view \n"
+        response = "Choose account information you want to view \n"
         response += "1. Account number \n"
         response += "2. Account balance"
+        return ussd.build_menu(response)
 
     elif text == "2":
-        response = "END Your phone number is " + phone_number
+        response = "Your phone number is " + phone_number
+        return ussd.build_menu(response, end_session=True)
 
     elif text == "1*1":
         accountNumber = "ACC1001"
-        response = "END Your account number is " + accountNumber
+        response = "Your account number is " + accountNumber
+        return ussd.build_menu(response, end_session=True)
 
     elif text == "1*2":
         balance = "KES 10,000"
-        response = "END Your balance is " + balance
+        response = "Your balance is " + balance
+        return ussd.build_menu(response, end_session=True)
 
     else:
-        response = "END Invalid choice"
-
-    return response
+        return ussd.build_menu("Invalid choice", end_session=True)
 
 
 @app.route("/voice", methods=["GET", "POST"])
