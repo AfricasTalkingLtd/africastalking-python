@@ -76,6 +76,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Application](#application): `africastalking.Application`
 - [Mobile Data](#mobiledata): `africastalking.MobileData`
 - [Insights](#insights): `africastalking.Insights`
+- [USSD](#ussd): `africastalking.USSD`
 
 ### `Application`
 
@@ -180,7 +181,48 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 - `check_sim_swap_state(phone_numbers: [str])`: Check the sim swap state of a given [array of ] phone number(s).
 
-### `Ussd`
+### `USSD`
+
+The USSD service provides utility methods for building USSD applications and processing payments:
+
+#### Menu Building Methods
+
+- `build_menu(response_text: str, end_session: bool = False)`: Build a USSD menu response.
+    - `response_text`: The text to display to the user. `REQUIRED`
+    - `end_session`: Whether to end the session (default: False). When True, prefixes with "END", otherwise "CON".
+
+- `parse_ussd_input(text: str)`: Parse USSD input text into menu levels.
+    - `text`: The USSD input text (concatenated with '*'). `REQUIRED`
+    - Returns: List of user inputs at each menu level.
+
+- `get_menu_level(text: str)`: Get the current menu level based on user input.
+    - `text`: The USSD input text. `REQUIRED` 
+    - Returns: Current menu level (0 for initial menu).
+
+- `validate_ussd_request(session_id: str, phone_number: str, network_code: str, service_code: str, text: str)`: Validate USSD request parameters.
+    - All parameters are `REQUIRED`
+    - Returns: Dictionary with 'valid' boolean and 'errors' list.
+
+#### Payment Methods
+
+- `checkout(product_name: str, phone_number: str, currency_code: str, amount: float, metadata: dict = None)`: Initiate a checkout request.
+    - `product_name`: Your payment product name. `REQUIRED`
+    - `phone_number`: Customer's phone number. `REQUIRED`
+    - `currency_code`: 3-letter ISO currency code. `REQUIRED`
+    - `amount`: Amount to charge. `REQUIRED`
+    - `metadata`: Additional metadata. `OPTIONAL`
+
+- `bank_checkout(product_name: str, bank_account: dict, currency_code: str, amount: float, narration: str, metadata: dict = None)`: Initiate a bank checkout.
+    - `product_name`: Your payment product name. `REQUIRED`
+    - `bank_account`: Bank account details (accountName, accountNumber, bankCode). `REQUIRED`
+    - `currency_code`: 3-letter ISO currency code. `REQUIRED`
+    - `amount`: Amount to charge. `REQUIRED`
+    - `narration`: Transaction description. `REQUIRED`
+    - `metadata`: Additional metadata. `OPTIONAL`
+
+- `bank_transfer(product_name: str, recipients: [dict])`: Transfer money to bank accounts.
+    - `product_name`: Your payment product name. `REQUIRED`
+    - `recipients`: List of recipient dictionaries with bankAccount, currencyCode, amount, and narration. `REQUIRED`
 
 For more information, please read [https://developers.africastalking.com/docs/ussd](https://developers.africastalking.com/docs/ussd/overview)
 
