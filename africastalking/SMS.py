@@ -153,3 +153,25 @@ class SMSService(APIService):
             params=None,
             callback=callback,
         )
+
+    def send_hashed(
+        self, message, masked_number, sender_id, telco="Safaricom", callback=None
+    ):
+        url = self._make_url("/messaging/bulk")
+        data = {
+            "username": self._username,
+            "maskedNumber": masked_number,
+            "telco": telco,
+            "message": message,
+            "senderId": sender_id,
+            "phoneNumbers": [],
+        }
+
+        return self._make_request(
+            url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
+        )
