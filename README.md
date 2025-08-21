@@ -11,7 +11,7 @@ Take a look at the [API docs here](https://developers.africastalking.com).
 ## Install
 
 ```bash
-$ pip3 install africastalking # python 3.68.x
+$ pip3 install africastalking # python 3.8.x
 
 OR
 
