@@ -14,7 +14,7 @@ Application = None
 Token = None
 MobileData = None
 Insights = None
-WhatsappService = None
+Whatsapp = None
 
 
 def initialize(username, api_key):

@@ -11,5 +11,5 @@ repos:
         entry: python -m unittest 
         language: python
         'types': [python]
-        additional_dependencies: [requests, schema]
+        additional_dependencies: [requests, schema, responses]
         pass_filenames: false

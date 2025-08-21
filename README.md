@@ -11,19 +11,11 @@ Take a look at the [API docs here](https://developers.africastalking.com).
 ## Install
 
 ```bash
-$ pip  install africastalking # python 2.7.x
+$ pip3 install africastalking # python 3.68.x
 
 OR
 
-$ python -m pip install africastalking # python 2.7.x
-
-OR
-
-$ pip3 install africastalking # python 3.6.x
-
-OR
-
-$ python3 -m pip install africastalking # python 3.6.x
+$ python3 -m pip install africastalking # python 3.8.x
 
 ```
 
@@ -115,25 +107,16 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `fetch_messages(last_received_id: int = 0)`: Fetch your messages
 
     - `last_received_id`: This is the id of the message you last processed. Defaults to `0`
-    
-- `create_subscription(short_code: str, keyword: str, phone_number: str)`: Create a premium subscription
+
+- `create_safaricom_subscription(short_code: str, keyword: str, phone_number: str, request_id: str, redirect_url: str, source_ip: str, user_agent: str)`: Create a premium Safaricom subscription
 
     - `short_code`: Premium short code mapped to your account. `REQUIRED`
     - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
-    - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-
-- `fetch_subscriptions(short_code: str, keyword: str, last_received_id: int = 0)`: Fetch your premium subscription data
-
-    - `short_code`: Premium short code mapped to your account. `REQUIRED`
-    - `keyword`: Premium keyword under the above short code and mapped to your account. `REQUIRED`
-    - `last_received_id`: ID of the subscription you believe to be your last. Defaults to `0`
-
-- `delete_subscription(short_code: str, keyword: str, phone_number: str)`: Delete a phone number from a premium subscription
-
-    - `short_code`: Premium short code mapped to your account. `REQUIRED`
-    - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
-    - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-
+    - `request_id`: Request id associated with the request.
+    - `redirect_url`: URL that the user will be redirected to after they have confirmed their subscription. 
+    - `phone_number`: PhoneNumber to be subscribed.
+    - `source_ip`: IP address the subscribing party is originating from.
+    - `user_agent`: String stating which browser was used to access the content.
 
 ### `Voice`
 
@@ -151,6 +134,10 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
 
+### `Token`
+
+- `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
+
 ### `MobileData`
 
 - `send(product_name: str, recipients: dict)`: Send mobile data to customers.
@@ -166,10 +153,6 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `find_transaction(transaction_id: str)`: Find a mobile data transaction.
 
 - `fetch_wallet_balance()`: Fetch a mobile data product balance.
-
-### `Token`
-
-- `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
 
 ### `Insights`
 

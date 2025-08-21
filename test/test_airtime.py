@@ -10,6 +10,7 @@ send(recipients: Map<String,String>): Send airtime to a bunch of phone numbers. 
 import africastalking
 import unittest
 import random
+import responses
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
@@ -17,7 +18,29 @@ service = africastalking.Airtime
 
 
 class TestAirtimeService(unittest.TestCase):
+    @responses.activate
     def test_send_single(self):
+        responses.add(
+            responses.POST,
+            "https://api.africastalking.com/version1/airtime/send",
+            json={
+                "errorMessage": "None",
+                "numSent": 1,
+                "totalAmount": "KES 1000.0000",
+                "totalDiscount": "KES 40.0000",
+                "responses": [
+                    {
+                        "phoneNumber": "+254718763456",
+                        "errorMessage": "None",
+                        "amount": "KES 1000.0000",
+                        "status": "Sent",
+                        "requestId": "ATQid_1be914ac47845eef1a1dab5d89ec50ff",
+                        "discount": "KES 40.0000",
+                    }
+                ],
+            },
+            status=200,
+        )
         currency_code = "KES"
         amount = str(random.randint(10, 1000))
         phone = "+254718763456"
@@ -32,7 +55,37 @@ class TestAirtimeService(unittest.TestCase):
         )
         assert res["numSent"] == 1
 
+    @responses.activate
     def test_send_multiple(self):
+        responses.add(
+            responses.POST,
+            "https://api.africastalking.com/version1/airtime/send",
+            json={
+                "errorMessage": "None",
+                "numSent": 2,
+                "totalAmount": "KES 1000.0000",
+                "totalDiscount": "KES 40.0000",
+                "responses": [
+                    {
+                        "phoneNumber": "+2348160663047",
+                        "errorMessage": "None",
+                        "amount": "KES 1000.0000",
+                        "status": "Sent",
+                        "requestId": "ATQid_1be914ac47845eef1a1dab5d89ec50ff",
+                        "discount": "KES 40.0000",
+                    },
+                    {
+                        "phoneNumber": "+254718769881",
+                        "errorMessage": "None",
+                        "amount": "KES 1000.0000",
+                        "status": "KES",
+                        "requestId": "ATQid_1be914ac47845eef1a1dab5d89ec50ff",
+                        "discount": "KES 40.0000",
+                    },
+                ],
+            },
+            status=200,
+        )
         res = service.send(
             recipients=[
                 {
