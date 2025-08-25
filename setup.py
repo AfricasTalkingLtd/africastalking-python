@@ -3,7 +3,7 @@ from setuptools import setup
 import sys
 import os
 
-version = "1.2.9"
+version = "2.0"
 
 long_description = open("README.md").read()
 
@@ -19,13 +19,13 @@ setup(
     data_files=[("", ["README.md"])],
     license="MIT",
     author="Africa's Talking",
-    install_requires=["requests>=v2.18.4", "schema>=0.6.7"],
-    python_requires=">=2.7.10",
+    install_requires=["requests>=v2.30.0", "schema>=0.6.7", "responses>=0.25.8"],
+    python_requires=">=3.8",
     author_email="info@africastalking.com",
     url="https://github.com/AfricasTalkingLtd/africastalking-python",
     download_url="https://codeload.github.com/AfricasTalkingLtd/africastalking-python/tar.gz/"
     + version,
-    keywords="ussd voice sms mpesa card bank b2b b2c sender_id payments airtime africastalking",
+    keywords="ussd voice sms mpesa sender_id airtime africastalking mobile_data sim_swap whatsapp",
     classifiers=[],
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -35,6 +35,7 @@ ActionBuilder: Build voice xml when callback URL receives a POST from the voice 
 """
 
 import africastalking
+import responses
 import unittest
 from test import USERNAME, API_KEY
 
@@ -42,27 +43,61 @@ africastalking.initialize(USERNAME, API_KEY)
 service = africastalking.Voice
 
 
-@unittest.skipIf(USERNAME == "sandbox", "Skipping due to voice sandbox")
 class TestVoiceService(unittest.TestCase):
+    @responses.activate
     def test_call(self):
+        responses.add(
+            responses.POST,
+            "https://voice.africastalking.com/call",
+            json={
+                "entries": [
+                    {
+                        "phoneNumber": "+234XXXYYYZZZZ",
+                        "status": "Queued",
+                        "sessionId": "ATVId_abcdef",
+                    }
+                ],
+                "errorMessage": "None",
+            },
+            status=200,
+        )
         res = service.call(
             callFrom="+254711223355", callTo=["+254711223366", "+254711223344"]
         )
-        assert res["errorMessage"] != "None"
+        assert res["errorMessage"] == "None"
 
+    @responses.activate
     def test_fetch_queued_calls(self):
+        responses.add(
+            responses.POST,
+            "https://voice.africastalking.com/queueStatus",
+            json={
+                "status": "Success",
+                "entries": [
+                    {"phoneNumber": "+254711223366", "queueName": "", "numCalls": 1}
+                ],
+                "errorMessage": "None",
+            },
+            status=200,
+        )
         res = service.fetch_queued_calls(phone_number="+254711223366")
 
         assert res["status"] == "Success"
 
+    @responses.activate
     def test_media_upload(self):
+        responses.add(
+            responses.POST,
+            "https://voice.africastalking.com/mediaUpload",
+            json={
+                "success": True,
+            },
+            status=201,
+        )
         res = service.media_upload(
             phone_number="+254711223355", url="https://aksalj.com"
         )
-        assert (
-            res
-            == "The request has been fulfilled and resulted in a new resource being created."
-        )
+        assert res["success"]
 
 
 if __name__ == "__main__":

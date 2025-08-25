@@ -1,4 +1,5 @@
 from .Service import APIService, validate_phone
+from schema import Schema, And, Optional, SchemaError
 
 
 class SMSService(APIService):
@@ -96,63 +97,53 @@ class SMSService(APIService):
             callback=callback,
         )
 
-    def fetch_subscriptions(
-        self, short_code, keyword, last_received_id=None, callback=None
+    def create_safaricom_subscription(
+        self,
+        short_code,
+        keyword,
+        phone_number=None,
+        request_id=None,
+        redirect_url=None,
+        source_ip=None,
+        user_agent=None,
+        callback=None,
     ):
-        url = self._make_url("/subscription", content=True)
-        params = {
-            "username": self._username,
-            "shortCode": short_code,
-            "keyword": keyword,
-        }
+        try:
+            data = {
+                "username": self._username,
+                "shortCode": short_code,
+                "keyword": keyword,
+                "requestId": request_id,
+                "redirectUrl": redirect_url,
+                "sourceIp": source_ip,
+                "userAgent": user_agent,
+                "phoneNumber": phone_number,
+            }
+            for k, v in list(data.items()):
+                if v is None:
+                    del data[k]
 
-        if last_received_id is not None:
-            params["lastReceivedId"] = last_received_id
+            messageSchema = Schema(
+                {
+                    "username": And(str),
+                    "shortCode": And(str),
+                    "keyword": And(str),
+                    "redirectUrl": And(str),
+                    Optional("userAgent"): And(str),
+                    Optional("sourceIp"): And(str),
+                    Optional("phoneNumber"): And(
+                        str,
+                        lambda s: validate_phone(s),
+                        error=f"Invalid phone number: {phone_number}",
+                    ),
+                    Optional("requestId"): And(str),
+                }
+            )
+            data = messageSchema.validate(data)
+        except SchemaError as err:
+            raise ValueError(err)
 
-        return self._make_request(
-            url,
-            "GET",
-            headers=self._headers,
-            params=params,
-            data=None,
-            callback=callback,
-        )
-
-    def create_subscription(
-        self, short_code, keyword, phone_number, checkout_token, callback=None
-    ):
-        if not validate_phone(phone_number):
-            raise ValueError("Invalid phone number")
-
-        url = self._make_url("/subscription/create", content=True)
-        data = {
-            "username": self._username,
-            "shortCode": short_code,
-            "keyword": keyword,
-            "phoneNumber": phone_number,
-            "checkoutToken": checkout_token,
-        }
-
-        return self._make_request(
-            url,
-            "POST",
-            headers=self._headers,
-            data=data,
-            params=None,
-            callback=callback,
-        )
-
-    def delete_subscription(self, short_code, keyword, phone_number, callback=None):
-        if not validate_phone(phone_number):
-            raise ValueError("Invalid phone number")
-
-        url = self._make_url("/subscription/delete", content=True)
-        data = {
-            "username": self._username,
-            "shortCode": short_code,
-            "keyword": keyword,
-            "phoneNumber": phone_number,
-        }
+        url = self._make_url("/subscription/safaricom", content=True)
 
         return self._make_request(
             url,

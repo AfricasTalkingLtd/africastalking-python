@@ -11,19 +11,11 @@ Take a look at the [API docs here](https://developers.africastalking.com).
 ## Install
 
 ```bash
-$ pip  install africastalking # python 2.7.x
+$ pip3 install africastalking # python 3.8.x
 
 OR
 
-$ python -m pip install africastalking # python 2.7.x
-
-OR
-
-$ pip3 install africastalking # python 3.6.x
-
-OR
-
-$ python3 -m pip install africastalking # python 3.6.x
+$ python3 -m pip install africastalking # python 3.8.x
 
 ```
 
@@ -76,6 +68,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - [Application](#application): `africastalking.Application`
 - [Mobile Data](#mobiledata): `africastalking.MobileData`
 - [Insights](#insights): `africastalking.Insights`
+- [Whatsapp](#whatsapp): `africastalking.Whatsapp`
 
 ### `Application`
 
@@ -114,31 +107,16 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 - `fetch_messages(last_received_id: int = 0)`: Fetch your messages
 
     - `last_received_id`: This is the id of the message you last processed. Defaults to `0`
-    
-- `create_subscription(short_code: str, keyword: str, phone_number: str)`: Create a premium subscription
+
+- `create_safaricom_subscription(short_code: str, keyword: str, phone_number: str, request_id: str, redirect_url: str, source_ip: str, user_agent: str)`: Create a premium Safaricom subscription
 
     - `short_code`: Premium short code mapped to your account. `REQUIRED`
     - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
-    - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-
-- `fetch_subscriptions(short_code: str, keyword: str, last_received_id: int = 0)`: Fetch your premium subscription data
-
-    - `short_code`: Premium short code mapped to your account. `REQUIRED`
-    - `keyword`: Premium keyword under the above short code and mapped to your account. `REQUIRED`
-    - `last_received_id`: ID of the subscription you believe to be your last. Defaults to `0`
-
-- `delete_subscription(short_code: str, keyword: str, phone_number: str)`: Delete a phone number from a premium subscription
-
-    - `short_code`: Premium short code mapped to your account. `REQUIRED`
-    - `keyword`: Premium keyword under the above short code and is also mapped to your account. `REQUIRED`
-    - `phone_number`: PhoneNumber to be subscribed `REQUIRED`
-
-- `send_hashed(message: str, masked_number: str, sender_id: str, telco: str = Safaricom)`: Send a message to a hashed number.
-
-    - `message`: SMS content. `REQUIRED`
-    - `masked_number`: The hashed number being sent to. `REQUIRED`
-    - `sender_id`: Shortcode or alphanumeric ID that is registered with your Africa's Talking account. `REQUIRED`
-    - `telco`: The telco being used.
+    - `request_id`: Request id associated with the request.
+    - `redirect_url`: URL that the user will be redirected to after they have confirmed their subscription. 
+    - `phone_number`: PhoneNumber to be subscribed.
+    - `source_ip`: IP address the subscribing party is originating from.
+    - `user_agent`: String stating which browser was used to access the content.
 
 ### `Voice`
 
@@ -156,6 +134,10 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
 
+### `Token`
+
+- `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
+
 ### `MobileData`
 
 - `send(product_name: str, recipients: dict)`: Send mobile data to customers.
@@ -172,13 +154,25 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
 - `fetch_wallet_balance()`: Fetch a mobile data product balance.
 
-### `Token`
-
-- `generate_auth_token()`: Generate an auth token to use for authentication instead of an API key.
-
 ### `Insights`
 
 - `check_sim_swap_state(phone_numbers: [str])`: Check the sim swap state of a given [array of ] phone number(s).
+
+### `Whatsapp`
+
+- `send(body: dict, wa_number: str, phone_number: str)`: Send a whatsapp message to a given phone number.
+
+    - `wa_number`: The number being used to send the message that is associated with the account. `REQUIRED`
+    - `phone_number`: The number that is to receive the message. `REQUIRED`
+    - `body`:  The message to be sent. The message has a combination of the following:
+      - `message`: The message to be sent to the client. `OPTIONAL`
+      - `mediaType`: The type of message being sent Can be one of `Image`, `Video`, `Audio` or `Voice`. `OPTIONAL`
+      - `url`: The hosted URL of what is being sent. `OPTIONAL`
+      - `caption`: The caption associated with an image or video that is being sent. `OPTIONAL`
+      - `action`: A dictionary with a list of actions. `OPTIONAL`
+      - `body`: A dictionary containing what is being sent with the interactive button or list. `OPTIONAL`
+      - `header`: A dictionary containing what header is being sent with the interactive button or list.`OPTIONAL`
+      - `footer`: A dictionary containing what footer is being sent with the interactive button or list.`OPTIONAL`
 
 ### `Ussd`
 
@@ -189,15 +183,7 @@ For more information, please read [https://developers.africastalking.com/docs/us
 ```shell
 $ git clone https://github.com/AfricasTalkingLtd/africastalking-python.git
 $ cd africastalking-python
-$ touch .env
-```
-
-Make sure your `.env` file has the following content then run `python -m unittest discover -v`
-
-```ini
-# AT API
-AT_USERNAME=sandbox
-AT_API_KEY=some_key
+$ python3 -m unittest
 ```
 
 ## Issues
