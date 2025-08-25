@@ -19,7 +19,10 @@ Whatsapp = None
 
 def initialize(username, api_key):
     if username is None or api_key is None:
-        raise RuntimeError("Invalid username and/or api_key")
+        raise RuntimeError(
+            "Missing credentials: username and api_key are both required. \n"
+            "See: https://developers.africastalking.com/docs/authentication"
+        )
 
     globals()["SMS"] = SMSService(username, api_key)
     globals()["Airtime"] = AirtimeService(username, api_key)
