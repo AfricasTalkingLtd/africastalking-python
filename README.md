@@ -183,15 +183,7 @@ For more information, please read [https://developers.africastalking.com/docs/us
 ```shell
 $ git clone https://github.com/AfricasTalkingLtd/africastalking-python.git
 $ cd africastalking-python
-$ touch .env
-```
-
-Make sure your `.env` file has the following content then run `python -m unittest discover -v`
-
-```ini
-# AT API
-AT_USERNAME=sandbox
-AT_API_KEY=some_key
+$ python3 -m unittest
 ```
 
 ## Issues
