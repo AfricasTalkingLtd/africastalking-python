@@ -174,6 +174,18 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
       - `header`: A dictionary containing what header is being sent with the interactive button or list.`OPTIONAL`
       - `footer`: A dictionary containing what footer is being sent with the interactive button or list.`OPTIONAL`
 
+- `send_template(component: dict, wa_number: str, name: str, language: str, category: str)`: Send a Whatsapp template for your future messages.
+
+    - `wa_number`: The Whatsapp phone number that will be used to send the messages associated with the template. `REQUIRED`
+    - `name`: The name of the template. This must be unique. `REQUIRED`
+    - `language`: The language code associated with the template. `REQUIRED`
+    - `category`: The category associated with the template. `REQUIRED`
+    - `component`:  A complex type containing the values that will be in the template. It can contain the following types:
+      - `header`: The header of the template to be sent. `OPTIONAL`
+      - `body`: The type of message being sent in the body of the template. `OPTIONAL`
+      - `footer`: The footer of the template to be sent. `OPTIONAL`
+      - `buttons`: A list of buttons to be sent in the template. `OPTIONAL`
+
 ### `Ussd`
 
 For more information, please read [https://developers.africastalking.com/docs/ussd](https://developers.africastalking.com/docs/ussd/overview)
