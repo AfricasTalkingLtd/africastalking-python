@@ -1,5 +1,6 @@
 import json
-from .Service import Service, validate_phone, AfricasTalkingException
+import warnings
+from .Service import Service, validate_phone
 from schema import Schema, And, Optional, SchemaError
 
 
@@ -31,8 +32,8 @@ class WhatsappService(Service):
     def _init_service(self):
         self._baseUrl = "https://chat." + self._PRODUCTION_DOMAIN
         if self._is_sandbox():
-            raise AfricasTalkingException(
-                "Sandbox is currently not available for this service."
+            warnings.warn(
+                "Sandbox is currently not available for the Whatsapp service."
             )
 
     def send(
