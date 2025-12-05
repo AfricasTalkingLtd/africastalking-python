@@ -80,8 +80,14 @@ class Service(object):
         raise NotImplementedError
 
     @staticmethod
-    def __make_get_request(url, headers, data, params, callback=None):
-        res = requests.get(url=url, headers=headers, params=params, data=data)
+    def __make_get_request(url, headers, data, params, callback=None, timeout=None):
+        res = requests.get(
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+            timeout=timeout,
+        )
 
         if callback is None or callback == {}:
             return res
@@ -89,19 +95,29 @@ class Service(object):
             callback(res)
 
     @staticmethod
-    def __make_post_request(url, headers, data, params, callback=None):
+    def __make_post_request(url, headers, data, params, callback=None, timeout=None):
         res = requests.post(
             url=url,
             headers=headers,
             params=params,
             data=data,
+            timeout=timeout,
         )
         if callback is None or callback == {}:
             return res
         else:
             callback(res)
 
-    def _make_request(self, url, method, headers, data, params, callback=None):
+    def _make_request(
+        self,
+        url,
+        method,
+        headers,
+        data,
+        params,
+        callback=None,
+        timeout=None,
+    ):
         method = method.upper()
         if callback is None:
             if method == "GET":
@@ -110,6 +126,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             elif method == "POST":
                 res = self.__make_post_request(
@@ -117,6 +134,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             else:
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
@@ -149,7 +167,7 @@ class Service(object):
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
 
             thread = threading.Thread(
-                target=_target, args=(url, headers, data, params, cb)
+                target=_target, args=(url, headers, data, params, cb, timeout)
             )
             thread.start()
             return thread
