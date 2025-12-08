@@ -1,4 +1,4 @@
-from .Service import Service, validate_phone
+from .Service import Service, DEFAULT_TIMEOUT, validate_phone
 
 
 class VoiceService(Service):
@@ -12,7 +12,7 @@ class VoiceService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def call(self, callFrom, callTo, callback=None):
+    def call(self, callFrom, callTo, callback=None, timeout=DEFAULT_TIMEOUT):
         for phone_number in callTo:
             if not validate_phone(phone_number):
                 raise ValueError("Invalid callTo phone number:" + phone_number)
@@ -33,9 +33,10 @@ class VoiceService(Service):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
 
-    def fetch_queued_calls(self, phone_number, callback=None):
+    def fetch_queued_calls(self, phone_number, callback=None, timeout=DEFAULT_TIMEOUT):
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number")
 
@@ -51,9 +52,10 @@ class VoiceService(Service):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
 
-    def media_upload(self, phone_number, url, callback=None):
+    def media_upload(self, phone_number, url, callback=None, timeout=DEFAULT_TIMEOUT):
         if not validate_phone(phone_number):
             raise ValueError("Invalid phone number")
 
@@ -70,4 +72,5 @@ class VoiceService(Service):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )

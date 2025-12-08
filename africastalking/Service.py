@@ -42,6 +42,12 @@ def validate_keys(test_dict, valid_keys_set):
 class AfricasTalkingException(Exception):
     pass
 
+# Default timeout for all requests
+# (Connect timeout, Read timeout)
+# Set to slightly higher than a multiple of 3
+# See https://requests.readthedocs.io/en/latest/user/advanced/#timeouts
+DEFAULT_TIMEOUT = (3.05, 9.05)
+
 
 class Service(object):
     def __init__(self, username, api_key):
@@ -80,8 +86,8 @@ class Service(object):
         raise NotImplementedError
 
     @staticmethod
-    def __make_get_request(url, headers, data, params, callback=None):
-        res = requests.get(url=url, headers=headers, params=params, data=data)
+    def __make_get_request(url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT):
+        res = requests.get(url=url, headers=headers, params=params, data=data, timeout=timeout)
 
         if callback is None or callback == {}:
             return res
@@ -89,19 +95,20 @@ class Service(object):
             callback(res)
 
     @staticmethod
-    def __make_post_request(url, headers, data, params, callback=None):
+    def __make_post_request(url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT):
         res = requests.post(
             url=url,
             headers=headers,
             params=params,
             data=data,
+            timeout=timeout,
         )
         if callback is None or callback == {}:
             return res
         else:
             callback(res)
 
-    def _make_request(self, url, method, headers, data, params, callback=None):
+    def _make_request(self, url, method, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT):
         method = method.upper()
         if callback is None:
             if method == "GET":
@@ -110,6 +117,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             elif method == "POST":
                 res = self.__make_post_request(
@@ -117,6 +125,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             else:
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)

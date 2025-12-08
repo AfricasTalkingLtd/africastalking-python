@@ -1,6 +1,6 @@
 import json
 import warnings
-from .Service import Service, validate_phone
+from .Service import Service, DEFAULT_TIMEOUT, validate_phone
 from schema import Schema, And, Optional, SchemaError
 
 
@@ -42,6 +42,7 @@ class WhatsappService(Service):
         wa_number,
         phone_number,
         callback=None,
+        timeout=DEFAULT_TIMEOUT,
     ):
         try:
             data = {
@@ -106,6 +107,7 @@ class WhatsappService(Service):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
 
     def send_template(
@@ -116,6 +118,7 @@ class WhatsappService(Service):
         language,
         category,
         callback=None,
+        timeout=DEFAULT_TIMEOUT,
     ):
         try:
             data = {
@@ -187,4 +190,5 @@ class WhatsappService(Service):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )

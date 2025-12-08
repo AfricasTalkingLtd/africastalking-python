@@ -1,4 +1,4 @@
-from .Service import APIService, validate_phone
+from .Service import APIService, validate_phone, DEFAULT_TIMEOUT
 from schema import Schema, And, Optional, SchemaError
 
 
@@ -12,7 +12,7 @@ class SMSService(APIService):
         if self._contentUrl:
             self._contentUrl = self._contentUrl + "/version1"
 
-    def send(self, message, recipients, sender_id=None, enqueue=False, callback=None):
+    def send(self, message, recipients, sender_id=None, enqueue=False, callback=None, timeout=DEFAULT_TIMEOUT):
         for phone in recipients:
             if not validate_phone(phone):
                 raise ValueError("Invalid phone number: " + phone)
@@ -38,6 +38,7 @@ class SMSService(APIService):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
 
     def send_premium(
@@ -49,6 +50,7 @@ class SMSService(APIService):
         link_id=None,
         retry_duration_in_hours=None,
         callback=None,
+        timeout=DEFAULT_TIMEOUT,
     ):
         for phone in recipients:
             if not validate_phone(phone):
@@ -79,9 +81,10 @@ class SMSService(APIService):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
 
-    def fetch_messages(self, last_received_id=None, callback=None):
+    def fetch_messages(self, last_received_id=None, callback=None, timeout=DEFAULT_TIMEOUT):
         url = self._make_url("/messaging")
         params = {"username": self._username}
 
@@ -95,6 +98,7 @@ class SMSService(APIService):
             params=params,
             data=None,
             callback=callback,
+            timeout=timeout,
         )
 
     def create_safaricom_subscription(
@@ -107,6 +111,7 @@ class SMSService(APIService):
         source_ip=None,
         user_agent=None,
         callback=None,
+        timeout=DEFAULT_TIMEOUT,
     ):
         try:
             data = {
@@ -152,10 +157,11 @@ class SMSService(APIService):
             data=data,
             params=None,
             callback=callback,
+            timeout=timeout,
         )
 
     def send_hashed(
-        self, message, masked_number, sender_id, telco="Safaricom", callback=None
+        self, message, masked_number, sender_id, telco="Safaricom", callback=None, timeout=DEFAULT_TIMEOUT
     ):
         url = self._make_url("/messaging/bulk")
         data = {
@@ -174,4 +180,5 @@ class SMSService(APIService):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )
