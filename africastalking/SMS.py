@@ -12,7 +12,15 @@ class SMSService(APIService):
         if self._contentUrl:
             self._contentUrl = self._contentUrl + "/version1"
 
-    def send(self, message, recipients, sender_id=None, enqueue=False, callback=None, timeout=DEFAULT_TIMEOUT):
+    def send(
+        self,
+        message,
+        recipients,
+        sender_id=None,
+        enqueue=False,
+        callback=None,
+        timeout=DEFAULT_TIMEOUT,
+    ):
         for phone in recipients:
             if not validate_phone(phone):
                 raise ValueError("Invalid phone number: " + phone)
@@ -84,7 +92,9 @@ class SMSService(APIService):
             timeout=timeout,
         )
 
-    def fetch_messages(self, last_received_id=None, callback=None, timeout=DEFAULT_TIMEOUT):
+    def fetch_messages(
+        self, last_received_id=None, callback=None, timeout=DEFAULT_TIMEOUT
+    ):
         url = self._make_url("/messaging")
         params = {"username": self._username}
 
@@ -161,7 +171,13 @@ class SMSService(APIService):
         )
 
     def send_hashed(
-        self, message, masked_number, sender_id, telco="Safaricom", callback=None, timeout=DEFAULT_TIMEOUT
+        self,
+        message,
+        masked_number,
+        sender_id,
+        telco="Safaricom",
+        callback=None,
+        timeout=DEFAULT_TIMEOUT,
     ):
         url = self._make_url("/messaging/bulk")
         data = {

@@ -14,5 +14,11 @@ class TokenService(APIService):
         data = json.dumps({"username": self._username})
 
         return self._make_request(
-            url, "POST", headers, params=None, data=data, callback=callback, timeout=timeout
+            url,
+            "POST",
+            headers,
+            params=None,
+            data=data,
+            callback=callback,
+            timeout=timeout,
         )

@@ -19,5 +19,5 @@ class ApplicationService(APIService):
             params=params,
             data=None,
             callback=callback,
-            timeout=timeout
+            timeout=timeout,
         )

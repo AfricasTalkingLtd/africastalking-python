@@ -43,7 +43,13 @@ class MobileDataService(Service):
         }
         data = json.dumps(data)
         return self._make_request(
-            url, "POST", headers=headers, params=None, data=data, callback=callback, timeout=timeout
+            url,
+            "POST",
+            headers=headers,
+            params=None,
+            data=data,
+            callback=callback,
+            timeout=timeout,
         )
 
     def find_transaction(self, transaction_id, callback=None, timeout=DEFAULT_TIMEOUT):
@@ -55,7 +61,13 @@ class MobileDataService(Service):
             "transactionId": transaction_id,
         }
         return self._make_request(
-            url, "GET", headers=headers, data=None, params=params, callback=callback, timeout=timeout
+            url,
+            "GET",
+            headers=headers,
+            data=None,
+            params=params,
+            callback=callback,
+            timeout=timeout,
         )
 
     def fetch_wallet_balance(self, callback=None, timeout=DEFAULT_TIMEOUT):
@@ -70,5 +82,5 @@ class MobileDataService(Service):
             headers=self._headers,
             params=params,
             callback=callback,
-            timeout=timeout
+            timeout=timeout,
         )
