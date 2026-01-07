@@ -2,6 +2,11 @@ import re
 import threading
 import requests
 
+# Default timeout for all requests (connect timeout, read timeout)
+# Set to slightly higher than a multiple of 3
+# See https://requests.readthedocs.io/en/latest/user/advanced/#timeouts
+DEFAULT_TIMEOUT_S = (3.05, 9.05)
+
 
 def validate_currency(currency_str):
     return len(currency_str) == 3
@@ -80,7 +85,9 @@ class Service(object):
         raise NotImplementedError
 
     @staticmethod
-    def __make_get_request(url, headers, data, params, callback=None, timeout=None):
+    def __make_get_request(
+        url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
         res = requests.get(
             url=url,
             headers=headers,
@@ -95,7 +102,9 @@ class Service(object):
             callback(res)
 
     @staticmethod
-    def __make_post_request(url, headers, data, params, callback=None, timeout=None):
+    def __make_post_request(
+        url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
         res = requests.post(
             url=url,
             headers=headers,
@@ -116,7 +125,7 @@ class Service(object):
         data,
         params,
         callback=None,
-        timeout=None,
+        timeout=DEFAULT_TIMEOUT_S,
     ):
         method = method.upper()
         if callback is None:

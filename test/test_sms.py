@@ -15,6 +15,7 @@ createSubscription(shortCode: String, keyword: String, phoneNumber: String): Cre
 import africastalking
 import unittest
 import responses
+from africastalking.Service import DEFAULT_TIMEOUT_S
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
@@ -53,7 +54,7 @@ class TestSmsService(unittest.TestCase):
             match=[
                 responses.matchers.request_kwargs_matcher(
                     {
-                        "timeout": 10,
+                        "timeout": DEFAULT_TIMEOUT_S,
                     }
                 )
             ],
@@ -96,7 +97,7 @@ class TestSmsService(unittest.TestCase):
             match=[
                 responses.matchers.request_kwargs_matcher(
                     {
-                        "timeout": 10,
+                        "timeout": DEFAULT_TIMEOUT_S,
                     }
                 )
             ],
@@ -146,7 +147,7 @@ class TestSmsService(unittest.TestCase):
             match=[
                 responses.matchers.request_kwargs_matcher(
                     {
-                        "timeout": 10,
+                        "timeout": DEFAULT_TIMEOUT_S,
                     }
                 )
             ],
@@ -186,7 +187,7 @@ class TestSmsService(unittest.TestCase):
             match=[
                 responses.matchers.request_kwargs_matcher(
                     {
-                        "timeout": 10,
+                        "timeout": DEFAULT_TIMEOUT_S,
                     }
                 )
             ],
@@ -209,7 +210,7 @@ class TestSmsService(unittest.TestCase):
             match=[
                 responses.matchers.request_kwargs_matcher(
                     {
-                        "timeout": 10,
+                        "timeout": DEFAULT_TIMEOUT_S,
                     }
                 )
             ],

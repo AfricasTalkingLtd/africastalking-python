@@ -1,4 +1,4 @@
-from .Service import APIService
+from .Service import APIService, DEFAULT_TIMEOUT_S
 
 
 class ApplicationService(APIService):
@@ -9,7 +9,7 @@ class ApplicationService(APIService):
         super(ApplicationService, self)._init_service()
         self._baseUrl = self._baseUrl + "/version1"
 
-    def fetch_application_data(self, callback=None):
+    def fetch_application_data(self, callback=None, timeout=DEFAULT_TIMEOUT_S):
         url = self._make_url("/user")
         params = {"username": self._username}
         return self._make_request(
@@ -19,4 +19,5 @@ class ApplicationService(APIService):
             params=params,
             data=None,
             callback=callback,
+            timeout=timeout,
         )

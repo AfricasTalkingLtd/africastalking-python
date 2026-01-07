@@ -1,7 +1,5 @@
-from .Service import APIService, validate_phone
+from .Service import APIService, DEFAULT_TIMEOUT_S, validate_phone
 from schema import Schema, And, Optional, SchemaError
-
-DEFAULT_TIMEOUT_S = 10  # seconds
 
 
 class SMSService(APIService):
