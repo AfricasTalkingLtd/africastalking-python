@@ -2,6 +2,11 @@ import re
 import threading
 import requests
 
+# Default timeout for all requests (connect timeout, read timeout)
+# Set to slightly higher than a multiple of 3
+# See https://requests.readthedocs.io/en/latest/user/advanced/#timeouts
+DEFAULT_TIMEOUT_S = (3.05, 9.05)
+
 
 def validate_currency(currency_str):
     return len(currency_str) == 3
@@ -16,7 +21,7 @@ def validate_amount(amount_str):
 
 def validate_phone(phone_str):
     try:
-        return re.match("^\+\d{1,3}\d{3,}$", phone_str)
+        return re.match(r"^\+\d{1,3}\d{3,}$", phone_str) is not None
     except ValueError:
         return False
 
@@ -80,8 +85,16 @@ class Service(object):
         raise NotImplementedError
 
     @staticmethod
-    def __make_get_request(url, headers, data, params, callback=None):
-        res = requests.get(url=url, headers=headers, params=params, data=data)
+    def __make_get_request(
+        url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
+        res = requests.get(
+            url=url,
+            headers=headers,
+            params=params,
+            data=data,
+            timeout=timeout,
+        )
 
         if callback is None or callback == {}:
             return res
@@ -89,19 +102,31 @@ class Service(object):
             callback(res)
 
     @staticmethod
-    def __make_post_request(url, headers, data, params, callback=None):
+    def __make_post_request(
+        url, headers, data, params, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
         res = requests.post(
             url=url,
             headers=headers,
             params=params,
             data=data,
+            timeout=timeout,
         )
         if callback is None or callback == {}:
             return res
         else:
             callback(res)
 
-    def _make_request(self, url, method, headers, data, params, callback=None):
+    def _make_request(
+        self,
+        url,
+        method,
+        headers,
+        data,
+        params,
+        callback=None,
+        timeout=DEFAULT_TIMEOUT_S,
+    ):
         method = method.upper()
         if callback is None:
             if method == "GET":
@@ -110,6 +135,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             elif method == "POST":
                 res = self.__make_post_request(
@@ -117,6 +143,7 @@ class Service(object):
                     headers=headers,
                     data=data,
                     params=params,
+                    timeout=timeout,
                 )
             else:
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
@@ -149,7 +176,7 @@ class Service(object):
                 raise AfricasTalkingException("Unexpected HTTP method: " + method)
 
             thread = threading.Thread(
-                target=_target, args=(url, headers, data, params, cb)
+                target=_target, args=(url, headers, data, params, cb, timeout)
             )
             thread.start()
             return thread

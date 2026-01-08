@@ -1,5 +1,5 @@
 import json
-from .Service import Service, validate_phone
+from .Service import DEFAULT_TIMEOUT_S, Service, validate_phone
 
 
 class InsightService(Service):
@@ -13,7 +13,9 @@ class InsightService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN + "/v1"
 
-    def check_sim_swap_state(self, phone_numbers, callback=None):
+    def check_sim_swap_state(
+        self, phone_numbers, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
         url = self._make_url("/sim-swap")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
@@ -28,5 +30,11 @@ class InsightService(Service):
         }
         data = json.dumps(data)
         return self._make_request(
-            url, "POST", headers=headers, params=None, data=data, callback=callback
+            url,
+            "POST",
+            headers=headers,
+            params=None,
+            data=data,
+            callback=callback,
+            timeout=timeout,
         )

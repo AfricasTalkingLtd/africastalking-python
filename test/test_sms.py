@@ -15,6 +15,7 @@ createSubscription(shortCode: String, keyword: String, phoneNumber: String): Cre
 import africastalking
 import unittest
 import responses
+from africastalking.Service import DEFAULT_TIMEOUT_S
 from test import USERNAME, API_KEY
 
 africastalking.initialize(USERNAME, API_KEY)
@@ -50,6 +51,13 @@ class TestSmsService(unittest.TestCase):
                 }
             },
             status=200,
+            match=[
+                responses.matchers.request_kwargs_matcher(
+                    {
+                        "timeout": DEFAULT_TIMEOUT_S,
+                    }
+                )
+            ],
         )
         res = service.send(
             "test_send()",
@@ -86,6 +94,13 @@ class TestSmsService(unittest.TestCase):
                 }
             },
             status=200,
+            match=[
+                responses.matchers.request_kwargs_matcher(
+                    {
+                        "timeout": DEFAULT_TIMEOUT_S,
+                    }
+                )
+            ],
         )
 
         def on_finish(error, data):
@@ -129,6 +144,13 @@ class TestSmsService(unittest.TestCase):
                 }
             },
             status=200,
+            match=[
+                responses.matchers.request_kwargs_matcher(
+                    {
+                        "timeout": DEFAULT_TIMEOUT_S,
+                    }
+                )
+            ],
         )
         res = service.send_premium(
             "test_send_premium()",
@@ -162,6 +184,13 @@ class TestSmsService(unittest.TestCase):
                 }
             },
             status=200,
+            match=[
+                responses.matchers.request_kwargs_matcher(
+                    {
+                        "timeout": DEFAULT_TIMEOUT_S,
+                    }
+                )
+            ],
         )
         res = service.fetch_messages(0)
         assert len(res) >= 0
@@ -178,6 +207,13 @@ class TestSmsService(unittest.TestCase):
                 "url": "https://dcbatf2.safaricom.co.ke/v2/service/safaricom/bluu/Tid_177539048695398400?onError=https%3A%2F%2Fmidge-driven-flamingo.ngrok-free.app%2Fcontent%2Fpremium%2Fevina%2Fsubscription%3Ftype%3DERR%26rId%3DrequestId-9168bb62-3b6a-4a87-811d-4ef4c7e1e6dd",
             },
             status=200,
+            match=[
+                responses.matchers.request_kwargs_matcher(
+                    {
+                        "timeout": DEFAULT_TIMEOUT_S,
+                    }
+                )
+            ],
         )
         res = service.create_safaricom_subscription(
             short_code="78942",

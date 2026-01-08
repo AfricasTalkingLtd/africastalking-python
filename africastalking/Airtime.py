@@ -1,6 +1,7 @@
 import json
 from .Service import (
     APIService,
+    DEFAULT_TIMEOUT_S,
     validate_amount,
     validate_phone,
     validate_currency,
@@ -25,6 +26,7 @@ class AirtimeService(APIService):
         idempotency_key=None,
         callback=None,
         max_num_retry=None,
+        timeout=DEFAULT_TIMEOUT_S,
     ):
         def join_amount_and_currency(obj):
             obj["amount"] = " ".join([str(obj["currency_code"]), str(obj["amount"])])
@@ -95,4 +97,5 @@ class AirtimeService(APIService):
             params=None,
             data=data,
             callback=callback,
+            timeout=timeout,
         )

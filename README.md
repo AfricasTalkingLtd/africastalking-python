@@ -21,7 +21,7 @@ $ python3 -m pip install africastalking # python 3.8.x
 
 ## Usage
 
-The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account.africastalking.com/).
+The package needs to be configured with your app username and API key, which you can get from the [dashboard](https://account.africastalking.com/). Note that all functions accept an optional `timeout` argument, but have a set default.
 
 > You can use this SDK for either production or sandbox apps. For sandbox, the app username is **ALWAYS** `sandbox`
 
@@ -50,7 +50,7 @@ def on_finish(error, response):
         raise error
     print(response)
 
-sms.send("Hello Message!", ["+2547xxxxxx"], callback=on_finish)    
+sms.send("Hello Message!", ["+2547xxxxxx"], callback=on_finish, timeout=(3, 6))    
 
 ```
 
