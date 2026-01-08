@@ -1,10 +1,11 @@
 import json
-from schema import Schema, And, Optional
+from schema import And, Optional, Schema
 from .Service import (
+    DEFAULT_TIMEOUT_S,
     Service,
-    validate_phone,
     validate_data_units,
     validate_data_validity,
+    validate_phone,
 )
 
 
@@ -19,7 +20,7 @@ class MobileDataService(Service):
         else:
             self._baseUrl += self._PRODUCTION_DOMAIN
 
-    def send(self, product_name, recipients, callback=None):
+    def send(self, product_name, recipients, callback=None, timeout=DEFAULT_TIMEOUT_S):
         schema = Schema(
             [
                 {
@@ -42,10 +43,18 @@ class MobileDataService(Service):
         }
         data = json.dumps(data)
         return self._make_request(
-            url, "POST", headers=headers, params=None, data=data, callback=callback
+            url,
+            "POST",
+            headers=headers,
+            params=None,
+            data=data,
+            callback=callback,
+            timeout=timeout,
         )
 
-    def find_transaction(self, transaction_id, callback=None):
+    def find_transaction(
+        self, transaction_id, callback=None, timeout=DEFAULT_TIMEOUT_S
+    ):
         url = self._make_url("/query/transaction/find")
         headers = dict(self._headers)
         headers["Content-Type"] = "application/json"
@@ -54,10 +63,16 @@ class MobileDataService(Service):
             "transactionId": transaction_id,
         }
         return self._make_request(
-            url, "GET", headers=headers, data=None, params=params, callback=callback
+            url,
+            "GET",
+            headers=headers,
+            data=None,
+            params=params,
+            callback=callback,
+            timeout=timeout,
         )
 
-    def fetch_wallet_balance(self, callback=None):
+    def fetch_wallet_balance(self, callback=None, timeout=DEFAULT_TIMEOUT_S):
         url = self._make_url("/query/wallet/balance")
         params = {
             "username": self._username,
@@ -69,4 +84,5 @@ class MobileDataService(Service):
             headers=self._headers,
             params=params,
             callback=callback,
+            timeout=timeout,
         )
