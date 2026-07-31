@@ -9,6 +9,7 @@ media_types = {
     "Video": "Video",
     "Sticker": "Sticker",
     "Voice": "Voice",
+    "Documents": "Documents",
 }
 
 header_types = {
