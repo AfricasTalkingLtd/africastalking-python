@@ -166,7 +166,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `phone_number`: The number that is to receive the message. `REQUIRED`
     - `body`:  The message to be sent. The message has a combination of the following:
       - `message`: The message to be sent to the client. `OPTIONAL`
-      - `mediaType`: The type of message being sent Can be one of `Image`, `Video`, `Audio` or `Voice`. `OPTIONAL`
+      - `mediaType`: The type of message being sent Can be one of `Image`, `Video`, `Audio`, `Voice`, `Sticker` or `Document` `OPTIONAL`
       - `url`: The hosted URL of what is being sent. `OPTIONAL`
       - `caption`: The caption associated with an image or video that is being sent. `OPTIONAL`
       - `action`: A dictionary with a list of actions. `OPTIONAL`
