@@ -78,7 +78,16 @@ class VoiceService(Service):
             timeout=timeout,
         )
 
-    def request_compatibility_token (self, client_name, phone_number, incoming=True, outgoing=True, expire=86400, callback=None, timeout=DEFAULT_TIMEOUT_S):
+    def request_compatibility_token(
+        self,
+        client_name,
+        phone_number,
+        incoming=True,
+        outgoing=True,
+        expire=86400,
+        callback=None,
+        timeout=DEFAULT_TIMEOUT_S,
+    ):
         tokenSchema = Schema(
             {
                 "username": And(str),
@@ -90,7 +99,7 @@ class VoiceService(Service):
                 "clientName": And(str),
                 "incoming": And(bool),
                 "outgoing": And(bool),
-                "expire": And(lambda f: float(f) > 0)
+                "expire": And(lambda f: float(f) > 0),
             }
         )
         data = {
@@ -99,7 +108,7 @@ class VoiceService(Service):
             "clientName": client_name,
             "incoming": incoming,
             "outgoing": outgoing,
-            "expire": expire
+            "expire": expire,
         }
         data = tokenSchema.validate(data)
         url = "https://webrtc.africastalking.com/capability-token/request"

@@ -109,7 +109,7 @@ class TestVoiceService(unittest.TestCase):
                 "incoming": True,
                 "lifeTimeSec": "86400",
                 "outgoing": True,
-                "token": "ATCAPtkn_206675b68efaff83d1ac2d027dd5bff18fd7cb64fgjhd5d0bdcsac44a883678afe7"
+                "token": "ATCAPtkn_206675b68efaff83d1ac2d027dd5bff18fd7cb64fgjhd5d0bdcsac44a883678afe7",
             },
             status=201,
         )

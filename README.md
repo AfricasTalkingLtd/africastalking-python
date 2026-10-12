@@ -31,8 +31,8 @@ import africastalking
 
 
 # Initialize SDK
-username = "YOUR_USERNAME"    # use 'sandbox' for development in the test environment
-api_key = "YOUR_API_KEY"      # use your sandbox app API key for development in the test environment
+username = "YOUR_USERNAME"  # use 'sandbox' for development in the test environment
+api_key = "YOUR_API_KEY"  # use your sandbox app API key for development in the test environment
 africastalking.initialize(username, api_key)
 
 
@@ -44,14 +44,15 @@ sms = africastalking.SMS
 response = sms.send("Hello Message!", ["+2547xxxxxx"])
 print(response)
 
+
 # Or use it asynchronously
 def on_finish(error, response):
     if error is not None:
         raise error
     print(response)
 
-sms.send("Hello Message!", ["+2547xxxxxx"], callback=on_finish, timeout=(3, 6))    
 
+sms.send("Hello Message!", ["+2547xxxxxx"], callback=on_finish, timeout=(3, 6))
 ```
 
 See [example](example/) for more usage examples.
@@ -133,6 +134,14 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
 
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
+
+- `requestCapabilityToken(client_name: str, phone_number: str, incoming: bool, outgoing: bool, expire: int )`: Request a capability token to be used by the WebRTC client
+
+    - `client_name`: Your unique name used to identify and call your browser client, without space characters. `REQUIRED`
+    - `phone_number`: Your Africa's Talking issued virtual phone number. `REQUIRED`
+    - `incoming`: Enable the client to receive incoming calls. Defaults to `true`.
+    - `outgoing`: Enable the client to make outgoing calls. Defaults to `true`.
+    - `expire`: Period of time it takes the token to expire, in seconds. Defaults to `86400s`.
 
 ### `Token`
 
