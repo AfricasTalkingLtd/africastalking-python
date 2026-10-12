@@ -99,6 +99,25 @@ class TestVoiceService(unittest.TestCase):
         )
         assert res["success"]
 
+    @responses.activate
+    def test_request_compatibility_token(self):
+        responses.add(
+            responses.POST,
+            "https://webrtc.africastalking.com/capability-token/request",
+            json={
+                "clientName": "somsom",
+                "incoming": True,
+                "lifeTimeSec": "86400",
+                "outgoing": True,
+                "token": "ATCAPtkn_206675b68efaff83d1ac2d027dd5bff18fd7cb64fgjhd5d0bdcsac44a883678afe7"
+            },
+            status=201,
+        )
+        res = service.request_compatibility_token(
+            client_name="sonson", phone_number="+254711223355"
+        )
+        assert res["clientName"] == "somsom"
+
 
 if __name__ == "__main__":
     unittest.main()

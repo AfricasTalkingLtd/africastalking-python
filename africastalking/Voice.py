@@ -1,4 +1,5 @@
 from .Service import DEFAULT_TIMEOUT_S, Service, validate_phone
+from schema import And, Optional, Schema
 
 
 class VoiceService(Service):
@@ -69,6 +70,41 @@ class VoiceService(Service):
         }
         return self._make_request(
             call_url,
+            "POST",
+            headers=self._headers,
+            params=None,
+            data=data,
+            callback=callback,
+            timeout=timeout,
+        )
+
+    def request_compatibility_token (self, client_name, phone_number, incoming=True, outgoing=True, expire=86400, callback=None, timeout=DEFAULT_TIMEOUT_S):
+        tokenSchema = Schema(
+            {
+                "username": And(str),
+                "phoneNumber": And(
+                    str,
+                    lambda s: validate_phone(s),
+                    error=f"Invalid phone number: {phone_number}",
+                ),
+                "clientName": And(str),
+                "incoming": And(bool),
+                "outgoing": And(bool),
+                "expire": And(lambda f: float(f) > 0)
+            }
+        )
+        data = {
+            "username": self._username,
+            "phoneNumber": phone_number,
+            "clientName": client_name,
+            "incoming": incoming,
+            "outgoing": outgoing,
+            "expire": expire
+        }
+        data = tokenSchema.validate(data)
+        url = "https://webrtc.africastalking.com/capability-token/request"
+        return self._make_request(
+            url,
             "POST",
             headers=self._headers,
             params=None,
