@@ -135,7 +135,7 @@ Initialize the SDK by calling `africastalking.initialize(username, api_key)`. Af
     - `phone_number`: phone number mapped to your Africa's Talking account (in international format). `REQUIRED`
     - `url`: The url of the file to upload. Should start with `http(s)://`. `REQUIRED`
 
-- `requestCapabilityToken(client_name: str, phone_number: str, incoming: bool, outgoing: bool, expire: int )`: Request a capability token to be used by the WebRTC client
+- `request_capability_token(client_name: str, phone_number: str, incoming: bool, outgoing: bool, expire: int )`: Request a capability token to be used by the WebRTC client
 
     - `client_name`: Your unique name used to identify and call your browser client, without space characters. `REQUIRED`
     - `phone_number`: Your Africa's Talking issued virtual phone number. `REQUIRED`
