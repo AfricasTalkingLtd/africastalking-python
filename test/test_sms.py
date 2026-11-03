@@ -223,6 +223,50 @@ class TestSmsService(unittest.TestCase):
         )
         assert res["responseCode"] == "Success"
 
+    @responses.activate
+    def test_send_hashed(self):
+        responses.add(
+            responses.POST,
+            "https://api.africastalking.com/version1/messaging/bulk",
+            json={
+                "SMSMessageData": {
+                    "Message": "Sent to 1/1 Total Cost: KES 0.8000",
+                    "Recipients": [
+                        {
+                            "statusCode": 101,
+                            "number": "+254711XXXYYY",
+                            "status": "Success",
+                            "cost": "KES 0.8000",
+                            "messageId": "ATPid_SampleTxnId123",
+                        }
+                    ],
+                }
+            },
+            status=200,
+            match=[
+                responses.matchers.header_matcher(
+                    {"Content-Type": "application/json"}
+                ),
+                # phoneNumbers must reach the API as an empty list.
+                responses.matchers.json_params_matcher(
+                    {
+                        "username": USERNAME,
+                        "maskedNumber": "b7e4f8c1d2a3",
+                        "telco": "Safaricom",
+                        "message": "test_send_hashed",
+                        "senderId": "AFRICASTKNG",
+                        "phoneNumbers": [],
+                    }
+                ),
+            ],
+        )
+        res = service.send_hashed(
+            "test_send_hashed",
+            masked_number="b7e4f8c1d2a3",
+            sender_id="AFRICASTKNG",
+        )
+        assert res["SMSMessageData"]["Recipients"][0]["status"] == "Success"
+
 
 if __name__ == "__main__":
     unittest.main()
