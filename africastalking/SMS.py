@@ -1,3 +1,5 @@
+import json
+
 from .Service import APIService, DEFAULT_TIMEOUT_S, validate_phone
 from schema import Schema, And, Optional, SchemaError
 
@@ -180,6 +182,10 @@ class SMSService(APIService):
         timeout=DEFAULT_TIMEOUT_S,
     ):
         url = self._make_url("/messaging/bulk")
+        # Sent as JSON: form encoding drops the empty phoneNumbers list,
+        # and the API rejects hashed sends without it.
+        headers = dict(self._headers)
+        headers["Content-Type"] = "application/json"
         data = {
             "username": self._username,
             "maskedNumber": masked_number,
@@ -188,11 +194,12 @@ class SMSService(APIService):
             "senderId": sender_id,
             "phoneNumbers": [],
         }
+        data = json.dumps(data)
 
         return self._make_request(
             url,
             "POST",
-            headers=self._headers,
+            headers=headers,
             params=None,
             data=data,
             callback=callback,
